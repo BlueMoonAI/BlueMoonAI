@@ -33,14 +33,14 @@ If you want to use Anaconda/Miniconda, you can
 Then download the models: download [default models](#models) to the folder "BlueMoonAI\models\checkpoints". **Or let BlueMoonAI automatically download the models** using the launcher:
 
     conda activate BlueMoonAI
-    python entry_with_update.py
+    python launcher.py
 
 Or if you want to open a remote port, use
 
     conda activate BlueMoonAI
-    python entry_with_update.py --listen
+    python launcher.py --listen
 
-Use `python entry_with_update.py --preset anime` or `python entry_with_update.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
+Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
 
 ### Linux (Using Python Venv)
 Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
@@ -56,14 +56,14 @@ Your Linux needs to have **Python 3.10** installed, and lets say your Python can
 See the above sections for model downloads. You can launch the software with:
 
     source BlueMoonAI_env/bin/activate
-    python entry_with_update.py
+    python launcher.py
 
 Or if you want to open a remote port, use
 
     source BlueMoonAI_env/bin/activate
-    python entry_with_update.py --listen
+    python launcher.py --listen
 
-Use `python entry_with_update.py --preset anime` or `python entry_with_update.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
+Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
 
 ### Linux (Using native system Python)
 Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
@@ -76,13 +76,13 @@ If you know what you are doing, and your Linux already has **Python 3.10** insta
 
 See the above sections for model downloads. You can launch the software with:
 
-    python3 entry_with_update.py
+    python3 launcher.py
 
 Or if you want to open a remote port, use
 
-    python3 entry_with_update.py --listen
+    python3 launcher.py --listen
 
-Use `python entry_with_update.py --preset anime` or `python entry_with_update.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
+Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
 
 ### Linux (AMD GPUs)
 Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
@@ -94,7 +94,7 @@ Same with the above instructions. You need to change torch to AMD version
 
 AMD is not intensively tested, however. The AMD support is in beta.
 
-Use `python entry_with_update.py --preset anime` or `python entry_with_update.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
+Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
 
 ### Windows(AMD GPUs)
 Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
@@ -103,14 +103,14 @@ Same with Windows. Download the software, edit the content of `run.bat` as:
 
     .\python_embeded\python.exe -m pip uninstall torch torchvision torchaudio torchtext functorch xformers -y
     .\python_embeded\python.exe -m pip install torch-directml
-    .\python_embeded\python.exe -s BlueMoonAI\entry_with_update.py --directml
+    .\python_embeded\python.exe -s BlueMoonAI\launcher.py --directml
     pause
 
 Then run the `run.bat`.
 
 AMD is not intensively tested, however. The AMD support is in beta.
 
-For AMD, use `python entry_with_update.py --directml --preset anime` or `python entry_with_update.py --directml --preset realistic` for BlueMoonAI Anime/Realistic Edition.
+For AMD, use `python launcher.py --directml --preset anime` or `python launcher.py --directml --preset realistic` for BlueMoonAI Anime/Realistic Edition.
 
 ### Mac
 Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
@@ -125,9 +125,9 @@ You can install BlueMoonAI on Apple Mac silicon (M1 or M2) with macOS 'Catalina'
 1. Create a new conda environment, `conda env create -f environment.yaml`.
 1. Activate your new conda environment, `conda activate BlueMoonAI`.
 1. Install the packages required by BlueMoonAI, `pip install -r requirements.txt`.
-1. Launch BlueMoonAI by running `python entry_with_update.py`. (Some Mac M2 users may need `python entry_with_update.py --disable-offload-from-vram` to speed up model loading/unloading.) The first time you run BlueMoonAI, it will automatically download the Stable Diffusion SDXL models and will take a significant time, depending on your internet connection.
+1. Launch BlueMoonAI by running `python launcher.py`. (Some Mac M2 users may need `python launcher.py --disable-offload-from-vram` to speed up model loading/unloading.) The first time you run BlueMoonAI, it will automatically download the Stable Diffusion SDXL models and will take a significant time, depending on your internet connection.
 
-Use `python entry_with_update.py --preset anime` or `python entry_with_update.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
+Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
 
 
 ### Docker

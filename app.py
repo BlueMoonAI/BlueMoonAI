@@ -12,7 +12,7 @@ sys.path.append(root)
 os.chdir(root)
 
 # Set environment variables with default values
-os.environ["REPO_URL"] = "https://github.com/KazukiAsuna/BM"
+os.environ["REPO_URL"] = "https://github.com/KazukiAsuna/BlueMoonAI"
 os.environ["BRANCH_NAME"] = "test"
 os.environ["LOCAL_VERSION"] = bluemoonai_version.version
 os.environ["AUTOUPDATE"] = "True"
@@ -30,7 +30,7 @@ os.environ["GRADIO_SERVER_PORT"] = "7865"
 
 import platform
 
-from build_launcher import build_launcher
+from build import build_launcher
 from modules.launch_util import is_installed, run, python, run_pip, requirements_met
 from modules.model_loader import load_file_from_url
 from modules.config import path_checkpoints, path_loras, path_vae_approx, path_bluemoon_expansion, \
