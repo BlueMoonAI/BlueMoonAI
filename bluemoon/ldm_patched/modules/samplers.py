@@ -2,6 +2,7 @@ from bluemoon.ldm_patched.k_diffusion import sampling as k_diffusion_sampling
 from bluemoon.ldm_patched.unipc import uni_pc
 import torch
 import enum
+import collections
 from bluemoon.ldm_patched.modules import model_management
 import math
 from bluemoon.ldm_patched.modules import model_base
@@ -91,22 +92,23 @@ def cond_equal_size(c1, c2):
     return True
 
 def can_concat_cond(c1, c2):
-    if c1[0].shape != c2[0].shape:
+    if c1.input_x.shape != c2.input_x.shape:
         return False
+
+    def objects_concatable(obj1, obj2):
+        if (obj1 is None) != (obj2 is None):
+            return False
         if obj1 is not None:
             if obj1 is not obj2:
                 return False
         return True
-    def objects_concatable(obj1, obj2):
-        if (obj1 is None) != (obj2 is None):
-            return False
 
-    #patches
     if not objects_concatable(c1.control, c2.control):
         return False
 
     if not objects_concatable(c1.patches, c2.patches):
         return False
+
     return cond_equal_size(c1.conditioning, c2.conditioning)
 
 def cond_cat(c_list):
@@ -415,7 +417,7 @@ def create_cond_with_same_area_if_none(conds, c):
             return
 
     out = c.copy()
-    out['model_conds'] = smallest['model_conds'].copy() #TODO: which fields should be copied?
+    out['model_conds'] = smallest['model_conds'].copy()
     conds += [out]
 
 def calculate_start_end_timesteps(model, conds):
@@ -623,7 +625,7 @@ def sample(model, noise, positive, negative, cfg, device, sampler, sigmas, model
 SCHEDULER_NAMES = ["normal", "karras", "exponential", "sgm_uniform", "simple", "ddim_uniform"]
 SAMPLER_NAMES = KSAMPLER_NAMES + ["ddim", "uni_pc", "uni_pc_bh2"]
 
-def calculate_sigmas_scheduler(model, scheduler_name, steps):
+def calculate_sigmas_scheduler(self,model, scheduler_name, steps):
     if scheduler_name == "karras":
         sigmas = k_diffusion_sampling.get_sigmas_karras(n=steps, sigma_min=float(model.model_sampling.sigma_min), sigma_max=float(model.model_sampling.sigma_max))
     elif scheduler_name == "exponential":
