@@ -5,16 +5,18 @@ import numbers
 import args_manager
 import modules.flags
 import modules.sdxl_styles
+from modules.default_load import model_links, sd_links, paint_links, lcm_links, ip_adapter_links, upscaler_links
 
 from modules.model_loader import load_file_from_url
 from modules.util import get_files_from_folder
-
 
 config_path = os.path.abspath("./config.txt")
 config_example_path = os.path.abspath("config_settings.txt")
 config_dict = {}
 always_save_keys = []
 visited_keys = []
+
+
 
 try:
     if os.path.exists(config_path):
@@ -29,9 +31,6 @@ except Exception as e:
     print('3. There is no "," before the last "}".')
     print('4. All key/value formats are correct.')
 
-
-
-
 preset = args_manager.args.preset
 
 if isinstance(preset, str):
@@ -44,7 +43,7 @@ if isinstance(preset, str):
         else:
             raise FileNotFoundError
     except Exception as e:
-        print(f'Load preset [{preset_path}] failed')
+        print(f"Load preset [{preset_path}] failed")
         print(e)
 
 
@@ -62,7 +61,8 @@ def get_dir_or_set_default(key, default_value):
         return v
     else:
         if v is not None:
-            print(f'Failed to load config key: {json.dumps({key:v})} is invalid or does not exist; will use {json.dumps({key:default_value})} instead.')
+            print(
+                f'Failed to load config key: {json.dumps({key: v})} is invalid or does not exist; will use {json.dumps({key: default_value})} instead.')
         dp = os.path.abspath(os.path.join(os.path.dirname(__file__), default_value))
         os.makedirs(dp, exist_ok=True)
         config_dict[key] = dp
@@ -83,11 +83,12 @@ path_outputs = get_dir_or_set_default('path_outputs', '../outputs/')
 
 
 def get_config_item_or_set_default(key, default_value, validator, disable_empty_as_none=False):
+
     global config_dict, visited_keys
 
     if key not in visited_keys:
         visited_keys.append(key)
-    
+
     if key not in config_dict:
         config_dict[key] = default_value
         return default_value
@@ -100,14 +101,16 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
         return v
     else:
         if v is not None:
-            print(f'Failed to load config key: {json.dumps({key:v})} is invalid; will use {json.dumps({key:default_value})} instead.')
+            print(
+                f'Failed to load config key: {json.dumps({key: v})} is invalid; will use {json.dumps({key: default_value})} instead.')
         config_dict[key] = default_value
         return default_value
 
 
+
 default_base_model_name = get_config_item_or_set_default(
     key='default_model',
-    default_value='juggernautXL_version6Rundiffusion.safetensors',
+    default_value=model_links.get('default', {}).get('default_value', None),
     validator=lambda x: isinstance(x, str)
 )
 default_refiner_model_name = get_config_item_or_set_default(
@@ -144,7 +147,8 @@ default_loras = get_config_item_or_set_default(
             1.0
         ]
     ],
-    validator=lambda x: isinstance(x, list) and all(len(y) == 2 and isinstance(y[0], str) and isinstance(y[1], numbers.Number) for y in x)
+    validator=lambda x: isinstance(x, list) and all(
+        len(y) == 2 and isinstance(y[0], str) and isinstance(y[1], numbers.Number) for y in x)
 )
 default_cfg_scale = get_config_item_or_set_default(
     key='default_cfg_scale',
@@ -202,18 +206,16 @@ default_image_number = get_config_item_or_set_default(
     default_value=2,
     validator=lambda x: isinstance(x, int) and 1 <= x <= 32
 )
+checkout_value = model_links.get('default', {}).get('checkpoint_download', {})
 checkpoint_downloads = get_config_item_or_set_default(
     key='checkpoint_downloads',
-    default_value={
-        "juggernautXL_version6Rundiffusion.safetensors": "https://huggingface.co/BlueMoonAI/Models/resolve/main/juggernautXL_version6Rundiffusion.safetensors"
-    },
+    default_value=checkout_value,
     validator=lambda x: isinstance(x, dict) and all(isinstance(k, str) and isinstance(v, str) for k, v in x.items())
 )
+sd_value = sd_links.get('lora_downloads', {}).get('default_value', None)
 lora_downloads = get_config_item_or_set_default(
     key='lora_downloads',
-    default_value={
-        "sd_xl_offset_example-lora_1.0.safetensors": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors"
-    },
+    default_value=sd_value,
     validator=lambda x: isinstance(x, dict) and all(isinstance(k, str) and isinstance(v, str) for k, v in x.items())
 )
 embeddings_downloads = get_config_item_or_set_default(
@@ -267,7 +269,8 @@ example_inpaint_prompts = get_config_item_or_set_default(
 
 example_inpaint_prompts = [[x] for x in example_inpaint_prompts]
 
-config_dict["default_loras"] = default_loras = default_loras[:5] + [['None', 1.0] for _ in range(5 - len(default_loras))]
+config_dict["default_loras"] = default_loras = default_loras[:5] + [['None', 1.0] for _ in
+                                                                    range(5 - len(default_loras))]
 
 possible_preset_keys = [
     "default_model",
@@ -287,7 +290,6 @@ possible_preset_keys = [
     "embeddings_downloads",
     "lora_downloads",
 ]
-
 
 REWRITE_PRESET = False
 
@@ -309,12 +311,10 @@ def add_ratio(x):
 default_aspect_ratio = add_ratio(default_aspect_ratio)
 available_aspect_ratios = [add_ratio(x) for x in available_aspect_ratios]
 
-
 # Only write config in the first launch.
 if not os.path.exists(config_path):
     with open(config_path, "w", encoding="utf-8") as json_file:
         json.dump({k: config_dict[k] for k in always_save_keys}, json_file, indent=4)
-
 
 # Always write tutorials.
 with open(config_example_path, "w", encoding="utf-8") as json_file:
@@ -325,7 +325,6 @@ with open(config_example_path, "w", encoding="utf-8") as json_file:
                     + 'Remember to split the paths with "\\\\" rather than "\\", '
                       'and there is no "," before the last "}". \n\n\n')
     json.dump({k: config_dict[k] for k in visited_keys}, json_file, indent=4)
-
 
 os.makedirs(path_outputs, exist_ok=True)
 
@@ -344,36 +343,42 @@ def update_all_model_names():
     return
 
 
+paint_value = paint_links.get('bluemoon_inpaint_head.pth', {})
+
+
 def downloading_inpaint_models(v):
     assert v in modules.flags.inpaint_engine_versions
 
     load_file_from_url(
-        url='https://huggingface.co/BlueMoonAI/blue-moon-inpaint/resolve/main/bluemoon_inpaint_head.pth',
+        url=paint_value,
         model_dir=path_inpaint,
         file_name='bluemoon_inpaint_head.pth'
     )
     head_file = os.path.join(path_inpaint, 'bluemoon_inpaint_head.pth')
     patch_file = None
+    paint_bm_value = paint_links.get('inpaint.bluemoon.patch', {})
 
     if v == 'v1':
         load_file_from_url(
-            url='https://huggingface.co/BlueMoonAI/blue-moon-inpaint/resolve/main/inpaint.bluemoon.patch',
+            url=paint_bm_value,
             model_dir=path_inpaint,
             file_name='inpaint.bluemoon.patch'
         )
         patch_file = os.path.join(path_inpaint, 'inpaint.bluemoon.patch')
+    paint_v1_bm_value = paint_links.get('inpaint_v1.bluemoon.patch', {})
 
     if v == 'v2.5':
         load_file_from_url(
-            url='https://huggingface.co/BlueMoonAI/blue-moon-inpaint/resolve/main/inpaint_v1.bluemoon.patch',
+            url=paint_v1_bm_value,
             model_dir=path_inpaint,
             file_name='inpaint_v1.bluemoon.patch'
         )
         patch_file = os.path.join(path_inpaint, 'inpaint_v1.bluemoon.patch')
+    paint_v2_bm_value = paint_links.get('inpaint_v2.bluemoon.patch', {})
 
     if v == 'v2.6':
         load_file_from_url(
-            url='https://huggingface.co/BlueMoonAI/blue-moon-inpaint/resolve/main/inpaint_v2.bluemoon.patch',
+            url=paint_v2_bm_value,
             model_dir=path_inpaint,
             file_name='inpaint_v2.bluemoon.patch'
         )
@@ -383,8 +388,10 @@ def downloading_inpaint_models(v):
 
 
 def downloading_sdxl_lcm_lora():
+    sdxl_lcm_lora_value = lcm_links.get('sdxl_lcm_lora.safetensors', {})
+
     load_file_from_url(
-        url='https://huggingface.co/BlueMoonAI/misc/resolve/main/sdxl_lcm_lora.safetensors',
+        url=sdxl_lcm_lora_value,
         model_dir=path_loras,
         file_name='sdxl_lcm_lora.safetensors'
     )
@@ -392,8 +399,10 @@ def downloading_sdxl_lcm_lora():
 
 
 def downloading_controlnet_canny():
+    controlnet_canny_value = paint_links.get('control-lora-canny-rank128.safetensors', {})
+
     load_file_from_url(
-        url='https://huggingface.co/BlueMoonAI/misc/resolve/main/control-lora-canny-rank128.safetensors',
+        url=controlnet_canny_value,
         model_dir=path_controlnet,
         file_name='control-lora-canny-rank128.safetensors'
     )
@@ -401,8 +410,9 @@ def downloading_controlnet_canny():
 
 
 def downloading_controlnet_cpds():
+    controlnet_cpds_value = paint_links.get('control-lora-cpds-rank128.safetensors', {})
     load_file_from_url(
-        url='https://huggingface.co/BlueMoonAI/misc/resolve/main/bluemoon_xl_cpds_128.safetensors',
+        url=controlnet_cpds_value,
         model_dir=path_controlnet,
         file_name='bluemoon_xl_cpds_128.safetensors'
     )
@@ -413,32 +423,34 @@ def downloading_ip_adapters(v):
     assert v in ['ip', 'face']
 
     results = []
-
+    clip_vision_value = ip_adapter_links.get('clip_vision_vit_h.safetensors', {})
     load_file_from_url(
-        url='https://huggingface.co/BlueMoonAI/misc/resolve/main/clip_vision_vit_h.safetensors',
+        url=clip_vision_value,
         model_dir=path_clip_vision,
         file_name='clip_vision_vit_h.safetensors'
     )
     results += [os.path.join(path_clip_vision, 'clip_vision_vit_h.safetensors')]
-
+    ip_negative_value = ip_adapter_links.get('bluemoon_ip_negative.safetensors', {})
     load_file_from_url(
-        url='https://huggingface.co/BlueMoonAI/misc/resolve/main/bluemoon_ip_negative.safetensors',
+        url=ip_negative_value,
         model_dir=path_controlnet,
         file_name='bluemoon_ip_negative.safetensors'
     )
     results += [os.path.join(path_controlnet, 'bluemoon_ip_negative.safetensors')]
 
     if v == 'ip':
+        ip_adapter_plus_value = ip_adapter_links.get('ip-adapter-plus_sdxl_vit-h.bin', {})
         load_file_from_url(
-            url='https://huggingface.co/BlueMoonAI/misc/resolve/main/ip-adapter-plus_sdxl_vit-h.bin',
+            url=ip_adapter_plus_value,
             model_dir=path_controlnet,
             file_name='ip-adapter-plus_sdxl_vit-h.bin'
         )
         results += [os.path.join(path_controlnet, 'ip-adapter-plus_sdxl_vit-h.bin')]
 
     if v == 'face':
+        ip_adapter_plus_face_value = ip_adapter_links.get('ip-adapter-plus-face_sdxl_vit-h.bin', {})
         load_file_from_url(
-            url='https://huggingface.co/BlueMoonAI/misc/resolve/main/ip-adapter-plus-face_sdxl_vit-h.bin',
+            url=ip_adapter_plus_face_value,
             model_dir=path_controlnet,
             file_name='ip-adapter-plus-face_sdxl_vit-h.bin'
         )
@@ -448,8 +460,10 @@ def downloading_ip_adapters(v):
 
 
 def downloading_upscale_model():
+    upscaler_value = upscaler_links.get('bluemoon_upscaler_s409985e5.bin', {})
+
     load_file_from_url(
-        url='https://huggingface.co/BlueMoonAI/misc/resolve/main/bluemoon_upscaler_s409985e5.bin',
+        url=upscaler_value,
         model_dir=path_upscale_models,
         file_name='bluemoon_upscaler_s409985e5.bin'
     )

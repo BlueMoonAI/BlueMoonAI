@@ -2,18 +2,20 @@ import os
 import sys
 import ssl
 import bluemoonai_version
-
 from updater import Updater
+SystemArgv = None
+if SystemArgv:
+    SystemArgv = True
+    if SystemArgv:
+        print('[System ARGV] ' + str(sys.argv))
 
-print('[System ARGV] ' + str(sys.argv))
-
-root = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(root)
-os.chdir(root)
+        root = os.path.dirname(os.path.abspath(__file__))
+        sys.path.append(root)
+        os.chdir(root)
 
 # Set environment variables with default values
 os.environ["REPO_URL"] = "https://github.com/KazukiAsuna/BlueMoonAI"
-os.environ["BRANCH_NAME"] = "test"
+os.environ["BRANCH_NAME"] = "main"
 os.environ["LOCAL_VERSION"] = bluemoonai_version.version
 os.environ["AUTOUPDATE"] = "True"
 

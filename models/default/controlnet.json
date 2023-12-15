@@ -1,0 +1,4 @@
+{
+  "control-lora-canny-rank128.safetensors": "https://huggingface.co/BlueMoonAI/misc/resolve/main/control-lora-canny-rank128.safetensors",
+  "bluemoon_xl_cpds_128.safetensors": "https://huggingface.co/BlueMoonAI/misc/resolve/main/bluemoon_xl_cpds_128.safetensors"
+}
