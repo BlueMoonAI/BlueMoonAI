@@ -369,9 +369,9 @@
     "BlueMoon AI Enhance": "BlueMoon AI Enhance",
     "BlueMoon AI Cinematic": "BlueMoon AI Cinematic",
     "BlueMoon AI Sharp": "BlueMoon AI Sharp",
-  "heading_html": "BlueMoon AI",
-  "description_html": "BlueMoon AIは、任意のテキスト入力に基づいて写真のようなリアルな画像を生成する潜在的なテキストから画像への拡散モデルです。それは自律的な自由を育むことで信じられないほどのイメージを生み出し、数十億の人々に素晴らしいアートを数秒で作成する力を提供します。無料かつオープンソースのAIイメージジェネレーター（テキストから画像へ）で美しい画像を作成しましょう。あなたの創造力を自由に発揮してください。",
-  "license_html": "GNU General Public License v3.0およびOpen Rail Licenseの下でライセンスされています",
-  "version_html": "BlueMoon AI"
+  "BlueMoon AI": "BlueMoon AI",
+  "BlueMoon AI is a latent text-to-image diffusion model capable of generating photo-realistic images given any text input. It cultivates autonomous freedom to produce incredible imagery, empowering billions of people to create stunning art within seconds.": "BlueMoon AIは、任意のテキスト入力をもとに写真のような画像を生成する潜在的なテキストから画像への拡散モデルです。それは自律的な自由を培い、何十億もの人々に数秒で見事なアートを作成する力を与えます。",
+      "Create beautiful images with our AI Image Generator (Text to Image) for free and Open Source.": "無料かつオープンソースのAIイメージジェネレータ（テキストから画像へ）で美しい画像を作成してください。",
+  "Let Your Creativity Flow.": "創造力を発揮してください。"
 
 }

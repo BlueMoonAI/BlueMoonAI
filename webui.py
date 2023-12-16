@@ -544,7 +544,7 @@ with shared.gradio_root:
         "photo-realistic images given any text input. It cultivates autonomous freedom to produce incredible imagery, "
         "empowering billions of people to create stunning art within seconds.</p>"
         "<br>"
-        "Create beautiful images with our AI Image Generator (Text to Image) for free and Open Source. "
+        "Create beautiful images with our AI Image Generator (Text to Image) for free and Open Source."
         "<br>"
         "Let Your Creativity Flow."
         "</div>"
