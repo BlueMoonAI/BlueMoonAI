@@ -368,5 +368,10 @@
     "* Powered by BlueMoon AI Inpaint Engine": "* BlueMoon AI Inpaint Engineによって強化されています",
     "BlueMoon AI Enhance": "BlueMoon AI Enhance",
     "BlueMoon AI Cinematic": "BlueMoon AI Cinematic",
-    "BlueMoon AI Sharp": "BlueMoon AI Sharp"
+    "BlueMoon AI Sharp": "BlueMoon AI Sharp",
+      "heading_html": "<h1 style='font-size: 36px;'>BlueMoon AI</h1>",
+  "description_html": "<div style='font-size: 18px;'><p>BlueMoon AIは、テキストから画像への拡散モデルで、任意のテキスト入力に基づいて写真のようなリアルな画像を生成することができます。自律的な自由を育むことで、信じられないほどのイメージを生み出し、数十億の人々に素晴らしいアートを数秒で作成する力を与えます。</p><br>無料でオープンソースのAIイメージジェネレーター（テキストから画像）で美しい画像を作成しましょう。<br>あなたの創造力を解放してください。</div>",
+  "license_html": "<br><br><p style='font-size: 16px; text-align: center;'> <a href='https://opensource.org/licenses/GPL-3.0'>GNU General Public License v3.0</a>および<a href='https://github.com/BlueMoonAI/BlueMoonAI/blob/main/LICENSE.md'>オープンレールライセンス</a>の下でライセンスされています。</p>",
+  "version_html": "<p style='font-size: 16px; text-align: center;'><a href='https://github.com/BlueMoonAI/BlueMoonAI/'>BlueMoon AI</a>: v{version}</p>"
+
 }
