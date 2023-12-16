@@ -19,7 +19,7 @@ from modules.sdxl_styles import legal_style_names
 from modules.private_logger import get_current_html_path
 from modules.ui_gradio_extensions import reload_javascript
 from modules.auth import auth_enabled, check_auth
-from bluemoonai_version import version
+
 
 
 def generate_clicked(*args):
@@ -78,7 +78,7 @@ def generate_clicked(*args):
 
 reload_javascript()
 
-title = f'BlueMoon AI {bluemoonai_version.version}'
+title = f'BlueMoon AI v{bluemoonai_version.get_version()}'
 
 if isinstance(args_manager.args.preset, str):
     title += ' ' + args_manager.args.preset
@@ -558,7 +558,7 @@ with shared.gradio_root:
     )
 
     version_html = (f"<p style='font-size: 16px; text-align: center;'><a "
-                    f"href='https://github.com/BlueMoonAI/BlueMoonAI/'>BlueMoon AI</a>: v{version}</p>")
+                    f"href='https://github.com/BlueMoonAI/BlueMoonAI/'>BlueMoon AI</a>: v{bluemoonai_version.get_version()}</p>")
 
     gr.HTML(value=heading_html)
     gr.HTML(value=description_html)

@@ -1,7 +1,27 @@
 import os
+import subprocess
+
 import pygit2
-from packaging.version import Version, parse as parse_version
-import requests
+from packaging.version import Version
+import json
+
+
+def update_local_version(new_version):
+    try:
+        version_file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "version.json")
+
+        with open(version_file_path, "r") as f:
+            data = json.load(f)
+
+        data["version"] = new_version
+
+        with open(version_file_path, "w") as f:
+            json.dump(data, f, indent=2)
+
+        print(f"Local version updated to {new_version}.")
+    except Exception as e:
+        print(f"Error updating local version: {e}")
+
 
 class Updater:
     def __init__(self):
@@ -12,21 +32,9 @@ class Updater:
         self.autoupdate = os.environ.get("AUTOUPDATE", "True").lower() == "true"
         self.repo = None
 
-    def is_valid_url(self, url):
-        try:
-            response = requests.head(url)
-            return response.status_code == 200
-        except requests.ConnectionError:
-            return False
-
     def initialize_repo(self):
         if not self.repo_url:
             print("Repository URL is not provided. Set the REPO_URL environment variable.")
-            return
-
-        if not self.is_valid_url(self.repo_url):
-            print(f"Repository URL is not valid or not reachable: {self.repo_url}")
-            self.autoupdate = False
             return
 
         try:
@@ -52,6 +60,13 @@ class Updater:
                 print(f"Error initializing repository. The repository is empty or not reachable.")
                 self.autoupdate = False
 
+    def git_pull(self):
+        try:
+            subprocess.run(["git", "pull"], cwd=os.path.abspath(os.path.dirname(__file__)), check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Error executing 'git pull': {e}")
+            raise
+
     def check_for_updates(self):
         if self.autoupdate and self.repo:
             try:
@@ -63,27 +78,33 @@ class Updater:
                 remote_reference = f"refs/remotes/{remote_name}/{self.branch_name}"
                 remote_commit = self.repo.revparse_single(remote_reference)
 
-                # Check the version in the remote file
+                # Check the version.json in the remote tree
                 remote_version = None
                 try:
                     # Get the remote tree
                     remote_tree = self.repo.get(remote_commit.tree_id)
 
-                    # Find the bluemoonai_version.py entry in the tree
+                    # Find the version.json entry in the tree
                     for entry in remote_tree:
-                        if entry.name == "bluemoonai_version.py":
+                        if entry.name == "version.json":
                             # Get the blob associated with the file
                             remote_blob = self.repo.get(entry.id)
 
                             # Extract the version information
-                            remote_version_line = remote_blob.data.splitlines()[0].decode("utf-8")
-                            if "version" in remote_version_line:
-                                remote_version = remote_version_line.split("=")[1].strip().strip("'").strip('"')
+                            remote_data = json.loads(remote_blob.data.decode("utf-8"))
+                            if "version" in remote_data:
+                                remote_version = remote_data["version"]
                             break
+                    else:
+                        # If version.json is not found, perform 'git pull' to get the latest updates
+                        print("version.json not found in the remote repository.")
+                        print("Pulling the latest updates...")
+                        self.git_pull()
+                        return
                 except Exception as e:
                     print(f"Error reading remote version: {e}")
 
-                # Compare versions and perform update if necessary
+                # Compare versions and perform an update if necessary
                 if remote_version and Version(remote_version) > Version(self.local_version):
                     print(f"Checking for updates... (Local version: {self.local_version}, Remote version: {remote_version})")
                     merge_result, _ = self.repo.merge_analysis(remote_commit.id)
@@ -99,6 +120,10 @@ class Updater:
                         self.repo.reset(local_branch.target, pygit2.GIT_RESET_HARD)
                         print("Checking successful. Fast-forward merge. Update successful.")
                         print(f"Updated to version {remote_version}.")
+
+                        # Update the local version in version.json
+                        update_local_version(remote_version)
+                        print("Local version successfully changed.")
                 else:
                     print("Checking successful. Already up-to-date.")
             except ImportError:
