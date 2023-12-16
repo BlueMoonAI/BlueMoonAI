@@ -60,7 +60,9 @@
   height: 2px;
   background-color: white;
 }
-
+.gradio-container{
+  overflow: visible;
+}
 .canvas-tooltip-content {
   display: none;
   background-color: #f9f9f9;
