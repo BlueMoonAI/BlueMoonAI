@@ -111,6 +111,18 @@ progress::after {
 .aspect_ratios label input {
     margin-left: -5px !important;
 }
+.button-canvas {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    background-color: #0366d6;
+    color: #fff;  
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
 
 '''
 progress_html = '''
