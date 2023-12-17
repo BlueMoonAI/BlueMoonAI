@@ -127,15 +127,6 @@ Use `python launcher.py --preset anime` or `python launcher.py --preset realisti
 ### Windows(AMD GPUs)
 Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
 
-Same with Windows. Download the software, edit the content of `run.bat` as:
-
-    .\python_embeded\python.exe -m pip uninstall torch torchvision torchaudio torchtext functorch xformers -y
-    .\python_embeded\python.exe -m pip install torch-directml
-    .\python_embeded\python.exe -s BlueMoonAI\launcher.py --directml
-    pause
-
-Then run the `run.bat`.
-
 AMD is not intensively tested, however. The AMD support is in beta.
 
 For AMD, use `python launcher.py --directml --preset anime` or `python launcher.py --directml --preset realistic` for BlueMoonAI Anime/Realistic Edition.
