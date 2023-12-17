@@ -28,7 +28,7 @@
 
 BlueMoon AI stands at the forefront as a latent text-to-image diffusion model, skillfully crafting photo-realistic images from diverse textual inputs. It not only generates stunning imagery but also fosters autonomous creativity, empowering individuals worldwide to effortlessly create captivating art within moments. (Powered by [Gradio](https://www.gradio.app/))
 
-
+Don't forget to give the project a star ⭐, if you find it useful! and fork this repository if you want to contribute!
 
 - **Automated Optimization**: BlueMoonAI incorporates advanced inner optimizations and quality enhancements, eliminating the need for users to grapple with complex technical parameters.
 - **Intuitive Interface**: The user-friendly interface allows users to generate images with a single click. The intuitive design enables users to create images with ease.
@@ -153,6 +153,21 @@ Use `python launcher.py --preset anime` or `python launcher.py --preset realisti
 
 See [docker.md](docker.md)
 
+## Contributing
+
+If you want to contribute to this project, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature-branch`.
+3. Make your changes and commit them: `git commit -m 'Description of your changes'`.
+4. Push to the branch: `git push origin feature-branch`.
+5. Submit a pull request.
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the code of conduct and the process for submitting pull requests.
+
+## Code of Conduct
+
+Please review our [Code of Conduct](CODE_OF_CONDUCT.md) to understand the behavior we expect from contributors.
 
 ## Minimal Requirement
 
@@ -306,3 +321,6 @@ If you add `--language example` arg, BlueMoonAI will read `BlueMoonAI/language/e
 For practical translation, you may create your own file like `BlueMoonAI/language/jp.json` or `BlueMoonAI/language/cn.json` and then use flag `--language jp` or `--language cn`. Apparently, these files do not exist now. **We need your help to create these files!**
 
 Note that if no `--language` is given and at the same time `BlueMoonAI/language/default.json` exists, BlueMoonAI will always load `BlueMoonAI/language/default.json` for translation. By default, the file `BlueMoonAI/language/default.json` does not exist.
+
+
+## Happy Creativity! ❤️
