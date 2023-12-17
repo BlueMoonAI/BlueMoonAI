@@ -1,0 +1,6 @@
+{
+  "bluemoon_inpaint_head.pth": "https://huggingface.co/BlueMoonAI/blue-moon-inpaint/resolve/main/bluemoon_inpaint_head.pth",
+"inpaint.bluemoon.patch": "https://huggingface.co/BlueMoonAI/blue-moon-inpaint/resolve/main/inpaint.bluemoon.patch",
+  "inpaint_v1.bluemoon.patch": "https://huggingface.co/BlueMoonAI/blue-moon-inpaint/resolve/main/inpaint_v1.bluemoon.patch",
+  "inpaint_v2.bluemoon.patch": "https://huggingface.co/BlueMoonAI/blue-moon-inpaint/resolve/main/inpaint_v2.bluemoon.patch"
+}

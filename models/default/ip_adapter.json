@@ -1,0 +1,6 @@
+{
+  "clip_vision_vit_h.safetensors": "https://huggingface.co/BlueMoonAI/misc/resolve/main/clip_vision_vit_h.safetensors",
+  "bluemoon_ip_negative.safetensors":"https://huggingface.co/BlueMoonAI/misc/resolve/main/bluemoon_ip_negative.safetensors",
+  "ip-adapter-plus_sdxl_vit-h.bin": "https://huggingface.co/BlueMoonAI/misc/resolve/main/ip-adapter-plus_sdxl_vit-h.bin",
+  "ip-adapter-plus-face_sdxl_vit-h.bin": "https://huggingface.co/BlueMoonAI/misc/resolve/main/ip-adapter-plus-face_sdxl_vit-h.bin"
+}
