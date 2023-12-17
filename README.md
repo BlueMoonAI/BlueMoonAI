@@ -44,6 +44,30 @@ Create exquisite images effortlessly with our AI Image Generator (Text to Image)
 
 Let Your Creativity Flow.
 
+
+
+## Table of Contents
+
+- [BlueMoonAI: Unleash Your Creative Potential](#bluemoonai-unleash-your-creative-potential)
+- [Installing BlueMoonAI](#installing-bluemoonai)
+  - [Linux (Using Anaconda)](#linux-using-anaconda)
+  - [Linux (Using Python Venv)](#linux-using-python-venv)
+  - [Linux (Using native system Python)](#linux-using-native-system-python)
+  - [Linux (AMD GPUs)](#linux-amd-gpus)
+  - [Windows(AMD GPUs)](#windowsamd-gpus)
+  - [Mac](#mac)
+  - [Docker](#docker)
+- [Contributing](#contributing)
+- [Code of Conduct](#code-of-conduct)
+- [Minimal Requirement](#minimal-requirement)
+- [Default Models](#default-models)
+- [Customization](#customization)
+  - [All CMD Flags](#all-cmd-flags)
+- [Update Log](#update-log)
+- [Localization/Translation](#localizationtranslation)
+- [Happy Creativity! ❤️](#happy-creativity-)
+
+
 ## [Installing BlueMoonAI](#download)
 
 

@@ -23,4 +23,4 @@ gradio_client==0.5.0
 torchvision>=0.16.0
 packaging>=23.2
 requests>=2.31.0
-bluemoonai>=0.0.0
+
