@@ -84,7 +84,7 @@ If you want to use Anaconda/Miniconda, you can
     cd BlueMoonAI
     conda env create -f environment.yaml
     conda activate BlueMoonAI
-    pip install -r requirements_versions.txt
+    pip install -r requirements.txt
 
 Then download the models: download [default models](#models) to the folder "BlueMoonAI\models\checkpoints". **Or let BlueMoonAI automatically download the models** using the launcher:
 
@@ -107,7 +107,7 @@ Your Linux needs to have **Python 3.10** installed, and lets say your Python can
     cd BlueMoonAI
     python3 -m venv BlueMoonAI_env
     source BlueMoonAI_env/bin/activate
-    pip install -r requirements_versions.txt
+    pip install -r requirements.txt
 
 See the above sections for model downloads. You can launch the software with:
 
@@ -128,7 +128,7 @@ If you know what you are doing, and your Linux already has **Python 3.10** insta
 
     git clone https://github.com/BlueMoonAI/BlueMoonAI.git
     cd BlueMoonAI
-    pip3 install -r requirements_versions.txt
+    pip3 install -r requirements.txt
 
 See the above sections for model downloads. You can launch the software with:
 
