@@ -50,6 +50,7 @@ Let Your Creativity Flow.
 
 - [BlueMoonAI: Unleash Your Creative Potential](#bluemoonai-unleash-your-creative-potential)
 - [Installing BlueMoonAI](#installing-bluemoonai)
+  - [Run in Colab](#run-in-colab)
   - [Linux (Using Anaconda)](#linux-using-anaconda)
   - [Linux (Using Python Venv)](#linux-using-python-venv)
   - [Linux (Using native system Python)](#linux-using-native-system-python)
@@ -70,6 +71,9 @@ Let Your Creativity Flow.
 
 ## [Installing BlueMoonAI](#download)
 
+### Run in Colab
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BlueMoonAI/BlueMoonAI/blob/main/bluemoonai_colab.ipynb)
 
 ### Linux (Using Anaconda)
 Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
