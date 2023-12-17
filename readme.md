@@ -148,6 +148,9 @@ You can install BlueMoonAI on Apple Mac silicon (M1 or M2) with macOS 'Catalina'
 
 Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
 
+## Upcoming Features
+
+we plan to implement new features and updates in future releases of BlueMoonAI.so make sure to check [Planned_Features.md](Planned_Features.md) for more details on these upcoming features and enhancements details, and also you can request a feature by creating a new issue.
 
 ### Docker
 
