@@ -80,14 +80,14 @@ def calculate_weight_patched(self, patches, weight, key):
                     weight.shape).type(weight.dtype)
             except Exception as e:
                 print("ERROR", key, e)
-        elif patch_type == "fooocus":
+        elif patch_type == "bluemoon":
             w1 = bluemoon.ldm_patched.modules.model_management.cast_to_device(v[0], weight.device, torch.float32)
             w_min = bluemoon.ldm_patched.modules.model_management.cast_to_device(v[1], weight.device, torch.float32)
             w_max = bluemoon.ldm_patched.modules.model_management.cast_to_device(v[2], weight.device, torch.float32)
             w1 = (w1 / 255.0) * (w_max - w_min) + w_min
             if alpha != 0.0:
                 if w1.shape != weight.shape:
-                    print("WARNING SHAPE MISMATCH {} FOOOCUS WEIGHT NOT MERGED {} != {}".format(key, w1.shape, weight.shape))
+                    print("WARNING SHAPE MISMATCH {} BlueMoonAI WEIGHT NOT MERGED {} != {}".format(key, w1.shape, weight.shape))
                 else:
                     weight += alpha * bluemoon.ldm_patched.modules.model_management.cast_to_device(w1, weight.device, weight.dtype)
         elif patch_type == "lokr":
@@ -441,7 +441,7 @@ def patched_load_models_gpu(*args, **kwargs):
     y = bluemoon.ldm_patched.modules.model_management.load_models_gpu_origin(*args, **kwargs)
     moving_time = time.perf_counter() - execution_start_time
     if moving_time > 0.1:
-        print(f'[Fooocus Model Management] Moving model(s) has taken {moving_time:.2f} seconds')
+        print(f'[BlueMoonAI Model Management] Moving model(s) has taken {moving_time:.2f} seconds')
     return y
 
 
@@ -470,8 +470,8 @@ def build_loaded(module, loader_name):
                         os.replace(path, corrupted_backup_file)
                         if os.path.exists(path):
                             os.remove(path)
-                        exp += f'Fooocus has tried to move the corrupted file to {corrupted_backup_file} \n'
-                        exp += f'You may try again now and Fooocus will download models again. \n'
+                        exp += f'BlueMoonAI has tried to move the corrupted file to {corrupted_backup_file} \n'
+                        exp += f'You may try again now and BlueMoonAI will download models again. \n'
             raise ValueError(exp)
         return result
 

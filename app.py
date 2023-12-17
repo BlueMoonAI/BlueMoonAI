@@ -6,6 +6,7 @@ from logly import Logly
 
 import bluemoonai_version
 
+
 import json
 import os
 from updater import Updater
@@ -22,6 +23,7 @@ logly.info('[System ARGV]', f"{str(sys.argv)}")
 root = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(root)
 os.chdir(root)
+
 
 # Load data from settings.json
 with open('settings.json', 'r') as file:

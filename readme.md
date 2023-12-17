@@ -1,6 +1,28 @@
 
 ![Web_Photo_Editor](https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/4af70b17-5349-478c-b3fb-956139e8ae75)
 
+
+## Table of Contents
+
+- [BlueMoonAI: Unleash Your Creative Potential](#bluemoonai-unleash-your-creative-potential)
+- [Installing BlueMoonAI](#installing-bluemoonai)
+  - [Linux (Using Anaconda)](#linux-using-anaconda)
+  - [Linux (Using Python Venv)](#linux-using-python-venv)
+  - [Linux (Using native system Python)](#linux-using-native-system-python)
+  - [Linux (AMD GPUs)](#linux-amd-gpus)
+  - [Windows(AMD GPUs)](#windowsamd-gpus)
+  - [Mac](#mac)
+  - [Docker](#docker)
+- [Contributing](#contributing)
+- [Code of Conduct](#code-of-conduct)
+- [Minimal Requirement](#minimal-requirement)
+- [Default Models](#default-models)
+- [Customization](#customization)
+  - [All CMD Flags](#all-cmd-flags)
+- [Update Log](#update-log)
+- [Localization/Translation](#localizationtranslation)
+- [Happy Creativity! ❤️](#happy-creativity-)
+
 <div align="center">
 
 # BlueMoonAI: Unleash Your Creative Potential
@@ -148,13 +170,10 @@ You can install BlueMoonAI on Apple Mac silicon (M1 or M2) with macOS 'Catalina'
 
 Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
 
-## Upcoming Features
-
-we plan to implement new features and updates in future releases of BlueMoonAI.so make sure to check [Planned_Features.md](Planned_Features.md) for more details on these upcoming features and enhancements details, and also you can request a feature by creating a new issue.
 
 ### Docker
 
-See [docker.md](docker.md) for Docker instructions.
+See [docker.md](docker.md)
 
 ## Contributing
 
@@ -208,7 +227,6 @@ Note that the download is **automatic** - you do not need to do anything if the 
 
 The default models are downloaded to `BlueMoonAI\models\checkpoints` folder. You can also download them manually and put them in the folder.
 
-Soon we will provide more models for different tasks. You can also use your own models.
 
 ## Customization
 
