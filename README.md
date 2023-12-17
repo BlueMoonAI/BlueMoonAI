@@ -1,5 +1,8 @@
+<div align="center">
+
 # BlueMoonAI: Unleash Your Creative Potential
 
+</div>
 BlueMoon AI stands at the forefront as a latent text-to-image diffusion model, skillfully crafting photo-realistic images from diverse textual inputs. It not only generates stunning imagery but also fosters autonomous creativity, empowering individuals worldwide to effortlessly create captivating art within moments. (Powered by [Gradio](https://www.gradio.app/))
 
 - **Automated Optimization**: BlueMoonAI incorporates advanced inner optimizations and quality enhancements, eliminating the need for users to grapple with complex technical parameters.
