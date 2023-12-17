@@ -25,6 +25,8 @@ import modules.constants as constants
 from bluemoon.ldm_patched.modules.samplers import calc_cond_uncond_batch
 from bluemoon.ldm_patched.k_diffusion.sampling import BatchedBrownianTree
 from bluemoon.ldm_patched.ldm.modules.diffusionmodules.openaimodel import forward_timestep_embed, apply_control
+from modules.patch_precision import patch_all_precision
+from modules.patch_clip import patch_all_clip
 
 
 sharpness = 2.0
@@ -78,14 +80,14 @@ def calculate_weight_patched(self, patches, weight, key):
                     weight.shape).type(weight.dtype)
             except Exception as e:
                 print("ERROR", key, e)
-        elif patch_type == "BlueMoon":
+        elif patch_type == "fooocus":
             w1 = bluemoon.ldm_patched.modules.model_management.cast_to_device(v[0], weight.device, torch.float32)
             w_min = bluemoon.ldm_patched.modules.model_management.cast_to_device(v[1], weight.device, torch.float32)
             w_max = bluemoon.ldm_patched.modules.model_management.cast_to_device(v[2], weight.device, torch.float32)
             w1 = (w1 / 255.0) * (w_max - w_min) + w_min
             if alpha != 0.0:
                 if w1.shape != weight.shape:
-                    print("WARNING SHAPE MISMATCH {} BlueMoon AI WEIGHT NOT MERGED {} != {}".format(key, w1.shape, weight.shape))
+                    print("WARNING SHAPE MISMATCH {} FOOOCUS WEIGHT NOT MERGED {} != {}".format(key, w1.shape, weight.shape))
                 else:
                     weight += alpha * bluemoon.ldm_patched.modules.model_management.cast_to_device(w1, weight.device, weight.dtype)
         elif patch_type == "lokr":
@@ -218,15 +220,16 @@ def patched_sampling_function(model, x, timestep, uncond, cond, cond_scale, mode
 
     if math.isclose(cond_scale, 1.0):
         final_x0 = calc_cond_uncond_batch(model, cond, None, x, timestep, model_options)[0]
+
         if eps_record is not None:
             eps_record = ((x - final_x0) / timestep).cpu()
 
         return final_x0
+
     positive_x0, negative_x0 = calc_cond_uncond_batch(model, cond, uncond, x, timestep, model_options)
 
     positive_eps = x - positive_x0
     negative_eps = x - negative_x0
-    sigma = timestep
 
     alpha = 0.001 * sharpness * global_diffusion_progress
 
@@ -268,12 +271,11 @@ def sdxl_encode_adm_patched(self, **kwargs):
         height = float(height) * positive_adm_scale
 
     def embedder(number_list):
-        h = torch.tensor(number_list, dtype=torch.float32)
-        h = self.embedder(h)
+        h = self.embedder(torch.tensor(number_list, dtype=torch.float32))
         h = torch.flatten(h).unsqueeze(dim=0).repeat(clip_pooled.shape[0], 1)
         return h
 
-    width, height = round_to_64(width), round_to_64(height)
+    width, height = int(width), int(height)
     target_width, target_height = round_to_64(target_width), round_to_64(target_height)
 
     adm_emphasized = embedder([height, width, 0, 0, target_height, target_width])
@@ -283,46 +285,6 @@ def sdxl_encode_adm_patched(self, **kwargs):
     final_adm = torch.cat((clip_pooled, adm_emphasized, clip_pooled, adm_consistent), dim=1)
 
     return final_adm
-
-
-def encode_token_weights_patched_with_a1111_method(self, token_weight_pairs):
-    to_encode = list()
-    max_token_len = 0
-    has_weights = False
-    for x in token_weight_pairs:
-        tokens = list(map(lambda a: a[0], x))
-        max_token_len = max(len(tokens), max_token_len)
-        has_weights = has_weights or not all(map(lambda a: a[1] == 1.0, x))
-        to_encode.append(tokens)
-
-    sections = len(to_encode)
-    if has_weights or sections == 0:
-        to_encode.append(bluemoon.ldm_patched.modules.sd1_clip.gen_empty_tokens(self.special_tokens, max_token_len))
-
-    out, pooled = self.encode(to_encode)
-    if pooled is not None:
-        first_pooled = pooled[0:1].to(bluemoon.ldm_patched.modules.model_management.intermediate_device())
-    else:
-        first_pooled = pooled
-
-    output = []
-    for k in range(0, sections):
-        z = out[k:k + 1]
-        if has_weights:
-            original_mean = z.mean()
-            z_empty = out[-1]
-            for i in range(len(z)):
-                for j in range(len(z[i])):
-                    weight = token_weight_pairs[k][j][1]
-                    if weight != 1.0:
-                        z[i][j] = (z[i][j] - z_empty[j]) * weight + z_empty[j]
-            new_mean = z.mean()
-            z = z * (original_mean / new_mean)
-        output.append(z)
-
-    if len(output) == 0:
-        return out[-1:].to(bluemoon.ldm_patched.modules.model_management.intermediate_device()), first_pooled
-    return torch.cat(output, dim=-2).to(bluemoon.ldm_patched.modules.model_management.intermediate_device()), first_pooled
 
 
 def patched_KSamplerX0Inpaint_forward(self, x, sigma, uncond, cond, cond_scale, denoise_mask, model_options={}, seed=None):
@@ -479,7 +441,7 @@ def patched_load_models_gpu(*args, **kwargs):
     y = bluemoon.ldm_patched.modules.model_management.load_models_gpu_origin(*args, **kwargs)
     moving_time = time.perf_counter() - execution_start_time
     if moving_time > 0.1:
-        print(f'[BlueMoon AI Model Management] Moving model(s) has taken {moving_time:.2f} seconds')
+        print(f'[Fooocus Model Management] Moving model(s) has taken {moving_time:.2f} seconds')
     return y
 
 
@@ -508,8 +470,8 @@ def build_loaded(module, loader_name):
                         os.replace(path, corrupted_backup_file)
                         if os.path.exists(path):
                             os.remove(path)
-                        exp += f'BlueMoon AI has tried to move the corrupted file to {corrupted_backup_file} \n'
-                        exp += f'You may try again now and BlueMoon AI will download models again. \n'
+                        exp += f'Fooocus has tried to move the corrupted file to {corrupted_backup_file} \n'
+                        exp += f'You may try again now and Fooocus will download models again. \n'
             raise ValueError(exp)
         return result
 
@@ -518,6 +480,9 @@ def build_loaded(module, loader_name):
 
 
 def patch_all():
+    patch_all_precision()
+    patch_all_clip()
+
     if not hasattr(bluemoon.ldm_patched.modules.model_management, 'load_models_gpu_origin'):
         bluemoon.ldm_patched.modules.model_management.load_models_gpu_origin = bluemoon.ldm_patched.modules.model_management.load_models_gpu
 
@@ -526,7 +491,6 @@ def patch_all():
     bluemoon.ldm_patched.controlnet.cldm.ControlNet.forward = patched_cldm_forward
     bluemoon.ldm_patched.ldm.modules.diffusionmodules.openaimodel.UNetModel.forward = patched_unet_forward
     bluemoon.ldm_patched.modules.model_base.SDXL.encode_adm = sdxl_encode_adm_patched
-    bluemoon.ldm_patched.modules.sd1_clip.ClipTokenWeightEncoder.encode_token_weights = encode_token_weights_patched_with_a1111_method
     bluemoon.ldm_patched.modules.samplers.KSamplerX0Inpaint.forward = patched_KSamplerX0Inpaint_forward
     bluemoon.ldm_patched.k_diffusion.sampling.BrownianTreeNoiseSampler = BrownianTreeNoiseSamplerPatched
     bluemoon.ldm_patched.modules.samplers.sampling_function = patched_sampling_function

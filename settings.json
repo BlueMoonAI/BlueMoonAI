@@ -1,5 +1,5 @@
 {
-  "REPO_URL": "https://github.com/KazukiAsuna/BlueMoonAI",
+  "REPO_URL": "https://github.com/BlueMoonAI/BlueMoonAI",
   "BRANCH_NAME": "main",
   "AUTOUPDATE": "True",
   "PYTORCH_ENABLE_MPS_FALLBACK": "1",

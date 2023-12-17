@@ -28,7 +28,7 @@ with open('settings.json', 'r') as file:
     settings_data = json.load(file)
 
 # Set environment variables with default values or values from the settings file
-os.environ["REPO_URL"] = settings_data.get("REPO_URL", "https://github.com/KazukiAsuna/BlueMoonAI")
+os.environ["REPO_URL"] = settings_data.get("REPO_URL", "https://github.com/BlueMoonAI/BlueMoonAI")
 os.environ["BRANCH_NAME"] = settings_data.get("BRANCH_NAME", "main")
 os.environ["LOCAL_VERSION"] = bluemoonai_version.get_version()
 os.environ["AUTOUPDATE"] = settings_data.get("AUTOUPDATE", "True")
