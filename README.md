@@ -2,8 +2,28 @@
 
 # BlueMoonAI: Unleash Your Creative Potential
 
+[![Python 3.8](https://img.shields.io/badge/Python-3.8-blue)](https://www.python.org/downloads/release/python-380/)
+[![Python 3.9](https://img.shields.io/badge/Python-3.9-blue)](https://www.python.org/downloads/release/python-390/)
+[![Python 3.10](https://img.shields.io/badge/Python-3.10-blue)](https://www.python.org/downloads/release/python-3100/)
+[![GitHub issues](https://img.shields.io/github/issues/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/pulls)
+[![Stable Diffusion](https://img.shields.io/badge/Stable%20Diffusion-Yes-brightgreen)](https://www.bluemoonai.com/stable-diffusion/)
+[![Powered by Gradio](https://img.shields.io/badge/Powered%20by-Gradio-blue)](https://www.gradio.app/)
+[![Creativity Unleashed](https://img.shields.io/badge/Creativity-Unleashed-orange)](https://www.bluemoonai.com/)
+[![Photorealistic Images](https://img.shields.io/badge/Images-Photorealistic-green)](https://www.bluemoonai.com/gallery/)
+[![License](https://img.shields.io/github/license/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/network/members)
+[![GitHub watchers](https://img.shields.io/github/watchers/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/watchers)
+[![GitHub last commit](https://img.shields.io/github/last-commit/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/commits/main)
+[![GitHub contributors](https://img.shields.io/github/contributors/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/graphs/contributors)
+[![Popularity](https://komarev.com/ghpvc/?username=BlueMoonAI&label=Popularity)](https://github.com/BlueMoonAI/BlueMoonAI)
+
 </div>
+
 BlueMoon AI stands at the forefront as a latent text-to-image diffusion model, skillfully crafting photo-realistic images from diverse textual inputs. It not only generates stunning imagery but also fosters autonomous creativity, empowering individuals worldwide to effortlessly create captivating art within moments. (Powered by [Gradio](https://www.gradio.app/))
+
+
 
 - **Automated Optimization**: BlueMoonAI incorporates advanced inner optimizations and quality enhancements, eliminating the need for users to grapple with complex technical parameters.
 - **Intuitive Interface**: The user-friendly interface allows users to generate images with a single click. The intuitive design enables users to create images with ease.
