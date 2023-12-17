@@ -80,7 +80,7 @@ def calculate_weight_patched(self, patches, weight, key):
                     weight.shape).type(weight.dtype)
             except Exception as e:
                 print("ERROR", key, e)
-        elif patch_type == "bluemoon":
+        elif patch_type == "BlueMoon":
             w1 = bluemoon.ldm_patched.modules.model_management.cast_to_device(v[0], weight.device, torch.float32)
             w_min = bluemoon.ldm_patched.modules.model_management.cast_to_device(v[1], weight.device, torch.float32)
             w_max = bluemoon.ldm_patched.modules.model_management.cast_to_device(v[2], weight.device, torch.float32)
