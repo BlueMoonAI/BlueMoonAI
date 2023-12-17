@@ -8,6 +8,8 @@
 [![Python 3.8](https://img.shields.io/badge/Python-3.8-blue)](https://www.python.org/downloads/release/python-380/)
 [![Python 3.9](https://img.shields.io/badge/Python-3.9-blue)](https://www.python.org/downloads/release/python-390/)
 [![Python 3.10](https://img.shields.io/badge/Python-3.10-blue)](https://www.python.org/downloads/release/python-3100/)
+[![Python 3.11](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/downloads/release/python-3110/)
+[![CodeQL](https://github.com/BlueMoonAI/BlueMoonAI/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/BlueMoonAI/BlueMoonAI/actions/workflows/github-code-scanning/codeql)
 [![GitHub issues](https://img.shields.io/github/issues/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/pulls)
 [![Stable Diffusion](https://img.shields.io/badge/Stable%20Diffusion-Yes-brightgreen)](https://www.bluemoonai.com/stable-diffusion/)
