@@ -34,10 +34,12 @@ os.environ["REPO_URL"] = settings_data.get("REPO_URL", "https://github.com/BlueM
 os.environ["BRANCH_NAME"] = settings_data.get("BRANCH_NAME", "main")
 os.environ["LOCAL_VERSION"] = bluemoonai_version.get_version()
 os.environ["AUTOUPDATE"] = settings_data.get("AUTOUPDATE", "True")
-
-# Run the updater
-updater = Updater()
-updater.run_update()
+try:
+    # Run the updater
+    updater = Updater()
+    updater.run_update()
+except Exception as e:
+    logly.error('[Updater]', f"{str(e)}")
 
 # Set additional environment variables
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = settings_data.get("PYTORCH_ENABLE_MPS_FALLBACK", "1")

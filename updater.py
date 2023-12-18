@@ -1,7 +1,5 @@
 import os
 import subprocess
-
-import pygit2
 from packaging.version import Version
 import json
 
@@ -30,105 +28,65 @@ class Updater:
         self.branch_name = os.environ.get("BRANCH_NAME")
         self.local_version = os.environ.get("LOCAL_VERSION")
         self.autoupdate = os.environ.get("AUTOUPDATE", "True").lower() == "true"
-        self.repo = None
+        self.repo_dir = os.path.abspath(os.path.dirname(__file__))
+
+        # Initialize autoupdate to True if not provided in environment variables
+        if self.autoupdate is None:
+            self.autoupdate = True
 
     def initialize_repo(self):
         if not self.repo_url:
             print("Repository URL is not provided. Set the REPO_URL environment variable.")
             return
 
-        try:
-            import pygit2
-            pygit2.option(pygit2.GIT_OPT_SET_OWNER_VALIDATION, 0)
-
-            # Attempt to open the repository
-            self.repo = pygit2.Repository(os.path.abspath(os.path.dirname(__file__)))
-        except pygit2.GitError:
-            # If the repository doesn't exist, attempt to clone it
+        # Check if the repository exists
+        if not os.path.exists(os.path.join(self.repo_dir, ".git")):
+            # If it doesn't exist, initialize a new repository, add the remote, and fetch
             try:
-                self.repo = pygit2.clone_repository(self.repo_url, os.path.abspath(os.path.dirname(__file__)))
-            except pygit2.GitError as e:
+                subprocess.run(["git", "init", self.repo_dir], check=True)
+                subprocess.run(["git", "remote", "add", "origin", self.repo_url], cwd=self.repo_dir, check=True)
+                subprocess.run(["git", "fetch", "--depth=1", "--no-tags"], cwd=self.repo_dir, check=True)
+            except subprocess.CalledProcessError as e:
                 print(f"Error initializing repository: {e}")
                 self.autoupdate = False
-                # If the URL is broken, display a message and exit
-                print(f"Error initializing repository: {e}")
                 return
 
-            if not self.repo.is_empty:
-                print(f"Repository initialized successfully.")
-            else:
-                print(f"Error initializing repository. The repository is empty or not reachable.")
-                self.autoupdate = False
+            print("Repository initialized successfully.")
 
     def git_pull(self):
         try:
-            subprocess.run(["git", "pull"], cwd=os.path.abspath(os.path.dirname(__file__)), check=True)
+            subprocess.run(["git", "pull", "--ff-only"], cwd=self.repo_dir, check=True)
         except subprocess.CalledProcessError as e:
             print(f"Error executing 'git pull': {e}")
             raise
 
     def check_for_updates(self):
-        if self.autoupdate and self.repo:
+        if self.autoupdate:
             try:
-                remote_name = "origin"
-                remote = self.repo.remotes[remote_name]
-                remote.fetch()
+                # Fetch the latest changes
+                subprocess.run(["git", "fetch", "--depth=1", "--no-tags"], cwd=self.repo_dir, check=True)
 
-                # Get the remote commit information
-                remote_reference = f"refs/remotes/{remote_name}/{self.branch_name}"
-                remote_commit = self.repo.revparse_single(remote_reference)
+                # Get the local and remote commit hashes
+                local_commit_hash = subprocess.check_output(["git", "rev-parse", "HEAD"],
+                                                            cwd=self.repo_dir, text=True).strip()
+                remote_commit_hash = subprocess.check_output(["git", "rev-parse", f"origin/{self.branch_name}"],
+                                                             cwd=self.repo_dir, text=True).strip()
 
-                # Check the version.json in the remote tree
-                remote_version = None
-                try:
-                    # Get the remote tree
-                    remote_tree = self.repo.get(remote_commit.tree_id)
+                # Check if the local branch is behind the remote branch
+                if local_commit_hash != remote_commit_hash:
+                    print(f"Checking for updates... (Local version: {self.local_version}, Remote version: Unknown)")
 
-                    # Find the version.json entry in the tree
-                    for entry in remote_tree:
-                        if entry.name == "version.json":
-                            # Get the blob associated with the file
-                            remote_blob = self.repo.get(entry.id)
+                    # Perform 'git pull' to get the latest updates
+                    print("Pulling the latest updates...")
+                    self.git_pull()
 
-                            # Extract the version information
-                            remote_data = json.loads(remote_blob.data.decode("utf-8"))
-                            if "version" in remote_data:
-                                remote_version = remote_data["version"]
-                            break
-                    else:
-                        # If version.json is not found, perform 'git pull' to get the latest updates
-                        print("version.json not found in the remote repository.")
-                        print("Pulling the latest updates...")
-                        self.git_pull()
-                        return
-                except Exception as e:
-                    print(f"Error reading remote version: {e}")
-
-                # Compare versions and perform an update if necessary
-                if remote_version and Version(remote_version) > Version(self.local_version):
-                    print(f"Checking for updates... (Local version: {self.local_version}, Remote version: {remote_version})")
-                    merge_result, _ = self.repo.merge_analysis(remote_commit.id)
-
-                    if merge_result & pygit2.GIT_MERGE_ANALYSIS_UP_TO_DATE:
-                        print("Checking successful. Already up-to-date.")
-                    elif merge_result & pygit2.GIT_MERGE_ANALYSIS_FASTFORWARD:
-                        local_branch_ref = f"refs/heads/{self.branch_name}"
-                        local_branch = self.repo.lookup_reference(local_branch_ref)
-                        local_branch.set_target(remote_commit.id)
-                        self.repo.head.set_target(remote_commit.id)
-                        self.repo.checkout_tree(self.repo.get(remote_commit.id))
-                        self.repo.reset(local_branch.target, pygit2.GIT_RESET_HARD)
-                        print("Checking successful. Fast-forward merge. Update successful.")
-                        print(f"Updated to version {remote_version}.")
-
-                        # Update the local version in version.json
-                        update_local_version(remote_version)
-                        print("Local version successfully changed.")
+                    # Update the local version using the latest commit hash
+                    update_local_version(remote_commit_hash)
+                    print("Local version successfully changed.")
                 else:
-                    print("Checking successful. Already up-to-date.")
-            except ImportError:
-                print("PyGit2 module not installed. Install it using 'pip install pygit2'")
-                self.autoupdate = False
+                    print("Checking successful. Already up-to-date. No new commits available.")
+            except Exception as e:
+                print(f"Error checking for updates: {e}")
 
     def run_update(self):
         if not self.repo_url:
@@ -140,7 +98,7 @@ class Updater:
             self.initialize_repo()
 
             # Check for updates
-            if self.repo:
+            if os.path.exists(os.path.join(self.repo_dir, ".git")):
                 try:
                     self.check_for_updates()
                 except Exception as e:
