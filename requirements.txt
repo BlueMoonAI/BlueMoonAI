@@ -10,7 +10,7 @@ tqdm>=4.64.1
 psutil==5.9.5
 numpy>=1.17
 pytorch_lightning>=1.9.4
-omegaconf==2.2.3
+omegaconf==2.3.0
 gradio==3.41.2
 pygit2>=1.12.2
 opencv-contrib-python==4.8.0.74
