@@ -23,6 +23,9 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/commits/main)
 [![GitHub contributors](https://img.shields.io/github/contributors/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/graphs/contributors)
 [![Popularity](https://komarev.com/ghpvc/?username=BlueMoonAI&label=Popularity)](https://github.com/BlueMoonAI/BlueMoonAI)
+<a href="https://www.patreon.com/bluemoonai/membership" target="_blank">
+  <img src="https://img.shields.io/badge/Support%20Us-Donate-%23FF424D.svg" alt="Donate to Bluemoon AI on Patreon">
+</a>
 
 </div>
 
