@@ -73,14 +73,14 @@ class AbstractAutoencoder(torch.nn.Module):
             self.model_ema.store(self.parameters())
             self.model_ema.copy_to(self)
             if context is not None:
-                print(f"{context}: Switched to EMA weights")
+                logly.info(f"{context}: Switched to EMA weights")
         try:
             yield None
         finally:
             if self.use_ema:
                 self.model_ema.restore(self.parameters())
                 if context is not None:
-                    print(f"{context}: Restored training weights")
+                    logly.info(f"{context}: Restored training weights")
 
     def encode(self, *args, **kwargs) -> torch.Tensor:
         raise NotImplementedError("encode()-method of abstract base class called")
@@ -89,7 +89,7 @@ class AbstractAutoencoder(torch.nn.Module):
         raise NotImplementedError("decode()-method of abstract base class called")
 
     def instantiate_optimizer_from_config(self, params, lr, cfg):
-        print(f"loading >>> {cfg['target']} <<< optimizer from config")
+        logly.info(f"loading >>> {cfg['target']} <<< optimizer from config")
         return get_obj_from_str(cfg["target"])(
             params, lr=lr, **cfg.get("params", dict())
         )

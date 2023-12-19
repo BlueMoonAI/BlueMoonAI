@@ -329,7 +329,7 @@ def unload_model_clones(model):
             to_unload = [i] + to_unload
 
     for i in to_unload:
-        print("unload clone", i)
+        logly.info("unload clone", i)
         current_loaded_models.pop(i).model_unload()
 
 def free_memory(memory_required, device, keep_loaded=[]):
@@ -371,7 +371,7 @@ def load_models_gpu(models, memory_required=0):
             models_already_loaded.append(loaded_model)
         else:
             if hasattr(x, "model"):
-                print(f"Requested to load {x.model.__class__.__name__}")
+                logly.info(f"Requested to load {x.model.__class__.__name__}")
             models_to_load.append(loaded_model)
 
     if len(models_to_load) == 0:
@@ -381,7 +381,7 @@ def load_models_gpu(models, memory_required=0):
                 free_memory(extra_mem, d, models_already_loaded)
         return
 
-    print(f"Loading {len(models_to_load)} new model{'s' if len(models_to_load) > 1 else ''}")
+    logly.info(f"Loading {len(models_to_load)} new model{'s' if len(models_to_load) > 1 else ''}")
 
     total_memory_required = {}
     for loaded_model in models_to_load:

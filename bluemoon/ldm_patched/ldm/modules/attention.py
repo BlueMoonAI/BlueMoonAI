@@ -252,12 +252,12 @@ def attention_split(q, k, v, heads, mask=None):
                 model_management.soft_empty_cache(True)
                 if cleared_cache == False:
                     cleared_cache = True
-                    print("out of memory error, emptying cache and trying again")
+                    logly.info("out of memory error, emptying cache and trying again")
                     continue
                 steps *= 2
                 if steps > 64:
                     raise e
-                print("out of memory error, increasing steps and trying again", steps)
+                logly.info("out of memory error, increasing steps and trying again", steps)
             else:
                 raise e
 
@@ -327,17 +327,17 @@ optimized_attention = attention_basic
 optimized_attention_masked = attention_basic
 
 if model_management.xformers_enabled():
-    print("Using xformers cross attention")
+    logly.info("Using xformers cross attention")
     optimized_attention = attention_xformers
 elif model_management.pytorch_attention_enabled():
-    print("Using pytorch cross attention")
+    logly.info("Using pytorch cross attention")
     optimized_attention = attention_pytorch
 else:
     if args.attention_split:
-        print("Using split optimization for cross attention")
+        logly.info("Using split optimization for cross attention")
         optimized_attention = attention_split
     else:
-        print("Using sub quadratic optimization for cross attention, if you have memory or speed issues try using: --attention-split")
+        logly.info("Using sub quadratic optimization for cross attention, if you have memory or speed issues try using: --attention-split")
         optimized_attention = attention_sub_quad
 
 if model_management.pytorch_attention_enabled():
