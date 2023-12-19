@@ -7,6 +7,7 @@
 '''
 import warnings
 warnings.filterwarnings("ignore")
+from bluemoon.utils.logly import logly
 
 from bluemoon.extras.BLIP.models.vit import VisionTransformer, interpolate_pos_embed
 from bluemoon.extras.BLIP.models.med import BertConfig, BertModel, BertLMHeadModel
@@ -234,6 +235,6 @@ def load_checkpoint(model,url_or_filename):
                 del state_dict[key]
     
     msg = model.load_state_dict(state_dict,strict=False)
-    print('load checkpoint from %s'%url_or_filename)  
+    logly.info('load checkpoint from %s'%url_or_filename)
     return model,msg
     

@@ -6,6 +6,7 @@ from bluemoon.ldm_patched.modules.args_parser import args, LatentPreviewMethod
 from bluemoon.ldm_patched.taesd.taesd import TAESD
 import bluemoon.ldm_patched.utils.path_utils
 import bluemoon.ldm_patched.modules.utils
+from bluemoon.utils.logly import logly
 
 MAX_PREVIEW_RESOLUTION = 512
 
@@ -70,7 +71,7 @@ def get_previewer(device, latent_format):
                 taesd = TAESD(None, taesd_decoder_path).to(device)
                 previewer = TAESDPreviewerImpl(taesd)
             else:
-                print("Warning: TAESD previews enabled, but could not find models/vae_approx/{}".format(latent_format.taesd_decoder_name))
+                logly.warn("Warning: TAESD previews enabled, but could not find models/vae_approx/{}".format(latent_format.taesd_decoder_name))
 
         if previewer is None:
             if latent_format.latent_rgb_factors is not None:

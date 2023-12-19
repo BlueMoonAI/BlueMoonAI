@@ -6,6 +6,7 @@ import numpy as np
 
 from inspect import isfunction
 from PIL import Image, ImageDraw, ImageFont
+from bluemoon.utils.logly import logly
 
 
 def log_txt_as_img(wh, xc, size=10):
@@ -23,7 +24,7 @@ def log_txt_as_img(wh, xc, size=10):
         try:
             draw.text((0, 0), lines, fill="black", font=font)
         except UnicodeEncodeError:
-            print("Cant encode string for logging. Skipping.")
+            logly.warn("Cant encode string for logging. Skipping.")
 
         txt = np.array(txt).transpose(2, 0, 1) / 127.5 - 1.0
         txts.append(txt)
@@ -65,7 +66,7 @@ def mean_flat(tensor):
 def count_params(model, verbose=False):
     total_params = sum(p.numel() for p in model.parameters())
     if verbose:
-        print(f"{model.__class__.__name__} has {total_params*1.e-6:.2f} M params.")
+        logly.info(f"{model.__class__.__name__} has {total_params*1.e-6:.2f} M params.")
     return total_params
 
 

@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import modules.config
+from bluemoon.utils.logly import logly
 
 
 faceRestoreHelper = None
@@ -40,10 +41,10 @@ def crop_image(img_rgb):
     # landmarks are already sorted with confidence.
 
     if len(landmarks) == 0:
-        print('No face detected')
+        logly.info('No face detected')
         return img_rgb
     else:
-        print(f'Detected {len(landmarks)} faces')
+        logly.info(f'Detected {len(landmarks)} faces')
 
     result = align_warp_face(faceRestoreHelper, landmarks[0])
 

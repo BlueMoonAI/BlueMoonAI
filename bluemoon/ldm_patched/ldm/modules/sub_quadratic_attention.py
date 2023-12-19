@@ -14,6 +14,7 @@ import torch
 from torch import Tensor
 from torch.utils.checkpoint import checkpoint
 import math
+from bluemoon.utils.logly import logly
 
 try:
 	from typing import Optional, NamedTuple, List, Protocol
@@ -160,7 +161,7 @@ def _get_attention_scores_no_kv_chunking(
         attn_probs = attn_scores.softmax(dim=-1)
         del attn_scores
     except model_management.OOM_EXCEPTION:
-        print("ran out of memory while running softmax in  _get_attention_scores_no_kv_chunking, trying slower in place softmax instead")
+        logly.warn("ran out of memory while running softmax in  _get_attention_scores_no_kv_chunking, trying slower in place softmax instead")
         attn_scores -= attn_scores.max(dim=-1, keepdim=True).values
         torch.exp(attn_scores, out=attn_scores)
         summed = torch.sum(attn_scores, dim=-1, keepdim=True)

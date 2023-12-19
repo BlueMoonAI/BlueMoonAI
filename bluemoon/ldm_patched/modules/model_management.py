@@ -5,6 +5,7 @@ import bluemoon.ldm_patched.modules.utils
 import torch
 import sys
 
+from bluemoon.utils.logly import logly
 class VRAMState(Enum):
     DISABLED = 0    #No vram present: no need to move models to vram
     NO_VRAM = 1     #Very low vram: enable all the options to save vram
@@ -29,7 +30,7 @@ lowvram_available = True
 xpu_available = False
 
 if args.pytorch_deterministic:
-    print("Using deterministic algorithms for pytorch")
+    logly.info("Using deterministic algorithms for pytorch")
     torch.use_deterministic_algorithms(True, warn_only=True)
 
 directml_enabled = False
@@ -41,7 +42,7 @@ if args.directml is not None:
         directml_device = torch_directml.device()
     else:
         directml_device = torch_directml.device(device_index)
-    print("Using directml with device:", torch_directml.device_name(device_index))
+    logly.info("Using directml with device:", torch_directml.device_name(device_index))
     # torch_directml.disable_tiled_resources(True)
     lowvram_available = False #TODO: need to find a way to get free memory in directml before this can be enabled by default.
 
@@ -117,10 +118,10 @@ def get_total_memory(dev=None, torch_total_too=False):
 
 total_vram = get_total_memory(get_torch_device()) / (1024 * 1024)
 total_ram = psutil.virtual_memory().total / (1024 * 1024)
-print("Total VRAM {:0.0f} MB, total RAM {:0.0f} MB".format(total_vram, total_ram))
+logly.info("Total VRAM {:0.0f} MB, total RAM {:0.0f} MB".format(total_vram, total_ram))
 if not args.always_normal_vram and not args.always_cpu:
     if lowvram_available and total_vram <= 4096:
-        print("Trying to enable lowvram mode because your GPU seems to have 4GB or less. If you don't want this use: --always-normal-vram")
+        logly.warn("Trying to enable lowvram mode because your GPU seems to have 4GB or less. If you don't want this use: --always-normal-vram")
         set_vram_to = VRAMState.LOW_VRAM
 
 try:
@@ -143,11 +144,11 @@ else:
             pass
         try:
             XFORMERS_VERSION = xformers.version.__version__
-            print("xformers version:", XFORMERS_VERSION)
+            logly.info("xformers version:", XFORMERS_VERSION)
             if XFORMERS_VERSION.startswith("0.0.18"):
                 print()
-                print("WARNING: This version of xformers has a major bug where you will get black images when generating high resolution images.")
-                print("Please downgrade or upgrade xformers to a different version.")
+                logly.warn("WARNING: This version of xformers has a major bug where you will get black images when generating high resolution images.")
+                logly.warn("Please downgrade or upgrade xformers to a different version.")
                 print()
                 XFORMERS_ENABLED_VAE = False
         except:
@@ -210,11 +211,11 @@ elif args.always_high_vram or args.always_gpu:
 FORCE_FP32 = False
 FORCE_FP16 = False
 if args.all_in_fp32:
-    print("Forcing FP32, if this improves things please report it.")
+    logly.warn("Forcing FP32, if this improves things please report it.")
     FORCE_FP32 = True
 
 if args.all_in_fp16:
-    print("Forcing FP16.")
+    logly.warn("Forcing FP16.")
     FORCE_FP16 = True
 
 if lowvram_available:
@@ -224,8 +225,8 @@ if lowvram_available:
             vram_state = set_vram_to
     except Exception as e:
         import traceback
-        print(traceback.format_exc())
-        print("ERROR: LOW VRAM MODE NEEDS accelerate.")
+        logly.warn(traceback.format_exc())
+        logly.error("ERROR: LOW VRAM MODE NEEDS accelerate.")
         lowvram_available = False
 
 
@@ -235,12 +236,12 @@ if cpu_state != CPUState.GPU:
 if cpu_state == CPUState.MPS:
     vram_state = VRAMState.SHARED
 
-print(f"Set vram state to: {vram_state.name}")
+logly.info(f"Set vram state to: {vram_state.name}")
 
 ALWAYS_VRAM_OFFLOAD = args.always_offload_from_vram
 
 if ALWAYS_VRAM_OFFLOAD:
-    print("Always offload VRAM")
+    logly.info("Always offload VRAM")
 
 def get_torch_device_name(device):
     if hasattr(device, 'type'):
@@ -258,11 +259,11 @@ def get_torch_device_name(device):
         return "CUDA {}: {}".format(device, torch.cuda.get_device_name(device))
 
 try:
-    print("Device:", get_torch_device_name(get_torch_device()))
+    logly.info("Device:", get_torch_device_name(get_torch_device()))
 except:
-    print("Could not pick default device.")
+    logly.error("Could not pick default device.")
 
-print("VAE dtype:", VAE_DTYPE)
+logly.info("VAE dtype:", VAE_DTYPE)
 
 current_loaded_models = []
 
@@ -297,7 +298,7 @@ class LoadedModel:
             raise e
 
         if lowvram_model_memory > 0:
-            print("loading in lowvram mode", lowvram_model_memory/(1024 * 1024))
+            logly.info("loading in lowvram mode", lowvram_model_memory/(1024 * 1024))
             device_map = accelerate.infer_auto_device_map(self.real_model, max_memory={0: "{}MiB".format(lowvram_model_memory // (1024 * 1024)), "cpu": "16GiB"})
             accelerate.dispatch_model(self.real_model, device_map=device_map, main_device=self.device)
             self.model_accelerated = True

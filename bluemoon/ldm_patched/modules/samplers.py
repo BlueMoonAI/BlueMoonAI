@@ -9,6 +9,7 @@ from bluemoon.ldm_patched.modules import model_base
 import bluemoon.ldm_patched.modules.utils
 import bluemoon.ldm_patched.modules.conds
 import collections
+from bluemoon.utils.logly import logly
 
 def get_area_and_mult(conds, x_in, timestep_in):
     area = (x_in.shape[2], x_in.shape[3], 0, 0)
@@ -640,7 +641,7 @@ def calculate_sigmas_scheduler(self,model, scheduler_name, steps):
     elif scheduler_name == "sgm_uniform":
         sigmas = normal_scheduler(model, steps, sgm=True)
     else:
-        print("error invalid scheduler", self.scheduler)
+        logly.error("error invalid scheduler", self.scheduler)
     return sigmas
 
 def sampler_object(name):

@@ -3,6 +3,7 @@
 import bluemoon.ldm_patched.modules.utils
 import bluemoon.ldm_patched.utils.path_utils
 import torch
+from bluemoon.utils.logly import logly
 
 def load_hypernetwork_patch(path, strength):
     sd = bluemoon.ldm_patched.modules.utils.load_torch_file(path, safe_load=True)
@@ -25,7 +26,7 @@ def load_hypernetwork_patch(path, strength):
     }
 
     if activation_func not in valid_activation:
-        print("Unsupported Hypernetwork format, if you report it I might implement it.", path, " ", activation_func, is_layer_norm, use_dropout, activate_output, last_layer_dropout)
+        logly.warn("Unsupported Hypernetwork format, if you report it I might implement it.", path, " ", activation_func, is_layer_norm, use_dropout, activate_output, last_layer_dropout)
         return None
 
     out = {}

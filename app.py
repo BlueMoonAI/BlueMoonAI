@@ -1,22 +1,19 @@
 import os
 import sys
 import ssl
+from bluemoon.utils.logly import logly
 
-from logly import Logly
 
 import bluemoonai_version
 
 
 import json
 import os
+
+from bluemoon.utils.logly import logly
 from updater import Updater
 
-logly = Logly()
-logly.start_logging()
 
-logly.set_default_max_file_size(50)
-logger = os.path.join(os.path.dirname(os.path.abspath(__file__)), "log.txt")
-logly.set_default_file_path(logger)
 
 logly.info('[System ARGV]', f"{str(sys.argv)}")
 
@@ -76,8 +73,8 @@ def prepare_environment():
                 if platform.python_version().startswith("3.10"):
                     run_pip(f"install -U -I --no-deps {xformers_package}", "xformers", live=True)
                 else:
-                    print("Installation of xformers is not supported in this version of Python.")
-                    print(
+                    logly.warn("Installation of xformers is not supported in this version of Python.")
+                    logly.warn(
                         "You can also check this and build manually: https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers#building-xformers-on-windows-by-duckness")
                     if not is_installed("xformers"):
                         exit(0)
@@ -128,7 +125,7 @@ args = ini_args()
 
 if args.gpu_device_id is not None:
     os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu_device_id)
-    print("Set device to:", args.gpu_device_id)
+    logly.info("Set device to:", args.gpu_device_id)
 
 download_models()
 

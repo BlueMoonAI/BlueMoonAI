@@ -6,6 +6,7 @@ from torch import nn, einsum
 from einops import rearrange, repeat
 from typing import Optional, Any
 from functools import partial
+from bluemoon.utils.logly import logly
 
 
 from .diffusionmodules.util import checkpoint, AlphaBlender, timestep_embedding
@@ -23,7 +24,7 @@ ops = bluemoon.ldm_patched.modules.ops.disable_weight_init
 
 # CrossAttn precision handling
 if args.disable_attention_upcast:
-    print("disabling upcasting of attention")
+    logly.warn("disabling upcasting of attention")
     _ATTN_PRECISION = "fp16"
 else:
     _ATTN_PRECISION = "fp32"

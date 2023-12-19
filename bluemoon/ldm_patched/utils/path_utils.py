@@ -1,5 +1,6 @@
 import os
 import time
+from bluemoon.utils.logly import logly
 
 supported_pt_extensions = set(['.ckpt', '.pt', '.bin', '.pth', '.safetensors'])
 
@@ -41,7 +42,7 @@ if not os.path.exists(input_directory):
     try:
         pass  # os.makedirs(input_directory)
     except:
-        print("Failed to create input directory")
+        logly.error("Failed to create input directory")
 
 def set_output_directory(output_dir):
     global output_directory
@@ -235,7 +236,7 @@ def get_save_image_path(filename_prefix, output_dir, image_width=0, image_height
               "\n full_output_folder: " + os.path.abspath(full_output_folder) + \
               "\n         output_dir: " + output_dir + \
               "\n         commonpath: " + os.path.commonpath((output_dir, os.path.abspath(full_output_folder))) 
-        print(err)
+        logly.error(err)
         raise Exception(err)
 
     try:

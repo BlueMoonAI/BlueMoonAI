@@ -1,6 +1,7 @@
 import os
 import subprocess
 
+from bluemoon.utils.logly import logly
 
 class Updater:
     def __init__(self):
@@ -16,7 +17,7 @@ class Updater:
 
     def initialize_repo(self):
         if not self.repo_url:
-            print("Repository URL is not provided. Set the REPO_URL environment variable.")
+            logly.warn("Repository URL is not provided. Set the REPO_URL environment variable.")
             return
 
         # Check if the repository exists
@@ -27,24 +28,24 @@ class Updater:
                 subprocess.run(["git", "remote", "add", "origin", self.repo_url], cwd=self.repo_dir, check=True)
                 subprocess.run(["git", "fetch", "--depth=1", "--no-tags"], cwd=self.repo_dir, check=True)
             except subprocess.CalledProcessError as e:
-                print(f"Error initializing repository: {e}")
+                logly.error(f"Error initializing repository: {e}")
                 self.autoupdate = False
                 return
 
-            print("Repository initialized successfully.")
+            logly.info("Repository initialized successfully.")
 
     def git_reset(self):
         try:
             # Reset local branch to the latest commit on the remote branch, handling unrelated histories
             subprocess.run(["git", "fetch", "--all"], cwd=self.repo_dir, check=True)
             subprocess.run(["git", "reset", "--hard", f"origin/{self.branch_name}"], cwd=self.repo_dir, check=True)
-            print("successfully updated to the latest version")
+            logly.info("successfully updated to the latest version")
         except subprocess.CalledProcessError as e:
-            print(f"Error resetting local branch: {e}")
+            logly.error(f"Error resetting local branch: {e}")
 
     def run_update(self):
         if not self.repo_url:
-            print("Repository URL is not provided. Set the REPO_URL environment variable.")
+            logly.error("Repository URL is not provided. Set the REPO_URL environment variable.")
             return
 
         if self.autoupdate:
@@ -57,15 +58,15 @@ class Updater:
                     # Reset local branch to the latest commit on the remote branch
                     self.git_reset()
                 except Exception as e:
-                    print(f'Checking and update failed. Error: {e}')
+                    logly.warn(f'Checking and update failed. Error: {e}')
                     self.autoupdate = False
             else:
-                print("Repository not initialized. Update skipped.")
+                logly.warn("Repository not initialized. Update skipped.")
 
             if self.autoupdate:
-                print('Checking and Autoupdate succeeded.')
+                logly.info('Checking and Autoupdate succeeded.')
             else:
-                print('Checking and update skipped.')
+                logly.info('Checking and update skipped.')
 
 # If you want to run this script independently for testing, uncomment the next lines
 # updater = Updater()

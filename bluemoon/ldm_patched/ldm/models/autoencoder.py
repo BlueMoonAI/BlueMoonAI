@@ -1,4 +1,5 @@
 import math
+from bluemoon.utils.logly import logly
 
 import torch
 # import pytorch_lightning as pl
@@ -56,7 +57,7 @@ class AbstractAutoencoder(torch.nn.Module):
 
         if self.use_ema:
             self.model_ema = LitEma(self, decay=ema_decay)
-            print(f"Keeping EMAs of {len(list(self.model_ema.buffers()))}.")
+            logly.info(f"Keeping EMAs of {len(list(self.model_ema.buffers()))}.")
 
     def get_input(self, batch) -> Any:
         raise NotImplementedError()

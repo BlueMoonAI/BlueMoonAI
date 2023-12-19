@@ -1,28 +1,6 @@
 
 ![Web_Photo_Editor](https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/4af70b17-5349-478c-b3fb-956139e8ae75)
 
-
-## Table of Contents
-
-- [BlueMoonAI: Unleash Your Creative Potential](#bluemoonai-unleash-your-creative-potential)
-- [Installing BlueMoonAI](#installing-bluemoonai)
-  - [Linux (Using Anaconda)](#linux-using-anaconda)
-  - [Linux (Using Python Venv)](#linux-using-python-venv)
-  - [Linux (Using native system Python)](#linux-using-native-system-python)
-  - [Linux (AMD GPUs)](#linux-amd-gpus)
-  - [Windows(AMD GPUs)](#windowsamd-gpus)
-  - [Mac](#mac)
-  - [Docker](#docker)
-- [Contributing](#contributing)
-- [Code of Conduct](#code-of-conduct)
-- [Minimal Requirement](#minimal-requirement)
-- [Default Models](#default-models)
-- [Customization](#customization)
-  - [All CMD Flags](#all-cmd-flags)
-- [Update Log](#update-log)
-- [Localization/Translation](#localizationtranslation)
-- [Happy Creativity! ❤️](#happy-creativity-)
-
 <div align="center">
 
 # BlueMoonAI: Unleash Your Creative Potential
@@ -66,8 +44,36 @@ Create exquisite images effortlessly with our AI Image Generator (Text to Image)
 
 Let Your Creativity Flow.
 
+
+
+## Table of Contents
+
+- [BlueMoonAI: Unleash Your Creative Potential](#bluemoonai-unleash-your-creative-potential)
+- [Installing BlueMoonAI](#installing-bluemoonai)
+  - [Run in Colab](#run-in-colab)
+  - [Linux (Using Anaconda)](#linux-using-anaconda)
+  - [Linux (Using Python Venv)](#linux-using-python-venv)
+  - [Linux (Using native system Python)](#linux-using-native-system-python)
+  - [Linux (AMD GPUs)](#linux-amd-gpus)
+  - [Windows(AMD GPUs)](#windowsamd-gpus)
+  - [Mac](#mac)
+  - [Docker](#docker)
+- [Contributing](#contributing)
+- [Code of Conduct](#code-of-conduct)
+- [Minimal Requirement](#minimal-requirement)
+- [Default Models](#default-models)
+- [Customization](#customization)
+  - [All CMD Flags](#all-cmd-flags)
+- [Update Log](#update-log)
+- [Localization/Translation](#localizationtranslation)
+- [Happy Creativity! ❤️](#happy-creativity-)
+
+
 ## [Installing BlueMoonAI](#download)
 
+### Run in Colab
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BlueMoonAI/BlueMoonAI/blob/main/bluemoonai_colab.ipynb)
 
 ### Linux (Using Anaconda)
 Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
@@ -78,7 +84,7 @@ If you want to use Anaconda/Miniconda, you can
     cd BlueMoonAI
     conda env create -f environment.yaml
     conda activate BlueMoonAI
-    pip install -r requirements_versions.txt
+    pip install -r requirements.txt
 
 Then download the models: download [default models](#models) to the folder "BlueMoonAI\models\checkpoints". **Or let BlueMoonAI automatically download the models** using the launcher:
 
@@ -101,7 +107,7 @@ Your Linux needs to have **Python 3.10** installed, and lets say your Python can
     cd BlueMoonAI
     python3 -m venv BlueMoonAI_env
     source BlueMoonAI_env/bin/activate
-    pip install -r requirements_versions.txt
+    pip install -r requirements.txt
 
 See the above sections for model downloads. You can launch the software with:
 
@@ -122,7 +128,7 @@ If you know what you are doing, and your Linux already has **Python 3.10** insta
 
     git clone https://github.com/BlueMoonAI/BlueMoonAI.git
     cd BlueMoonAI
-    pip3 install -r requirements_versions.txt
+    pip3 install -r requirements.txt
 
 See the above sections for model downloads. You can launch the software with:
 

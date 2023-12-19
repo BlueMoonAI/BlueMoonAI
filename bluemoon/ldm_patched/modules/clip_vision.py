@@ -9,6 +9,7 @@ import bluemoon.ldm_patched.modules.model_patcher
 import bluemoon.ldm_patched.modules.model_management
 import bluemoon.ldm_patched.modules.utils
 import bluemoon.ldm_patched.modules.clip_model
+from bluemoon.utils.logly import logly
 
 class Output:
     def __getitem__(self, key):
@@ -93,7 +94,7 @@ def load_clipvision_from_sd(sd, prefix="", convert_keys=False):
     clip = ClipVisionModel(json_config)
     m, u = clip.load_sd(sd)
     if len(m) > 0:
-        print("extra clip vision:", m)
+        logly.info("extra clip vision:", m)
     u = set(u)
     keys = list(sd.keys())
     for k in keys:

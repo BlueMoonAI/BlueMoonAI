@@ -4,6 +4,7 @@
 
 import torch
 
+from bluemoon.utils.logly import logly
 
 def Fourier_filter(x, threshold, scale):
     # FFT
@@ -51,7 +52,7 @@ class FreeU:
                     try:
                         hsp = Fourier_filter(hsp, threshold=1, scale=scale[1])
                     except:
-                        print("Device", hsp.device, "does not support the torch.fft functions used in the FreeU node, switching to CPU.")
+                        logly.warn("Device", hsp.device, "does not support the torch.fft functions used in the FreeU node, switching to CPU.")
                         on_cpu_devices[hsp.device] = True
                         hsp = Fourier_filter(hsp.cpu(), threshold=1, scale=scale[1]).to(hsp.device)
                 else:
@@ -97,7 +98,7 @@ class FreeU_V2:
                     try:
                         hsp = Fourier_filter(hsp, threshold=1, scale=scale[1])
                     except:
-                        print("Device", hsp.device, "does not support the torch.fft functions used in the FreeU node, switching to CPU.")
+                        logly.warn("Device", hsp.device, "does not support the torch.fft functions used in the FreeU node, switching to CPU.")
                         on_cpu_devices[hsp.device] = True
                         hsp = Fourier_filter(hsp.cpu(), threshold=1, scale=scale[1]).to(hsp.device)
                 else:

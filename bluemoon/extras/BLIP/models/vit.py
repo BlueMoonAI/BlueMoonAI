@@ -13,10 +13,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 from functools import partial
 
-from timm.models.vision_transformer import _cfg, PatchEmbed
+from timm.models.vision_transformer import _cfg, PatchEmbed, resize_pos_embed
 from timm.models.registry import register_model
 from timm.models.layers import trunc_normal_, DropPath
 from timm.models.helpers import named_apply, adapt_input_conv
+from bluemoon.utils.logly import logly
 
 
 def checkpoint_wrapper(x):
@@ -301,7 +302,7 @@ def interpolate_pos_embed(pos_embed_checkpoint, visual_encoder):
             pos_tokens, size=(new_size, new_size), mode='bicubic', align_corners=False)
         pos_tokens = pos_tokens.permute(0, 2, 3, 1).flatten(1, 2)
         new_pos_embed = torch.cat((extra_tokens, pos_tokens), dim=1)
-        print('reshape position embedding from %d to %d'%(orig_size ** 2,new_size ** 2))
+        logly.info('reshape position embedding from %d to %d'%(orig_size ** 2,new_size ** 2))
         
         return new_pos_embed    
     else:

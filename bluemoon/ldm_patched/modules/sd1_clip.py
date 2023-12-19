@@ -9,6 +9,7 @@ from . import model_management
 import contextlib
 import bluemoon.ldm_patched.modules.clip_model
 import json
+from bluemoon.utils.logly import logly
 
 def gen_empty_tokens(special_tokens, length):
     start_token = special_tokens.get("start", None)
@@ -133,7 +134,7 @@ class SDClipModel(torch.nn.Module, ClipTokenWeightEncoder):
                         tokens_temp += [next_new_token]
                         next_new_token += 1
                     else:
-                        print("WARNING: shape mismatch when trying to apply embedding, embedding will be ignored", y.shape[0], current_embeds.weight.shape[1])
+                        logly.warn("WARNING: shape mismatch when trying to apply embedding, embedding will be ignored", y.shape[0], current_embeds.weight.shape[1])
             while len(tokens_temp) < len(x):
                 tokens_temp += [self.special_tokens["pad"]]
             out_tokens += [tokens_temp]
@@ -329,9 +330,9 @@ def load_embed(embedding_name, embedding_directory, embedding_size, embed_key=No
             else:
                 embed = torch.load(embed_path, map_location="cpu")
     except Exception as e:
-        print(traceback.format_exc())
+        logly.warn(traceback.format_exc())
         print()
-        print("error loading embedding, skipping loading:", embedding_name)
+        logly.error("error loading embedding, skipping loading:", embedding_name)
         return None
 
     if embed_out is None:
@@ -421,7 +422,7 @@ class SDTokenizer:
                     embedding_name = word[len(self.embedding_identifier):].strip('\n')
                     embed, leftover = self._try_get_embedding(embedding_name)
                     if embed is None:
-                        print(f"warning, embedding:{embedding_name} does not exist, ignoring")
+                        logly.warn(f"warning, embedding:{embedding_name} does not exist, ignoring")
                     else:
                         if len(embed.shape) == 1:
                             tokens.append([(embed, weight)])

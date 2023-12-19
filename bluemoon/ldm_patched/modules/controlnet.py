@@ -7,6 +7,7 @@ import bluemoon.ldm_patched.modules.model_management
 import bluemoon.ldm_patched.modules.model_detection
 import bluemoon.ldm_patched.modules.model_patcher
 import bluemoon.ldm_patched.modules.ops
+from bluemoon.utils.logly import logly
 
 import bluemoon.ldm_patched.controlnet.cldm
 import bluemoon.ldm_patched.t2ia.adapter
@@ -359,7 +360,7 @@ def load_controlnet(ckpt_path, model=None):
 
         leftover_keys = controlnet_data.keys()
         if len(leftover_keys) > 0:
-            print("leftover keys:", leftover_keys)
+            logly.info("leftover keys:", leftover_keys)
         controlnet_data = new_sd
 
     pth_key = 'control_model.zero_convs.0.0.weight'
@@ -374,7 +375,7 @@ def load_controlnet(ckpt_path, model=None):
     else:
         net = load_t2i_adapter(controlnet_data)
         if net is None:
-            print("error checkpoint does not contain controlnet or t2i adapter data", ckpt_path)
+            logly.error("error checkpoint does not contain controlnet or t2i adapter data", ckpt_path)
         return net
 
     if controlnet_config is None:
@@ -401,7 +402,7 @@ def load_controlnet(ckpt_path, model=None):
                             cd = controlnet_data[x]
                             cd += model_sd[sd_key].type(cd.dtype).to(cd.device)
             else:
-                print("WARNING: Loaded a diff controlnet without a model. It will very likely not work.")
+                logly.warn("WARNING: Loaded a diff controlnet without a model. It will very likely not work.")
 
         class WeightsLoader(torch.nn.Module):
             pass
@@ -410,7 +411,7 @@ def load_controlnet(ckpt_path, model=None):
         missing, unexpected = w.load_state_dict(controlnet_data, strict=False)
     else:
         missing, unexpected = control_model.load_state_dict(controlnet_data, strict=False)
-    print(missing, unexpected)
+    logly.warn(missing, unexpected)
 
     global_average_pooling = False
     filename = os.path.splitext(ckpt_path)[0]
@@ -506,9 +507,9 @@ def load_t2i_adapter(t2i_data):
         return None
     missing, unexpected = model_ad.load_state_dict(t2i_data)
     if len(missing) > 0:
-        print("t2i missing", missing)
+        logly.warn("t2i missing", missing)
 
     if len(unexpected) > 0:
-        print("t2i unexpected", unexpected)
+        logly.warn("t2i unexpected", unexpected)
 
     return T2IAdapter(model_ad, model_ad.input_channels)
