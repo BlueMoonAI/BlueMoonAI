@@ -23,6 +23,7 @@ from modules.auth import auth_enabled, check_auth
 
 from bluemoon.utils.logly import logly
 
+
 def generate_clicked(*args):
     import bluemoon.ldm_patched.modules.model_management as model_management
 
@@ -579,5 +580,6 @@ shared.gradio_root.launch(
     server_port=args_manager.args.port,
     share=args_manager.args.share,
     auth=check_auth if args_manager.args.share and auth_enabled else None,
-    blocked_paths=[constants.AUTH_FILENAME]
+    blocked_paths=[constants.AUTH_FILENAME],
+    favicon_path="./UI/img/bluemoon.ico"
 )

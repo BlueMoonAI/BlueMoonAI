@@ -31,6 +31,8 @@ def javascript_html():
     viewer_js_path = webpath('ui/javascript/viewer.js')
     image_viewer_js_path = webpath('ui/javascript/imageviewer.js')
     analytics_js_path = webpath('ui/javascript/analytics.js')
+    notice_js_path = webpath('ui/javascript/notice.js')
+
     head = f'<script type="text/javascript">{localization_js(args_manager.args.language)}</script>\n'
     head += f'<script type="text/javascript" src="{script_js_path}"></script>\n'
     head += f'<script type="text/javascript" src="{context_menus_js_path}"></script>\n'
@@ -40,6 +42,7 @@ def javascript_html():
     head += f'<script type="text/javascript" src="{viewer_js_path}"></script>\n'
     head += f'<script type="text/javascript" src="{image_viewer_js_path}"></script>\n'
     head += f'<script type="text/javascript" src="{analytics_js_path}"></script>\n'
+    head += f'<script type="text/javascript" src="{notice_js_path}"></script>\n'
 
     if args_manager.args.theme:
         head += f'<script type="text/javascript">set_theme(\"{args_manager.args.theme}\");</script>\n'
