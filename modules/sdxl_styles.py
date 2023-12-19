@@ -2,6 +2,7 @@ import os
 import re
 import json
 
+from bluemoon.utils.logly import logly
 from modules.util import get_files_from_folder
 
 
@@ -45,8 +46,8 @@ for styles_file in styles_files:
                 negative_prompt = entry['negative_prompt'] if 'negative_prompt' in entry else ''
                 styles[name] = (prompt, negative_prompt)
     except Exception as e:
-        print(str(e))
-        print(f'Failed to load style file {styles_file}')
+        logly.warn(str(e))
+        logly.warn(f'Failed to load style file {styles_file}')
 
 style_keys = list(styles.keys())
 bluemoon_expansion = "BlueMoonAI V1"
@@ -64,7 +65,7 @@ def apply_wildcards(wildcard_text, rng, directory=wildcards_path):
         if len(placeholders) == 0:
             return wildcard_text
 
-        print(f'[Wildcards] processing: {wildcard_text}')
+        logly.info(f'[Wildcards] processing: {wildcard_text}')
         for placeholder in placeholders:
             try:
                 words = open(os.path.join(directory, f'{placeholder}.txt'), encoding='utf-8').read().splitlines()
@@ -72,10 +73,10 @@ def apply_wildcards(wildcard_text, rng, directory=wildcards_path):
                 assert len(words) > 0
                 wildcard_text = wildcard_text.replace(f'__{placeholder}__', rng.choice(words), 1)
             except:
-                print(f'[Wildcards] Warning: {placeholder}.txt missing or empty. '
+                logly.warn(f'[Wildcards] Warning: {placeholder}.txt missing or empty. '
                       f'Using "{placeholder}" as a normal word.')
                 wildcard_text = wildcard_text.replace(f'__{placeholder}__', placeholder)
-            print(f'[Wildcards] {wildcard_text}')
+            logly.info(f'[Wildcards] {wildcard_text}')
 
-    print(f'[Wildcards] BFS stack overflow. Current text: {wildcard_text}')
+    logly.warn(f'[Wildcards] BFS stack overflow. Current text: {wildcard_text}')
     return wildcard_text

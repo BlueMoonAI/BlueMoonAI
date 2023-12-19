@@ -6,6 +6,7 @@ import sys
 import re
 import logging
 
+from bluemoon.utils.logly import logly
 
 logging.getLogger("torch.distributed.nn").setLevel(logging.ERROR)  # sshh...
 logging.getLogger("xformers").addFilter(lambda record: 'A matching Triton is not available' not in record.getMessage())
@@ -31,7 +32,7 @@ def is_installed(package):
 
 def run(command, desc=None, errdesc=None, custom_env=None, live: bool = default_command_live) -> str:
     if desc is not None:
-        print(desc)
+        logly.info(desc)
 
     run_kwargs = {
         "args": command,
@@ -67,8 +68,8 @@ def run_pip(command, desc=None, live=default_command_live):
         return run(f'"{python}" -m pip {command} --prefer-binary{index_url_line}', desc=f"Installing {desc}",
                    errdesc=f"Couldn't install {desc}", live=live)
     except Exception as e:
-        print(e)
-        print(f'CMD Failed {desc}: {command}')
+        logly.error(e)
+        logly.error(f'CMD Failed {desc}: {command}')
         return None
 
 

@@ -5,6 +5,8 @@ import modules.core as core
 from bluemoon.ldm_patched.pfn.architecture.RRDB import RRDBNet as ESRGAN
 from bluemoon.ldm_patched.contrib.external_upscale_model import ImageUpscaleWithModel
 from collections import OrderedDict
+
+from bluemoon.utils.logly import logly
 from modules.config import path_upscale_models
 
 model_filename = os.path.join(path_upscale_models, 'bluemoon_upscaler_s409985e5.bin')
@@ -15,7 +17,7 @@ model = None
 def perform_upscale(img):
     global model
 
-    print(f'Upscaling image with shape {str(img.shape)} ...')
+    logly.info(f'Upscaling image with shape {str(img.shape)} ...')
 
     if model is None:
         sd = torch.load(model_filename)

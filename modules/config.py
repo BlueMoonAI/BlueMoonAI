@@ -5,6 +5,7 @@ import numbers
 import args_manager
 import modules.flags
 import modules.sdxl_styles
+from bluemoon.utils.logly import logly
 from modules.default_load import model_links, sd_links, paint_links, lcm_links, ip_adapter_links, upscaler_links
 
 from modules.model_loader import load_file_from_url
@@ -24,12 +25,12 @@ try:
             config_dict = json.load(json_file)
             always_save_keys = list(config_dict.keys())
 except Exception as e:
-    print(f'Failed to load config file "{config_path}" . The reason is: {str(e)}')
-    print('Please make sure that:')
-    print(f'1. The file "{config_path}" is a valid text file, and you have access to read it.')
-    print('2. Use "\\\\" instead of "\\" when describing paths.')
-    print('3. There is no "," before the last "}".')
-    print('4. All key/value formats are correct.')
+    logly.error(f'Failed to load config file "{config_path}" . The reason is: {str(e)}')
+    logly.error('Please make sure that:')
+    logly.error(f'1. The file "{config_path}" is a valid text file, and you have access to read it.')
+    logly.error('2. Use "\\\\" instead of "\\" when describing paths.')
+    logly.error('3. There is no "," before the last "}".')
+    logly.error('4. All key/value formats are correct.')
 
 preset = args_manager.args.preset
 
@@ -39,12 +40,12 @@ if isinstance(preset, str):
         if os.path.exists(preset_path):
             with open(preset_path, "r", encoding="utf-8") as json_file:
                 config_dict.update(json.load(json_file))
-                print(f'Loaded preset: {preset_path}')
+                logly.info(f'Loaded preset: {preset_path}')
         else:
             raise FileNotFoundError
     except Exception as e:
-        print(f"Load preset [{preset_path}] failed")
-        print(e)
+        logly.info(f"Load preset [{preset_path}] failed")
+        logly.error(e)
 
 
 def get_dir_or_set_default(key, default_value):
@@ -61,7 +62,7 @@ def get_dir_or_set_default(key, default_value):
         return v
     else:
         if v is not None:
-            print(
+            logly.error(
                 f'Failed to load config key: {json.dumps({key: v})} is invalid or does not exist; will use {json.dumps({key: default_value})} instead.')
         dp = os.path.abspath(os.path.join(os.path.dirname(__file__), default_value))
         os.makedirs(dp, exist_ok=True)
@@ -101,7 +102,7 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
         return v
     else:
         if v is not None:
-            print(
+            logly.error(
                 f'Failed to load config key: {json.dumps({key: v})} is invalid; will use {json.dumps({key: default_value})} instead.')
         config_dict[key] = default_value
         return default_value
@@ -297,7 +298,7 @@ if REWRITE_PRESET and isinstance(args_manager.args.preset, str):
     save_path = 'presets/' + args_manager.args.preset + '.json'
     with open(save_path, "w", encoding="utf-8") as json_file:
         json.dump({k: config_dict[k] for k in possible_preset_keys}, json_file, indent=4)
-    print(f'Preset saved to {save_path}. Exiting ...')
+    logly.info(f'Preset saved to {save_path}. Exiting ...')
     exit(0)
 
 

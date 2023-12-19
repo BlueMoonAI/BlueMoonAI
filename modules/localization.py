@@ -1,6 +1,7 @@
 import json
 import os
 
+from bluemoon.utils.logly import logly
 
 current_translation = {}
 localization_root = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'language')
@@ -20,8 +21,8 @@ def localization_js(filename):
                         assert isinstance(k, str)
                         assert isinstance(v, str)
             except Exception as e:
-                print(str(e))
-                print(f'Failed to load localization file {full_name}')
+                logly.error(str(e))
+                logly.error(f'Failed to load localization file {full_name}')
 
     # current_translation = {k: 'XXX' for k in current_translation.keys()}  # use this to see if all texts are covered
 

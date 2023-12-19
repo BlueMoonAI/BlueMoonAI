@@ -25,8 +25,8 @@ def try_load_sorted_styles(style_names, default_selected):
                         sorted_styles.append(x)
                 all_styles = sorted_styles
     except Exception as e:
-        print('Load style sorting failed.')
-        print(e)
+        logly.error('Load style sorting failed.')
+        logly.error(e)
 
     unselected = [y for y in all_styles if y not in default_selected]
     all_styles = default_selected + unselected
@@ -42,8 +42,8 @@ def sort_styles(selected):
         with open('sorted_styles.json', 'wt', encoding='utf-8') as fp:
             json.dump(sorted_styles, fp, indent=4)
     except Exception as e:
-        print('Write style sorting failed.')
-        print(e)
+        logly.error('Write style sorting failed.')
+        logly.error(e)
     all_styles = sorted_styles
     return gr.CheckboxGroup.update(choices=sorted_styles)
 
