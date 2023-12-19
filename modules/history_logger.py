@@ -68,7 +68,7 @@ def log(img, dic):
     with open(html_name, 'w', encoding='utf-8') as f:
         f.write(begin_part + middle_part + end_part)
 
-    print(f'Image generated with private log at: {html_name}')
+    logly.info(f'Image generated with private log at: {html_name}')
 
     log_cache[html_name] = middle_part
 

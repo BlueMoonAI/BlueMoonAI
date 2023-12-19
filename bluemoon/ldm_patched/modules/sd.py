@@ -517,14 +517,14 @@ def load_unet_state_dict(sd): #load unet in diffusers format
     model.load_model_weights(new_sd, "")
     left_over = sd.keys()
     if len(left_over) > 0:
-        print("left over keys in unet:", left_over)
+        logly.info("left over keys in unet:", left_over)
     return bluemoon.ldm_patched.modules.model_patcher.ModelPatcher(model, load_device=load_device, offload_device=offload_device)
 
 def load_unet(unet_path):
     sd = bluemoon.ldm_patched.modules.utils.load_torch_file(unet_path)
     model = load_unet_state_dict(sd)
     if model is None:
-        print("ERROR UNSUPPORTED UNET", unet_path)
+        logly.error("ERROR UNSUPPORTED UNET", unet_path)
         raise RuntimeError("ERROR: Could not detect model type of: {}".format(unet_path))
     return model
 

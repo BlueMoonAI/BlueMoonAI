@@ -1818,8 +1818,8 @@ def load_custom_node(module_path, ignore=set()):
             logly.warn(f"Skip {module_path} module for custom nodes due to the lack of NODE_CLASS_MAPPINGS.")
             return False
     except Exception as e:
-        print(traceback.format_exc())
-        print(f"Cannot import {module_path} module for custom nodes:", e)
+        logly.error(traceback.format_exc())
+        logly.error(f"Cannot import {module_path} module for custom nodes:", e)
         return False
 
 def load_custom_nodes():
@@ -1840,13 +1840,13 @@ def load_custom_nodes():
             node_import_times.append((time.perf_counter() - time_before, module_path, success))
 
     if len(node_import_times) > 0:
-        print("\nImport times for custom nodes:")
+        logly.info("\nImport times for custom nodes:")
         for n in sorted(node_import_times):
             if n[2]:
                 import_message = ""
             else:
                 import_message = " (IMPORT FAILED)"
-            print("{:6.1f} seconds{}:".format(n[0], import_message), n[1])
+            logly.info("{:6.1f} seconds{}:".format(n[0], import_message), n[1])
         print()
 
 def init_custom_nodes():

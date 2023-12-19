@@ -25,6 +25,7 @@ import modules.constants as constants
 from bluemoon.ldm_patched.modules.samplers import calc_cond_uncond_batch
 from bluemoon.ldm_patched.k_diffusion.sampling import BatchedBrownianTree
 from bluemoon.ldm_patched.ldm.modules.diffusionmodules.openaimodel import forward_timestep_embed, apply_control
+from bluemoon.utils.logly import logly
 from modules.patch_precision import patch_all_precision
 from modules.patch_clip import patch_all_clip
 
@@ -62,7 +63,7 @@ def calculate_weight_patched(self, patches, weight, key):
             w1 = v[0]
             if alpha != 0.0:
                 if w1.shape != weight.shape:
-                    print("WARNING SHAPE MISMATCH {} WEIGHT NOT MERGED {} != {}".format(key, w1.shape, weight.shape))
+                    logly.info("WARNING SHAPE MISMATCH {} WEIGHT NOT MERGED {} != {}".format(key, w1.shape, weight.shape))
                 else:
                     weight += alpha * bluemoon.ldm_patched.modules.model_management.cast_to_device(w1, weight.device, weight.dtype)
         elif patch_type == "lora":
@@ -79,7 +80,7 @@ def calculate_weight_patched(self, patches, weight, key):
                 weight += (alpha * torch.mm(mat1.flatten(start_dim=1), mat2.flatten(start_dim=1))).reshape(
                     weight.shape).type(weight.dtype)
             except Exception as e:
-                print("ERROR", key, e)
+                logly.error("ERROR", key, e)
         elif patch_type == "BlueMoon":
             w1 = bluemoon.ldm_patched.modules.model_management.cast_to_device(v[0], weight.device, torch.float32)
             w_min = bluemoon.ldm_patched.modules.model_management.cast_to_device(v[1], weight.device, torch.float32)
@@ -87,7 +88,7 @@ def calculate_weight_patched(self, patches, weight, key):
             w1 = (w1 / 255.0) * (w_max - w_min) + w_min
             if alpha != 0.0:
                 if w1.shape != weight.shape:
-                    print("WARNING SHAPE MISMATCH {} BlueMoonAI WEIGHT NOT MERGED {} != {}".format(key, w1.shape, weight.shape))
+                    logly.warn("WARNING SHAPE MISMATCH {} BlueMoonAI WEIGHT NOT MERGED {} != {}".format(key, w1.shape, weight.shape))
                 else:
                     weight += alpha * bluemoon.ldm_patched.modules.model_management.cast_to_device(w1, weight.device, weight.dtype)
         elif patch_type == "lokr":
@@ -128,7 +129,7 @@ def calculate_weight_patched(self, patches, weight, key):
             try:
                 weight += alpha * torch.kron(w1, w2).reshape(weight.shape).type(weight.dtype)
             except Exception as e:
-                print("ERROR", key, e)
+                logly.error("ERROR", key, e)
         elif patch_type == "loha":
             w1a = v[0]
             w1b = v[1]
@@ -157,7 +158,7 @@ def calculate_weight_patched(self, patches, weight, key):
             try:
                 weight += (alpha * m1 * m2).reshape(weight.shape).type(weight.dtype)
             except Exception as e:
-                print("ERROR", key, e)
+                logly.error("ERROR", key, e)
         elif patch_type == "glora":
             if v[4] is not None:
                 alpha *= v[4] / v[0].shape[0]
@@ -169,7 +170,7 @@ def calculate_weight_patched(self, patches, weight, key):
 
             weight += ((torch.mm(b2, b1) + torch.mm(torch.mm(weight.flatten(start_dim=1), a2), a1)) * alpha).reshape(weight.shape).type(weight.dtype)
         else:
-            print("patch type not recognized", patch_type, key)
+            logly.warn("patch type not recognized", patch_type, key)
 
     return weight
 
@@ -441,7 +442,7 @@ def patched_load_models_gpu(*args, **kwargs):
     y = bluemoon.ldm_patched.modules.model_management.load_models_gpu_origin(*args, **kwargs)
     moving_time = time.perf_counter() - execution_start_time
     if moving_time > 0.1:
-        print(f'[BlueMoonAI Model Management] Moving model(s) has taken {moving_time:.2f} seconds')
+        logly.info(f'[BlueMoonAI Model Management] Moving model(s) has taken {moving_time:.2f} seconds')
     return y
 
 
