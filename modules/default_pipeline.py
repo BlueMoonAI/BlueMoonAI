@@ -10,6 +10,7 @@ import bluemoon.extras.vae_interpose as vae_interpose
 from bluemoon.extras.expansion import BlueMoonExpansion
 
 from bluemoon.ldm_patched.modules.model_base import SDXL, SDXLRefiner
+from bluemoon.utils.logly import logly
 from modules.sample_hijack import clip_separate
 
 
@@ -67,7 +68,7 @@ def refresh_base_model(name):
 
     model_base = core.StableDiffusionModel()
     model_base = core.load_model(filename)
-    print(f'Base model loaded: {model_base.filename}')
+    logly.info(f'Base model loaded: {model_base.filename}')
     return
 
 
@@ -84,11 +85,11 @@ def refresh_refiner_model(name):
     model_refiner = core.StableDiffusionModel()
 
     if name == 'None':
-        print(f'Refiner unloaded.')
+        logly.info(f'Refiner unloaded.')
         return
 
     model_refiner = core.load_model(filename)
-    print(f'Refiner model loaded: {model_refiner.filename}')
+    logly.info(f'Refiner model loaded: {model_refiner.filename}')
 
     if isinstance(model_refiner.unet.model, SDXL):
         model_refiner.clip = None
@@ -107,7 +108,7 @@ def refresh_refiner_model(name):
 def synthesize_refiner_model():
     global model_base, model_refiner
 
-    print('Synthetic Refiner Activated')
+    logly.info('Synthetic Refiner Activated')
     model_refiner = core.StableDiffusionModel(
         unet=model_base.unet,
         vae=model_base.vae,
@@ -142,13 +143,13 @@ def clip_encode_single(clip, text, verbose=False):
     cached = clip.fcs_cond_cache.get(text, None)
     if cached is not None:
         if verbose:
-            print(f'[CLIP Cached] {text}')
+            logly.info(f'[CLIP Cached] {text}')
         return cached
     tokens = clip.tokenize(text)
     result = clip.encode_from_tokens(tokens, return_pooled=True)
     clip.fcs_cond_cache[text] = result
     if verbose:
-        print(f'[CLIP Encoded] {text}')
+        logly.info(f'[CLIP Encoded] {text}')
     return result
 
 
@@ -225,7 +226,7 @@ def refresh_everything(refiner_model_name, base_model_name, loras,
     final_refiner_vae = None
 
     if use_synthetic_refiner and refiner_model_name == 'None':
-        print('Synthetic Refiner Activated')
+        logly.info('Synthetic Refiner Activated')
         refresh_base_model(base_model_name)
         synthesize_refiner_model()
     else:
@@ -330,15 +331,15 @@ def process_diffusion(positive_cond, negative_cond, steps, switch, width, height
             if denoise > (float(steps - switch) / float(steps)) ** 0.834:  # karras 0.834
                 target_unet, target_vae, target_refiner_unet, target_refiner_vae \
                     = final_unet, final_vae, None, None
-                print(f'[Sampler] only use Base because of partial denoise.')
+                logly.info(f'[Sampler] only use Base because of partial denoise.')
             else:
                 positive_cond = clip_separate(positive_cond, target_model=final_refiner_unet.model, target_clip=final_clip)
                 negative_cond = clip_separate(negative_cond, target_model=final_refiner_unet.model, target_clip=final_clip)
                 target_unet, target_vae, target_refiner_unet, target_refiner_vae \
                     = final_refiner_unet, final_refiner_vae, None, None
-                print(f'[Sampler] only use Refiner because of partial denoise.')
+                logly.info(f'[Sampler] only use Refiner because of partial denoise.')
 
-    print(f'[Sampler] refiner_swap_method = {refiner_swap_method}')
+    logly.info(f'[Sampler] refiner_swap_method = {refiner_swap_method}')
 
     if latent is None:
         initial_latent = core.generate_empty_latent(width=width, height=height, batch_size=1)
@@ -349,7 +350,7 @@ def process_diffusion(positive_cond, negative_cond, steps, switch, width, height
     sigma_min, sigma_max = minmax_sigmas[minmax_sigmas > 0].min(), minmax_sigmas.max()
     sigma_min = float(sigma_min.cpu().numpy())
     sigma_max = float(sigma_max.cpu().numpy())
-    print(f'[Sampler] sigma_min = {sigma_min}, sigma_max = {sigma_max}')
+    logly.info(f'[Sampler] sigma_min = {sigma_min}, sigma_max = {sigma_max}')
 
     modules.patch.BrownianTreeNoiseSamplerPatched.global_init(
         initial_latent['samples'].to(bluemoon.ldm_patched.modules.model_management.get_torch_device()),
@@ -393,12 +394,12 @@ def process_diffusion(positive_cond, negative_cond, steps, switch, width, height
             previewer_start=0,
             previewer_end=steps,
         )
-        print('Refiner swapped by changing ksampler. Noise preserved.')
+        logly.info('Refiner swapped by changing ksampler. Noise preserved.')
 
         target_model = target_refiner_unet
         if target_model is None:
             target_model = target_unet
-            print('Use base model to refine itself - this may because of developer mode.')
+            logly.info('Use base model to refine itself - this may because of developer mode.')
 
         sampled_latent = core.ksampler(
             model=target_model,
@@ -442,12 +443,12 @@ def process_diffusion(positive_cond, negative_cond, steps, switch, width, height
             previewer_start=0,
             previewer_end=steps
         )
-        print('BlueMoon AI VAE-based swap.')
+        logly.info('BlueMoon AI VAE-based swap.')
 
         target_model = target_refiner_unet
         if target_model is None:
             target_model = target_unet
-            print('Use base model to refine itself - this may because of developer mode.')
+            logly.info('Use base model to refine itself - this may because of developer mode.')
 
         sampled_latent = vae_parse(sampled_latent)
 
