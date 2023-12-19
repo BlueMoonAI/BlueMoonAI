@@ -2,6 +2,8 @@ import json
 import os
 import json
 
+from bluemoon.utils.logly import logly
+
 
 def load_model_links(file_path):
     try:
@@ -9,10 +11,10 @@ def load_model_links(file_path):
             model_links = json.load(json_file)
         return model_links
     except FileNotFoundError:
-        print(f'Error: File not found - "{file_path}"')
+        logly.error(f'Error: File not found - "{file_path}"')
         raise
     except Exception as e:
-        print(f'Error loading models file "{file_path}": {str(e)}')
+        logly.error(f'Error loading models file "{file_path}": {str(e)}')
         raise
 
 
@@ -21,4 +23,4 @@ def load_model_links(file_path):
 # Example usage:
 models_path = os.path.abspath("../models/default/models.json")
 model_links = load_model_links(models_path)
-print(model_links.get('default', {}).get('default_value', None))
+logly.info(model_links.get('default', {}).get('default_value', None))

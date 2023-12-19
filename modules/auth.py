@@ -4,6 +4,8 @@ import modules.constants as constants
 
 from os.path import exists
 
+from bluemoon.utils.logly import logly
+
 
 def auth_list_to_dict(auth_list):
     auth_dict = {}
@@ -25,7 +27,7 @@ def load_auth_data(filename=None):
                 if isinstance(auth_obj, list) and len(auth_obj) > 0:
                     auth_dict = auth_list_to_dict(auth_obj)
             except Exception as e:
-                print('load_auth_data, e: ' + str(e))
+                logly.error('load_auth_data, e: ' + str(e))
     return auth_dict
 
 
