@@ -1,5 +1,7 @@
 /* based on https://github.com/AUTOMATIC1111/stable-diffusion-webui/blob/v1.6.0/style.css */
-
+.overlay-hidden {
+    display: none;
+}
 #context-menu{
     z-index:9999;
     position:absolute;
