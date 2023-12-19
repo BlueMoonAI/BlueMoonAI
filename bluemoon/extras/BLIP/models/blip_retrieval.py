@@ -267,7 +267,7 @@ def blip_retrieval(pretrained='',**kwargs):
     if pretrained:
         model,msg = load_checkpoint(model,pretrained)
         logly.warn("missing keys:")
-        print(msg.missing_keys)
+        logly.info(msg.missing_keys)
     return model 
 
 

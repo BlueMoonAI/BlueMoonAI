@@ -281,38 +281,38 @@ if __name__ == '__main__':
     xy = np.array((x, y)).T
 
     logly.info('\n--->uv:')
-    print(uv)
-    print('\n--->xy:')
-    print(xy)
+    logly.info(uv)
+    logly.info('\n--->xy:')
+    logly.info(xy)
 
     trans, trans_inv = get_similarity_transform(uv, xy)
 
-    print('\n--->trans matrix:')
-    print(trans)
+    logly.info('\n--->trans matrix:')
+    logly.info(trans)
 
-    print('\n--->trans_inv matrix:')
-    print(trans_inv)
+    logly.info('\n--->trans_inv matrix:')
+    logly.info(trans_inv)
 
-    print('\n---> apply transform to uv')
-    print('\nxy_m = uv_augmented * trans')
+    logly.info('\n---> apply transform to uv')
+    logly.info('\nxy_m = uv_augmented * trans')
     uv_aug = np.hstack((uv, np.ones((uv.shape[0], 1))))
     xy_m = np.dot(uv_aug, trans)
-    print(xy_m)
+    logly.info(xy_m)
 
-    print('\nxy_m = tformfwd(trans, uv)')
+    logly.info('\nxy_m = tformfwd(trans, uv)')
     xy_m = tformfwd(trans, uv)
-    print(xy_m)
+    logly.info(xy_m)
 
-    print('\n---> apply inverse transform to xy')
-    print('\nuv_m = xy_augmented * trans_inv')
+    logly.info('\n---> apply inverse transform to xy')
+    logly.info('\nuv_m = xy_augmented * trans_inv')
     xy_aug = np.hstack((xy, np.ones((xy.shape[0], 1))))
     uv_m = np.dot(xy_aug, trans_inv)
-    print(uv_m)
+    logly.info(uv_m)
 
-    print('\nuv_m = tformfwd(trans_inv, xy)')
+    logly.info('\nuv_m = tformfwd(trans_inv, xy)')
     uv_m = tformfwd(trans_inv, xy)
-    print(uv_m)
+    logly.info(uv_m)
 
     uv_m = tforminv(trans, xy)
-    print('\nuv_m = tforminv(trans, xy)')
-    print(uv_m)
+    logly.info('\nuv_m = tforminv(trans, xy)')
+    logly.info(uv_m)

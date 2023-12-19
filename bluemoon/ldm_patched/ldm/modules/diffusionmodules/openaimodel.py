@@ -8,6 +8,7 @@ import torch.nn.functional as F
 from einops import rearrange
 from functools import partial
 
+from bluemoon.utils.logly import logly
 from .util import (
     checkpoint,
     avg_pool_nd,
@@ -362,7 +363,7 @@ def apply_control(h, control, name):
             try:
                 h += ctrl
             except:
-                print("warning control could not be applied", h.shape, ctrl.shape)
+                logly.warn("warning control could not be applied", h.shape, ctrl.shape)
     return h
 
 class UNetModel(nn.Module):
@@ -504,7 +505,7 @@ class UNetModel(nn.Module):
             if isinstance(self.num_classes, int):
                 self.label_emb = nn.Embedding(num_classes, time_embed_dim)
             elif self.num_classes == "continuous":
-                print("setting up linear c_adm embedding layer")
+                logly.info("setting up linear c_adm embedding layer")
                 self.label_emb = nn.Linear(1, time_embed_dim)
             elif self.num_classes == "sequential":
                 assert adm_in_channels is not None

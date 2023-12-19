@@ -2,6 +2,8 @@ import os
 from urllib.parse import urlparse
 from typing import Optional
 
+from bluemoon.utils.logly import logly
+
 
 def load_file_from_url(
         url: str,
@@ -20,7 +22,7 @@ def load_file_from_url(
         file_name = os.path.basename(parts.path)
     cached_file = os.path.abspath(os.path.join(model_dir, file_name))
     if not os.path.exists(cached_file):
-        print(f'Downloading: "{url}" to {cached_file}\n')
+        logly.info(f'Downloading: "{file_name}" to {cached_file}\n')
         from torch.hub import download_url_to_file
         download_url_to_file(url, cached_file, progress=progress)
     return cached_file
