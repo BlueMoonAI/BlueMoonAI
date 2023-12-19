@@ -1,5 +1,8 @@
 import threading
 
+import bluemoonai_version
+from bluemoon.utils.logly import logly
+
 
 class AsyncTask:
     def __init__(self, args):
@@ -36,7 +39,7 @@ def worker():
     import bluemoon.extras.face_crop
 
     from modules.sdxl_styles import apply_style, apply_wildcards, bluemoon_expansion
-    from modules.private_logger import log
+    from modules.history_logger import log
     from bluemoon.extras.expansion import safe_str
     from modules.util import remove_empty_str, HWC3, resize_image, \
         get_image_shape_ceil, set_image_shape_ceil, get_shape_ceil, resample_image
@@ -492,7 +495,7 @@ def worker():
 
             if direct_return:
                 d = [('Upscale (Fast)', '2x')]
-                log(uov_input_image, d, single_line_number=1)
+                log(uov_input_image, d)
                 yield_result(async_task, uov_input_image, do_not_show_finished_images=True)
                 return
 
@@ -774,12 +777,13 @@ def worker():
                         ('Refiner Switch', refiner_switch),
                         ('Sampler', sampler_name),
                         ('Scheduler', scheduler_name),
-                        ('Seed', task['task_seed'])
+                        ('Seed', task['task_seed']),
                     ]
                     for n, w in loras:
                         if n != 'None':
-                            d.append((f'LoRA [{n}] weight', w))
-                    log(x, d, single_line_number=3)
+                            d.append((f'LoRA', f'{n} : {w}'))
+                        d.append(('Version', 'v' + bluemoonai_version.get_version()))
+                        log(x, d)
 
                 yield_result(async_task, imgs, do_not_show_finished_images=len(tasks) == 1)
             except bluemoon.ldm_patched.modules.model_management.InterruptProcessingException as e:

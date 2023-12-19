@@ -3,6 +3,7 @@ from numpy.linalg import inv, lstsq
 from numpy.linalg import matrix_rank as rank
 from numpy.linalg import norm
 
+from bluemoon.utils.logly import logly
 
 class MatlabCp2tormException(Exception):
 
@@ -279,7 +280,7 @@ if __name__ == '__main__':
     uv = np.array((u, v)).T
     xy = np.array((x, y)).T
 
-    print('\n--->uv:')
+    logly.info('\n--->uv:')
     print(uv)
     print('\n--->xy:')
     print(xy)

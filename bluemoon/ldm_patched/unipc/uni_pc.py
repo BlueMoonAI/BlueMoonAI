@@ -3,6 +3,7 @@
 import torch
 import torch.nn.functional as F
 import math
+from bluemoon.utils.logly import logly
 
 from tqdm.auto import trange, tqdm
 
@@ -486,7 +487,7 @@ class UniPC:
             return self.multistep_uni_pc_vary_update(x, model_prev_list, t_prev_list, t, order, **kwargs)
 
     def multistep_uni_pc_vary_update(self, x, model_prev_list, t_prev_list, t, order, use_corrector=True):
-        print(f'using unified predictor-corrector with order {order} (solver type: vary coeff)')
+        logly.info(f'using unified predictor-corrector with order {order} (solver type: vary coeff)')
         ns = self.noise_schedule
         assert order <= len(model_prev_list)
 
@@ -530,7 +531,7 @@ class UniPC:
             A_p = C_inv_p
 
         if use_corrector:
-            print('using corrector')
+            logly.info('using corrector')
             C_inv = torch.linalg.inv(C)
             A_c = C_inv
 

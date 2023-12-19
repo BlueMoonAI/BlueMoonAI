@@ -8,6 +8,7 @@ import bluemoon.ldm_patched.modules.ops
 from enum import Enum
 import contextlib
 from . import utils
+from bluemoon.utils.logly import logly
 
 class ModelType(Enum):
     EPS = 1
@@ -57,8 +58,8 @@ class BaseModel(torch.nn.Module):
         if self.adm_channels is None:
             self.adm_channels = 0
         self.inpaint_model = False
-        print("model_type", model_type.name)
-        print("UNet ADM Dimension", self.adm_channels)
+        logly.info("model_type", model_type.name)
+        logly.info("UNet ADM Dimension", self.adm_channels)
 
     def apply_model(self, x, t, c_concat=None, c_crossattn=None, control=None, transformer_options={}, **kwargs):
         sigma = t
@@ -141,10 +142,10 @@ class BaseModel(torch.nn.Module):
         to_load = self.model_config.process_unet_state_dict(to_load)
         m, u = self.diffusion_model.load_state_dict(to_load, strict=False)
         if len(m) > 0:
-            print("unet missing:", m)
+            logly.warn("unet missing:", m)
 
         if len(u) > 0:
-            print("unet unexpected:", u)
+            logly.warn("unet unexpected:", u)
         del to_load
         return self
 

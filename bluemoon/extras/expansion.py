@@ -6,6 +6,7 @@ import os
 import torch
 import math
 import bluemoon.ldm_patched.modules.model_management as model_management
+from bluemoon.utils.logly import logly
 
 from transformers.generation.logits_process import LogitsProcessorList
 from transformers import AutoTokenizer, AutoModelForCausalLM, set_seed
@@ -47,7 +48,7 @@ class BlueMoonExpansion:
                 self.logits_bias[0, v] = 0
                 debug_list.append(k[1:])
 
-        print(f'BlueMoon AI V1 Expansion: Vocab with {len(debug_list)} words.')
+        logly.info(f'BlueMoon AI V1 Expansion: Vocab with {len(debug_list)} words.')
 
         # debug_list = '\n'.join(sorted(debug_list))
         # print(debug_list)
@@ -73,7 +74,7 @@ class BlueMoonExpansion:
             self.model.half()
 
         self.patcher = ModelPatcher(self.model, load_device=load_device, offload_device=offload_device)
-        print(f'BlueMoon AI Expansion engine loaded for {load_device}, use_fp16 = {use_fp16}.')
+        logly.info(f'BlueMoon AI Expansion engine loaded for {load_device}, use_fp16 = {use_fp16}.')
 
     @torch.no_grad()
     @torch.inference_mode()
@@ -94,7 +95,7 @@ class BlueMoonExpansion:
             return ''
 
         if self.patcher.current_device != self.patcher.load_device:
-            print('BlueMoon AI Expansion loaded by itself.')
+            logly.info('BlueMoon AI Expansion loaded by itself.')
             model_management.load_model_gpu(self.patcher)
 
         seed = int(seed) % SEED_LIMIT_NUMPY

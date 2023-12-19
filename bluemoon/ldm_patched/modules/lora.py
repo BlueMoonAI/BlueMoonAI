@@ -1,4 +1,5 @@
 import bluemoon.ldm_patched.modules.utils
+from bluemoon.utils.logly import logly
 
 LORA_CLIP_MAP = {
     "mlp.fc1": "mlp_fc1",
@@ -156,7 +157,7 @@ def load_lora(lora, to_load):
 
     for x in lora.keys():
         if x not in loaded_keys:
-            print("lora key not loaded", x)
+            logly.warn("lora key not loaded", x)
     return patch_dict
 
 def model_lora_keys_clip(model, key_map={}):

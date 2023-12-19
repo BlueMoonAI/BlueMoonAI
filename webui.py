@@ -16,11 +16,12 @@ import args_manager
 import copy
 
 from modules.sdxl_styles import legal_style_names
-from modules.private_logger import get_current_html_path
+from modules.history_logger import get_current_html_path
 from modules.ui_gradio_extensions import reload_javascript
 from modules.auth import auth_enabled, check_auth
 
 
+from bluemoon.utils.logly import logly
 
 def generate_clicked(*args):
     import bluemoon.ldm_patched.modules.model_management as model_management
@@ -71,7 +72,7 @@ def generate_clicked(*args):
                 finished = True
 
     execution_time = time.perf_counter() - execution_start_time
-    print(f'Total time: {execution_time:.2f} seconds')
+    logly.info(f'Total time: {execution_time:.2f} seconds')
     return
 
 

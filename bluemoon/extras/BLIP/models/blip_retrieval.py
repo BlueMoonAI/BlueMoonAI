@@ -1,5 +1,6 @@
 from bluemoon.extras.BLIP.models.med import BertConfig, BertModel
 from transformers import BertTokenizer
+from bluemoon.utils.logly import logly
 
 import torch
 from torch import nn
@@ -265,7 +266,7 @@ def blip_retrieval(pretrained='',**kwargs):
     model = BLIP_Retrieval(**kwargs)
     if pretrained:
         model,msg = load_checkpoint(model,pretrained)
-        print("missing keys:")
+        logly.warn("missing keys:")
         print(msg.missing_keys)
     return model 
 

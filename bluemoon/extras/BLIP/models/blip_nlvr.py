@@ -4,6 +4,7 @@ from bluemoon.extras.BLIP.models.vit import interpolate_pos_embed
 from bluemoon.extras.BLIP.models.blip import create_vit, init_tokenizer, is_url
 
 from timm.models.hub import download_cached_file
+from bluemoon.utils.logly import logly
 
 import torch
 from torch import nn
@@ -70,8 +71,8 @@ def blip_nlvr(pretrained='',**kwargs):
     model = BLIP_NLVR(**kwargs)
     if pretrained:
         model,msg = load_checkpoint(model,pretrained)
-        print("missing keys:")
-        print(msg.missing_keys)
+        logly.info("missing keys:")
+        logly.warn(msg.missing_keys)
     return model  
 
         
@@ -100,6 +101,6 @@ def load_checkpoint(model,url_or_filename):
             state_dict[new_key1] = state_dict[key]  
                 
     msg = model.load_state_dict(state_dict,strict=False)
-    print('load checkpoint from %s'%url_or_filename)  
+    logly.info('load checkpoint from %s'%url_or_filename)
     return model,msg
             

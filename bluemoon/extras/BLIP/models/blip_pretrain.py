@@ -9,6 +9,7 @@ from bluemoon.extras.BLIP.models.med import BertConfig, BertModel, BertLMHeadMod
 from transformers import BertTokenizer
 import transformers
 transformers.logging.set_verbosity_error()
+from bluemoon.utils.logly import logly
 
 import torch
 from torch import nn
@@ -270,7 +271,7 @@ from typing import List
 def tie_encoder_decoder_weights(encoder: nn.Module, decoder: nn.Module, base_model_prefix: str, skip_key:str):
     uninitialized_encoder_weights: List[str] = []
     if decoder.__class__ != encoder.__class__:
-        print(
+        logly.warn(
             f"{decoder.__class__} and {encoder.__class__} are not equal. In this case make sure that all encoder weights are correctly initialized."
         )
 
@@ -291,7 +292,7 @@ def tie_encoder_decoder_weights(encoder: nn.Module, decoder: nn.Module, base_mod
             if hasattr(decoder_pointer, "bias"):
                 assert hasattr(encoder_pointer, "bias")
                 encoder_pointer.bias = decoder_pointer.bias                
-            print(module_name+' is tied')    
+            logly.warn(module_name+' is tied')
             return
 
         encoder_modules = encoder_pointer._modules

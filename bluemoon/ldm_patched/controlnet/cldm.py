@@ -14,6 +14,7 @@ from bluemoon.ldm_patched.ldm.modules.attention import SpatialTransformer
 from bluemoon.ldm_patched.ldm.modules.diffusionmodules.openaimodel import UNetModel, TimestepEmbedSequential, ResBlock, Downsample
 from bluemoon.ldm_patched.ldm.util import exists
 import bluemoon.ldm_patched.modules.ops
+from bluemoon.utils.logly import logly
 
 class ControlledUnetModel(UNetModel):
     #implemented in the ldm unet
@@ -120,7 +121,7 @@ class ControlNet(nn.Module):
             if isinstance(self.num_classes, int):
                 self.label_emb = nn.Embedding(num_classes, time_embed_dim)
             elif self.num_classes == "continuous":
-                print("setting up linear c_adm embedding layer")
+                logly.info("setting up linear c_adm embedding layer")
                 self.label_emb = nn.Linear(1, time_embed_dim)
             elif self.num_classes == "sequential":
                 assert adm_in_channels is not None

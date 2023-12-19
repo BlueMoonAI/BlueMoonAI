@@ -1,6 +1,7 @@
 import torch
 import copy
 import inspect
+from bluemoon.utils.logly import logly
 
 import bluemoon.ldm_patched.modules.utils
 import bluemoon.ldm_patched.modules.model_management
@@ -184,7 +185,7 @@ class ModelPatcher:
         model_sd = self.model_state_dict()
         for key in self.patches:
             if key not in model_sd:
-                print("could not patch. key doesn't exist in model:", key)
+                logly.warn("could not patch. key doesn't exist in model:", key)
                 continue
 
             weight = model_sd[key]
@@ -233,7 +234,7 @@ class ModelPatcher:
                 w1 = v[0]
                 if alpha != 0.0:
                     if w1.shape != weight.shape:
-                        print("WARNING SHAPE MISMATCH {} WEIGHT NOT MERGED {} != {}".format(key, w1.shape, weight.shape))
+                        logly.warn("WARNING SHAPE MISMATCH {} WEIGHT NOT MERGED {} != {}".format(key, w1.shape, weight.shape))
                     else:
                         weight += alpha * bluemoon.ldm_patched.modules.model_management.cast_to_device(w1, weight.device, weight.dtype)
             elif patch_type == "lora": #lora/locon
@@ -249,7 +250,7 @@ class ModelPatcher:
                 try:
                     weight += (alpha * torch.mm(mat1.flatten(start_dim=1), mat2.flatten(start_dim=1))).reshape(weight.shape).type(weight.dtype)
                 except Exception as e:
-                    print("ERROR", key, e)
+                    logly.error("ERROR", key, e)
             elif patch_type == "lokr":
                 w1 = v[0]
                 w2 = v[1]
@@ -288,7 +289,7 @@ class ModelPatcher:
                 try:
                     weight += alpha * torch.kron(w1, w2).reshape(weight.shape).type(weight.dtype)
                 except Exception as e:
-                    print("ERROR", key, e)
+                    logly.error("ERROR", key, e)
             elif patch_type == "loha":
                 w1a = v[0]
                 w1b = v[1]
@@ -317,7 +318,7 @@ class ModelPatcher:
                 try:
                     weight += (alpha * m1 * m2).reshape(weight.shape).type(weight.dtype)
                 except Exception as e:
-                    print("ERROR", key, e)
+                    logly.error("ERROR", key, e)
             elif patch_type == "glora":
                 if v[4] is not None:
                     alpha *= v[4] / v[0].shape[0]
@@ -329,7 +330,7 @@ class ModelPatcher:
 
                 weight += ((torch.mm(b2, b1) + torch.mm(torch.mm(weight.flatten(start_dim=1), a2), a1)) * alpha).reshape(weight.shape).type(weight.dtype)
             else:
-                print("patch type not recognized", patch_type, key)
+                logly.warn("patch type not recognized", patch_type, key)
 
         return weight
 
