@@ -67,5 +67,4 @@ def reload_javascript():
         res.init_headers()
         return res
 
-
     gr.routes.templates.TemplateResponse = template_response

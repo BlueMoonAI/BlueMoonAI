@@ -235,6 +235,7 @@ with shared.gradio_root:
                                              value=modules.config.default_prompt_negative)
                 seed_random = gr.Checkbox(label='Random', value=True)
                 image_seed = gr.Textbox(label='Seed', value=0, max_lines=1, visible=False) # workaround for https://github.com/gradio-app/gradio/issues/5354
+                freeze_seed = gr.Checkbox(label='Freeze Seed', value=False)
 
                 def random_checked(r):
                     return gr.update(visible=not r)
@@ -514,6 +515,7 @@ with shared.gradio_root:
         ctrls += [uov_method, uov_input_image]
         ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt]
         ctrls += ip_ctrls
+        ctrls += [freeze_seed]
 
         generate_button.click(lambda: (gr.update(visible=True, interactive=True), gr.update(visible=True, interactive=True), gr.update(visible=False), []), outputs=[stop_button, skip_button, generate_button, gallery]) \
             .then(fn=refresh_seed, inputs=[seed_random, image_seed], outputs=image_seed) \
@@ -570,7 +572,6 @@ with shared.gradio_root:
 def dump_default_english_config():
     from modules.localization import dump_english_config
     dump_english_config(grh.all_components)
-
 
 # dump_default_english_config()
 
