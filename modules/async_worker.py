@@ -38,7 +38,7 @@ def worker():
     import bluemoon.extras.ip_adapter as ip_adapter
     import bluemoon.extras.face_crop
 
-    from modules.sdxl_styles import apply_style, apply_wildcards, bluemoon_expansion
+    from modules.sdxl_styles import apply_style, apply_wildcards, bluemoon_expansion,apply_arrays
     from modules.history_logger import log
     from bluemoon.extras.expansion import safe_str
     from modules.util import remove_empty_str, HWC3, resize_image, \
@@ -150,7 +150,7 @@ def worker():
             cn_type = args.pop()
             if cn_img is not None:
                 cn_tasks[cn_type].append([cn_img, cn_stop, cn_weight])
-
+        freeze_seed = args.pop()
         outpaint_selections = [o.lower() for o in outpaint_selections]
         base_model_additional_loras = []
         raw_style_selections = copy.deepcopy(style_selections)
@@ -360,11 +360,15 @@ def worker():
 
             progressbar(async_task, 3, 'Processing prompts ...')
             tasks = []
+            task_rng = random.Random(seed) # may bind to inpaint noise in the future
             for i in range(image_number):
-                task_seed = (seed + i) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
-                task_rng = random.Random(task_seed)  # may bind to inpaint noise in the future
+                if(freeze_seed):
+                    task_seed = seed
+                else:
+                    task_seed = (seed + i) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
 
                 task_prompt = apply_wildcards(prompt, task_rng)
+                task_prompt = apply_arrays(task_prompt, i)
                 task_negative_prompt = apply_wildcards(negative_prompt, task_rng)
                 task_extra_positive_prompts = [apply_wildcards(pmt, task_rng) for pmt in extra_positive_prompts]
                 task_extra_negative_prompts = [apply_wildcards(pmt, task_rng) for pmt in extra_negative_prompts]
