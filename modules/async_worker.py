@@ -403,9 +403,8 @@ def worker():
                     uc=None,
                     positive_top_k=len(positive_basic_workloads),
                     negative_top_k=len(negative_basic_workloads),
-                    log_positive_prompt='; '.join([task_prompt] + task_extra_positive_prompts),
-                    log_negative_prompt='; '.join([task_negative_prompt] + task_extra_negative_prompts),
-                ))
+                    log_positive_prompt='\n'.join([task_prompt] + task_extra_positive_prompts),
+                    log_negative_prompt='\n'.join([task_negative_prompt] + task_extra_negative_prompts),   ))
 
             if use_expansion:
                 for i, t in enumerate(tasks):
@@ -783,10 +782,10 @@ def worker():
                         ('Scheduler', scheduler_name),
                         ('Seed', task['task_seed']),
                     ]
-                    for n, w in loras:
+                    for li, (n, w) in enumerate(loras):
                         if n != 'None':
-                            d.append((f'LoRA', f'{n} : {w}'))
-                        d.append(('Version', 'v' + bluemoonai_version.get_version()))
+                            d.append((f'LoRA {li + 1}', f'{n} : {w}'))
+                            d.append(('Version', 'v' + bluemoonai_version.get_version()))
                         log(x, d)
 
                 yield_result(async_task, imgs, do_not_show_finished_images=len(tasks) == 1)

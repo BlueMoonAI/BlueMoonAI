@@ -52,7 +52,10 @@ def javascript_html():
 
 def css_html():
     style_css_path = webpath('ui/css/style.css')
+    custom_css_path = webpath('ui/css/custom.css')
     head = f'<link rel="stylesheet" property="stylesheet" href="{style_css_path}">'
+    head += f'<link rel="stylesheet" property="stylesheet" href="{custom_css_path}">'
+
     return head
 
 
