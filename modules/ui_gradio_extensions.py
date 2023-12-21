@@ -44,8 +44,8 @@ def javascript_html():
     head += f'<script type="text/javascript" src="{analytics_js_path}"></script>\n'
     head += f'<script type="text/javascript" src="{notice_js_path}"></script>\n'
 
-    if args_manager.args.theme:
-        head += f'<script type="text/javascript">set_theme(\"{args_manager.args.theme}\");</script>\n'
+  #  if args_manager.args.theme:
+   #     head += f'<script type="text/javascript">set_theme(\"{args_manager.args.theme}\");</script>\n'
 
     return head
 
