@@ -44,15 +44,18 @@ def javascript_html():
     head += f'<script type="text/javascript" src="{analytics_js_path}"></script>\n'
     head += f'<script type="text/javascript" src="{notice_js_path}"></script>\n'
 
-  #  if args_manager.args.theme:
-   #     head += f'<script type="text/javascript">set_theme(\"{args_manager.args.theme}\");</script>\n'
+    if args_manager.args.theme:
+        head += f'<script type="text/javascript">set_theme(\"{args_manager.args.theme}\");</script>\n'
 
     return head
 
 
 def css_html():
     style_css_path = webpath('ui/css/style.css')
+    custom_css_path = webpath('ui/css/custom.css')
     head = f'<link rel="stylesheet" property="stylesheet" href="{style_css_path}">'
+    head += f'<link rel="stylesheet" property="stylesheet" href="{custom_css_path}">'
+
     return head
 
 

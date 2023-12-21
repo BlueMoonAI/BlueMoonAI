@@ -1,4 +1,5 @@
 css = '''
+
 .loader-container {
   display: flex; /* Use flex to align items horizontally */
   align-items: center; /* Center items vertically within the container */

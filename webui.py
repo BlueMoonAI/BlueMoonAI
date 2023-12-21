@@ -16,7 +16,7 @@ import args_manager
 import copy
 import json
 import modules.meta_parser
-from modules.sdxl_styles import legal_style_names
+from modules.sdxl_styles import legal_style_names, bluemoon_expansion, style_keys
 from modules.history_logger import get_current_html_path
 from modules.ui_gradio_extensions import reload_javascript
 from modules.auth import auth_enabled, check_auth
@@ -307,11 +307,16 @@ with shared.gradio_root:
                                               placeholder="\U0001F50E Type here to search styles ...",
                                               value="",
                                               label='Search Styles')
-                style_selections = gr.CheckboxGroup(show_label=False, container=False,
-                                                    choices=copy.deepcopy(style_sorter.all_styles),
-                                                    value=copy.deepcopy(modules.config.default_styles),
-                                                    label='Selected Styles',
-                                                    elem_classes=['style_selections'])
+
+                style_selections = gr.Dropdown(show_label=False,
+                                               container=False,
+                                               choices=[bluemoon_expansion] + style_keys,
+                                               value=[bluemoon_expansion],
+                                               multiselect=True,
+                                               label='Image Styles',
+
+                                            )
+
                 gradio_receiver_style_selections = gr.Textbox(elem_id='gradio_receiver_style_selections', visible=False)
 
                 shared.gradio_root.load(lambda: gr.update(choices=copy.deepcopy(style_sorter.all_styles)),
@@ -695,5 +700,5 @@ shared.gradio_root.launch(
     share=args_manager.args.share,
     auth=check_auth if args_manager.args.share and auth_enabled else None,
     blocked_paths=[constants.AUTH_FILENAME],
-    favicon_path="./UI/img/bluemoon.ico"
+    favicon_path="./UI/img/bluemoon.ico",
 )
