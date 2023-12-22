@@ -16,6 +16,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from bluemoon.utils.logly import logly
 from .OSAG import OSAG
 from .pixelshuffle import pixelshuffle_block
 
@@ -41,7 +42,7 @@ class OmniSR(nn.Module):
         pixelshuffle_shape = state_dict["up.0.weight"].shape[0]
         up_scale = math.sqrt(pixelshuffle_shape / num_out_ch)
         if up_scale - int(up_scale) > 0:
-            print(
+            logly.warn(
                 "out_nc is probably different than in_nc, scale calculation might be wrong"
             )
         up_scale = int(up_scale)

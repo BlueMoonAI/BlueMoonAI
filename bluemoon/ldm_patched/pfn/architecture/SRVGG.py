@@ -6,6 +6,8 @@ import math
 import torch.nn as nn
 import torch.nn.functional as F
 
+from bluemoon.utils.logly import logly
+
 
 class SRVGGNetCompact(nn.Module):
     """A compact VGG-style network structure for super-resolution.
@@ -96,7 +98,7 @@ class SRVGGNetCompact(nn.Module):
         self.out_nc = self.in_nc
         scale = math.sqrt(self.pixelshuffle_shape / self.out_nc)
         if scale - int(scale) > 0:
-            print(
+            logly.info(
                 "out_nc is probably different than in_nc, scale calculation might be wrong"
             )
         scale = int(scale)
