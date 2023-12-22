@@ -699,6 +699,5 @@ shared.gradio_root.launch(
     server_port=args_manager.args.port,
     share=args_manager.args.share,
     auth=check_auth if args_manager.args.share and auth_enabled else None,
-    blocked_paths=[constants.AUTH_FILENAME],
-    favicon_path="./UI/img/bluemoon.ico",
+
 )
