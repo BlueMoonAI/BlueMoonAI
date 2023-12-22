@@ -11,6 +11,8 @@ import torch
 from torch import nn, optim
 from torch.utils import data
 
+from bluemoon.utils.logly import logly
+
 
 def hf_datasets_augs_helper(examples, transform, image_key, mode='RGB'):
     """Apply passed in transforms for HuggingFace Datasets."""
