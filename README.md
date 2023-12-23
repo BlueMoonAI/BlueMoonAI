@@ -78,7 +78,7 @@ Let Your Creativity Flow.
 ### Run in Colab
 
 <a href="https://colab.research.google.com/github/BlueMoonAI/BlueMoonAI/blob/main/bluemoonai_colab.ipynb" target="_parent">
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" style="width: 200px; height: 40px;">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" style="width: 150px; height: 25px;">
 </a>
 
 ***Tested and works!**
