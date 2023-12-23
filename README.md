@@ -23,6 +23,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/commits/main)
 [![GitHub contributors](https://img.shields.io/github/contributors/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/graphs/contributors)
 [![Popularity](https://komarev.com/ghpvc/?username=BlueMoonAI&label=Popularity)](https://github.com/BlueMoonAI/BlueMoonAI)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BlueMoonAI/BlueMoonAI/blob/main/bluemoonai_colab.ipynb)
 <a href="https://www.patreon.com/bluemoonai/membership" target="_blank">
   <img src="https://img.shields.io/badge/Support%20Us-Donate-%23FF424D.svg" alt="Donate to Bluemoon AI on Patreon">
 </a>
@@ -76,7 +77,11 @@ Let Your Creativity Flow.
 
 ### Run in Colab
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BlueMoonAI/BlueMoonAI/blob/main/bluemoonai_colab.ipynb)
+<a href="https://colab.research.google.com/github/BlueMoonAI/BlueMoonAI/blob/main/bluemoonai_colab.ipynb" target="_parent">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" style="width: 200px; height: 40px;">
+</a>
+
+***Tested and works!**
 
 ### Linux (Using Anaconda)
 Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
