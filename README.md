@@ -23,6 +23,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/commits/main)
 [![GitHub contributors](https://img.shields.io/github/contributors/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/graphs/contributors)
 [![Popularity](https://komarev.com/ghpvc/?username=BlueMoonAI&label=Popularity)](https://github.com/BlueMoonAI/BlueMoonAI)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BlueMoonAI/BlueMoonAI/blob/main/bluemoonai_colab.ipynb)
 <a href="https://www.patreon.com/bluemoonai/membership" target="_blank">
   <img src="https://img.shields.io/badge/Support%20Us-Donate-%23FF424D.svg" alt="Donate to Bluemoon AI on Patreon">
 </a>
@@ -76,7 +77,11 @@ Let Your Creativity Flow.
 
 ### Run in Colab
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BlueMoonAI/BlueMoonAI/blob/main/bluemoonai_colab.ipynb)
+<a href="https://colab.research.google.com/github/BlueMoonAI/BlueMoonAI/blob/main/bluemoonai_colab.ipynb" target="_parent">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" style="width: 150px; height: 25px;">
+</a>
+
+***Tested and works!**
 
 ### Linux (Using Anaconda)
 Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
@@ -211,8 +216,8 @@ Below is the minimal requirement for running BlueMoon AI locally. If your device
 | Windows/Linux     | Nvidia GTX < 9XX             | Not supported      | /                     | /                                                       |
 | Windows           | AMD GPU                      | 16GB               | 8GB                   | Leverages DirectML for GPU acceleration                |
 | Linux             | AMD GPU                      | 8GB                | 8GB                   | Accelerated via ROCm                                  |
-| Windows           | &ast; AMD GPU ROCm (on hold) | 8GB (on hold)     | 8GB (on hold)        | ROCm support currently on hold                         |
-| Mac               | M1/M2 MPS                    | Shared             | Shared                | Approximately 9x slower than Nvidia RTX 3XXX          |
+| Windows           | &ast; AMD GPU ROCm (on hold) | 8GB      | 8GB       | ROCm support currently on hold                         |
+| Mac               | M1/M2 MPS                    | Shared             | Shared                |  slower than Nvidia RTX 3XXX          |
 
 &ast; AMD GPU ROCm (on hold): The AMD is still working on supporting ROCm on Windows.
 
@@ -274,7 +279,6 @@ For example, an edited `BlueMoonAI\config.txt` (this file will be generated afte
 Many other keys, formats, and examples are in `BlueMoonAI\config_settings.txt` (this file will be generated after the first launch).
 
 Consider twice before you really change the config. If you find yourself breaking things, just delete `BlueMoonAI\config.txt`. BlueMoonAI will go back to default.
-
 
 ### All CMD Flags
 
@@ -350,6 +354,8 @@ For example, below is the content of `BlueMoonAI/language/example.json`:
 If you add `--language example` arg, BlueMoonAI will read `BlueMoonAI/language/example.json` to translate the UI.
 
 For practical translation, you may create your own file like `BlueMoonAI/language/jp.json` or `BlueMoonAI/language/cn.json` and then use flag `--language jp` or `--language cn`. Apparently, these files do not exist now. **We need your help to create these files!**
+
+
 
 Note that if no `--language` is given and at the same time `BlueMoonAI/language/default.json` exists, BlueMoonAI will always load `BlueMoonAI/language/default.json` for translation. By default, the file `BlueMoonAI/language/default.json` does not exist.
 
