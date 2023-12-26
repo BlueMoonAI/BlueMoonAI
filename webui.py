@@ -16,6 +16,8 @@ import args_manager
 import copy
 import json
 import modules.meta_parser
+from modules.download_models import start_download
+from modules.load_models import get_download_choices
 from modules.sdxl_styles import legal_style_names, bluemoon_expansion, style_keys
 from modules.history_logger import get_current_html_path
 from modules.ui_gradio_extensions import reload_javascript
@@ -370,6 +372,28 @@ with shared.gradio_root:
                 with gr.Row():
                     model_refresh = gr.Button(label='Refresh', value='\U0001f504 Refresh All Files',
                                               variant='secondary', elem_classes='refresh_button')
+
+            with gr.Tab(label='downloads'):
+                with gr.Group():
+                    with gr.Row():
+                        # Retrieve choices from the JSON file
+                        download_choices = get_download_choices()
+
+                        # Dropdown for model downloads
+                        model_downloads = gr.Dropdown(label='Download Model', choices=download_choices,
+                                                      value=None, show_label=True)
+
+                    # Button to trigger download
+                    download_button = gr.Button(label="Download Selected Model")
+                    def download_callback():
+                        selected_model = model_downloads.value
+                        if selected_model:
+                            download_button.disabled = True  # Disable the button during download
+                            download_button.label = 'Downloading ...'
+                            start_download(selected_model)
+
+                    download_button.click(download_callback)
+
             with gr.Tab(label='Advanced'):
                 guidance_scale = gr.Slider(label='Guidance Scale', minimum=1.0, maximum=30.0, step=0.01,
                                            value=modules.config.default_cfg_scale,
@@ -380,6 +404,12 @@ with shared.gradio_root:
                 gr.HTML(
                     '<a style="color: #fff;" href="https://github.com/BlueMoonAI/BlueMoonAI/discussions/" class="button-canvas" target="_blank"> Document</a>')
                 dev_mode = gr.Checkbox(label='Developer Debug Mode', value=False, container=False)
+
+
+
+
+
+
 
                 with gr.Column(visible=False) as dev_tools:
                     with gr.Tab(label='Debug Tools'):
