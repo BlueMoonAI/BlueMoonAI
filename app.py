@@ -47,7 +47,7 @@ from build import build_launcher
 from modules.launch_util import is_installed, run, python, run_pip, requirements_met
 from modules.model_loader import load_file_from_url
 from modules.config import path_checkpoints, path_loras, path_vae_approx, path_bluemoon_expansion, \
-    checkpoint_downloads, path_embeddings, embeddings_downloads, lora_downloads
+    checkpoint_downloads, path_embeddings, embeddings_downloads, lora_downloads, model_downloads, path_download_models
 
 REINSTALL_ALL = False
 TRY_INSTALL_XFORMERS = False
@@ -95,6 +95,8 @@ vae_approx_filenames = [
 
 
 def download_models():
+    for file_name, url in model_downloads.items():
+        load_file_from_url(url=url, model_dir=path_download_models, file_name=file_name)
     for file_name, url in checkpoint_downloads.items():
         load_file_from_url(url=url, model_dir=path_checkpoints, file_name=file_name)
     for file_name, url in embeddings_downloads.items():

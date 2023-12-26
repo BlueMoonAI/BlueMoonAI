@@ -7,6 +7,7 @@ import modules.flags
 import modules.sdxl_styles
 from bluemoon.utils.logly import logly
 from modules.default_load import model_links, sd_links, paint_links, lcm_links, ip_adapter_links, upscaler_links
+from modules.download_models import get_models_values, file_names
 
 from modules.model_loader import load_file_from_url
 from modules.util import get_files_from_folder
@@ -16,8 +17,6 @@ config_example_path = os.path.abspath("config_settings.txt")
 config_dict = {}
 always_save_keys = []
 visited_keys = []
-
-
 
 try:
     if os.path.exists(config_path):
@@ -75,6 +74,7 @@ path_loras = get_dir_or_set_default('path_loras', '../models/loras/')
 path_embeddings = get_dir_or_set_default('path_embeddings', '../models/embeddings/')
 path_vae_approx = get_dir_or_set_default('path_vae_approx', '../models/vae_approx/')
 path_upscale_models = get_dir_or_set_default('path_upscale_models', '../models/upscale_models/')
+path_download_models = get_dir_or_set_default('path_download_models', '../models/checkpoints/')
 path_inpaint = get_dir_or_set_default('path_inpaint', '../models/inpaint/')
 path_controlnet = get_dir_or_set_default('path_controlnet', '../models/controlnet/')
 path_clip_vision = get_dir_or_set_default('path_clip_vision', '../models/clip_vision/')
@@ -84,7 +84,6 @@ path_outputs = get_dir_or_set_default('path_outputs', '../outputs/')
 
 
 def get_config_item_or_set_default(key, default_value, validator, disable_empty_as_none=False):
-
     global config_dict, visited_keys
 
     if key not in visited_keys:
@@ -106,7 +105,6 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
                 f'Failed to load config key: {json.dumps({key: v})} is invalid; will use {json.dumps({key: default_value})} instead.')
         config_dict[key] = default_value
         return default_value
-
 
 
 default_base_model_name = get_config_item_or_set_default(
@@ -207,6 +205,14 @@ default_image_number = get_config_item_or_set_default(
     default_value=2,
     validator=lambda x: isinstance(x, int) and 1 <= x <= 32
 )
+
+download_model_value = get_models_values(file_names)
+model_downloads = get_config_item_or_set_default(
+    key='model_settings.json',
+    default_value=download_model_value,
+    validator=lambda x: isinstance(x, dict) and all(isinstance(k, str) and isinstance(v, str) for k, v in x.items())
+)
+
 checkout_value = model_links.get('default', {}).get('checkpoint_download', {})
 checkpoint_downloads = get_config_item_or_set_default(
     key='checkpoint_downloads',
@@ -334,7 +340,8 @@ lora_filenames = []
 
 
 def get_model_filenames(folder_path, name_filter=None):
-    return get_files_from_folder(folder_path, ['.pth', '.ckpt', '.bin', '.safetensors', '.bluemoon.patch'], name_filter)
+    return get_files_from_folder(folder_path, ['.pth', '.ckpt', '.bin', '.safetensors', '.bluemoon.patch', '.json'],
+                                 name_filter)
 
 
 def update_all_model_names():
@@ -469,6 +476,7 @@ def downloading_upscale_model():
         file_name='bluemoon_upscaler_s409985e5.bin'
     )
     return os.path.join(path_upscale_models, 'bluemoon_upscaler_s409985e5.bin')
+
 
 
 update_all_model_names()
