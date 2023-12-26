@@ -6,9 +6,8 @@ import args_manager
 import modules.flags
 import modules.sdxl_styles
 from bluemoon.utils.logly import logly
-from modules.default_load import model_links, sd_links, paint_links, lcm_links, ip_adapter_links, upscaler_links
-from modules.download_models import get_models_values, file_names
-
+from modules.default_load import model_links, sd_links, paint_links, lcm_links, ip_adapter_links, upscaler_links, \
+    download_models
 from modules.model_loader import load_file_from_url
 from modules.util import get_files_from_folder
 
@@ -206,9 +205,9 @@ default_image_number = get_config_item_or_set_default(
     validator=lambda x: isinstance(x, int) and 1 <= x <= 32
 )
 
-download_model_value = get_models_values(file_names)
+download_model_value  = download_models.get('model_downloads', {})
 model_downloads = get_config_item_or_set_default(
-    key='model_settings.json',
+    key='model_downloads',
     default_value=download_model_value,
     validator=lambda x: isinstance(x, dict) and all(isinstance(k, str) and isinstance(v, str) for k, v in x.items())
 )

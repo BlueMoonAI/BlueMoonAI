@@ -11,6 +11,8 @@ file_names = [
     "sdxl_lcm_lora.json",
     "controlnet.json",
     "ip_adapter.json",
+    "model_settings.json",
+
 ]
 
 def load_json_file(file_name):
@@ -22,6 +24,6 @@ def load_json_file(file_name):
         logly.error(f'Failed to load models file "{file_path}". The reason is: {str(e)}')
         return None
 
-model_links, sd_links, paint_links, upscaler_links, lcm_links, controlnet_links, ip_adapter_links = (
+model_links, sd_links, paint_links, upscaler_links, lcm_links, controlnet_links, ip_adapter_links,download_models= (
     load_json_file(name) for name in file_names
 )
