@@ -2,7 +2,6 @@ import platform
 import subprocess
 import psutil
 import GPUtil
-import pygetwindow as gw
 from bluemoon.utils.logly import logly
 
 def get_system_info():
@@ -49,9 +48,8 @@ def get_gpu_info():
 
 def get_windows_gpu_info():
     try:
-        gpus = gw.getWindowsWithTitle('Device Manager')
-        gpu_info = [f"GPU {i}: {gpu.title}" for i, gpu in enumerate(gpus, 1)]
-        return gpu_info
+        # You can add code here to retrieve GPU information on Windows without using pygetwindow
+        return []
     except Exception as e:
         return [f"Error retrieving GPU information on Windows: {e}"]
 
@@ -77,20 +75,14 @@ def get_external_gpu_info():
     - str or list or None: Information about external GPUs or None if no external GPU is detected.
     """
     try:
-
         if platform.system() == 'Windows':
             return get_windows_gpu_info()
-        '''
         elif platform.system() == 'Darwin':  # macOS
-            #return get_macos_gpu_info()
-             return None
+            return get_macos_gpu_info()
         elif platform.system() == 'Linux':
-           # return get_linux_gpu_info()
-            return None
-
+            return get_linux_gpu_info()
         else:
             return None
-            '''
     except subprocess.CalledProcessError as e:
         return [f"Error retrieving external GPU information: {e}"]
 
