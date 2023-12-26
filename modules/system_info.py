@@ -77,17 +77,20 @@ def get_external_gpu_info():
     - str or list or None: Information about external GPUs or None if no external GPU is detected.
     """
     try:
-        if platform.system() == 'Darwin':  # macOS
+
+        if platform.system() == 'Windows':
+            return get_windows_gpu_info()
+        '''
+        elif platform.system() == 'Darwin':  # macOS
             #return get_macos_gpu_info()
              return None
-        elif platform.system() == 'Windows':
-            return get_windows_gpu_info()
         elif platform.system() == 'Linux':
            # return get_linux_gpu_info()
             return None
 
         else:
             return None
+            '''
     except subprocess.CalledProcessError as e:
         return [f"Error retrieving external GPU information: {e}"]
 
