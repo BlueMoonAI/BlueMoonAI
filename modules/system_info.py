@@ -1,6 +1,9 @@
 import platform
 import GPUtil
 
+from bluemoon.utils.logly import logly
+
+
 def get_system_info():
     system_info = f"System Information:\n\n"
     system_info += f"Platform: {platform.platform()}\n"
@@ -18,7 +21,7 @@ def get_system_info():
                 system_info += f"  Driver: {gpu.driver}\n"
                 system_info += f"  Memory Total: {gpu.memoryTotal} MB\n"
         else:
-            system_info += "\nNo GPU Available.\n"
+            logly.error("\n No GPU Available.\n")
     except ImportError:
         system_info += "\nNo GPU Information (GPUtil package not installed).\n"
 
@@ -29,7 +32,7 @@ def check_system_info():
     system_info = get_system_info()
 
     # Print system information
-    print(system_info)
+    logly.info(system_info)
 
     # Save system information to a file
     with open("../system_info.txt", "w") as file:

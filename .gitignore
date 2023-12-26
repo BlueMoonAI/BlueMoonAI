@@ -51,5 +51,4 @@ user_path_config-deprecated.txt
 /.coverage*
 /auth.json
 /log.txt
-/models/downloads/model_links.json
 /system_info.txt
