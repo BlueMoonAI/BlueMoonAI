@@ -15,7 +15,7 @@ def get_models_values(file_names):
     result = {}
 
     for file_name in file_names:
-        file_path = os.path.abspath(os.path.join("../models/default", file_name))
+        file_path = os.path.join("../models/default", file_name)
 
         # Load JSON data from the current file
         model_settings_data = load_json_file(file_path)
@@ -36,3 +36,5 @@ file_names = [
     "model_settings.json",
     # Add more file names if needed
 ]
+
+print(file_names)
