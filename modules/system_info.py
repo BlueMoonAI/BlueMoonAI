@@ -55,6 +55,20 @@ def get_windows_gpu_info():
     except Exception as e:
         return [f"Error retrieving GPU information on Windows: {e}"]
 
+def get_linux_gpu_info():
+    try:
+        external_gpu_info = subprocess.check_output(['lshw', '-C', 'display'], text=True)
+        return [line.strip() for line in external_gpu_info.split('\n')]
+    except subprocess.CalledProcessError as e:
+        return [f"Error retrieving GPU information on Linux: {e}"]
+
+def get_macos_gpu_info():
+    try:
+        external_gpu_info = subprocess.check_output(['system_profiler', 'SPDisplaysDataType'], text=True)
+        return [line.strip() for line in external_gpu_info.split('\n')]
+    except subprocess.CalledProcessError as e:
+        return [f"Error retrieving GPU information on macOS: {e}"]
+
 def get_external_gpu_info():
     """
     Retrieves information about external GPUs based on the platform.
@@ -64,12 +78,14 @@ def get_external_gpu_info():
     """
     try:
         if platform.system() == 'Darwin':  # macOS
-            return None
+            #return get_macos_gpu_info()
+             return None
         elif platform.system() == 'Windows':
             return get_windows_gpu_info()
         elif platform.system() == 'Linux':
-            external_gpu_info = subprocess.check_output(['lspci', '-v'], text=True)
-            return [line.strip() for line in external_gpu_info.split('\n') if 'External GPU' in line]
+           # return get_linux_gpu_info()
+            return None
+
         else:
             return None
     except subprocess.CalledProcessError as e:
