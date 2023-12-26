@@ -16,8 +16,10 @@ import args_manager
 import copy
 import json
 import modules.meta_parser
+
 from modules.download_models import start_download
 from modules.load_models import get_download_choices
+
 from modules.sdxl_styles import legal_style_names, bluemoon_expansion, style_keys
 from modules.history_logger import get_current_html_path
 from modules.ui_gradio_extensions import reload_javascript
@@ -373,6 +375,7 @@ with shared.gradio_root:
                     model_refresh = gr.Button(label='Refresh', value='\U0001f504 Refresh All Files',
                                               variant='secondary', elem_classes='refresh_button')
 
+
             with gr.Tab(label='downloads'):
                 with gr.Group():
                     with gr.Row():
@@ -393,6 +396,7 @@ with shared.gradio_root:
                             start_download(selected_model)
 
                     download_button.click(download_callback)
+
 
             with gr.Tab(label='Advanced'):
                 guidance_scale = gr.Slider(label='Guidance Scale', minimum=1.0, maximum=30.0, step=0.01,
@@ -729,5 +733,7 @@ shared.gradio_root.launch(
     server_port=args_manager.args.port,
     share=args_manager.args.share,
     auth=check_auth if args_manager.args.share and auth_enabled else None,
+
     blocked_paths=[constants.AUTH_FILENAME],
+
 )
