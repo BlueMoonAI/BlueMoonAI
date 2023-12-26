@@ -51,3 +51,4 @@ user_path_config-deprecated.txt
 /.coverage*
 /auth.json
 /log.txt
+/system_info.txt
