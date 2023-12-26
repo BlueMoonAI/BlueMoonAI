@@ -10,6 +10,7 @@ import json
 import os
 
 from bluemoon.utils.logly import logly
+from modules.system_info import  check_system_info
 from updater import Updater
 
 
@@ -20,6 +21,8 @@ root = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(root)
 os.chdir(root)
 
+# check the system capabilities
+check_system_info()
 
 # Load data from settings.json
 with open('settings.json', 'r') as file:

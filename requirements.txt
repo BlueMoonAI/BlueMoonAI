@@ -26,3 +26,4 @@ requests>=2.31.0
 scikit-image==0.22.0
 
 typing_extensions~=4.9.0
+GPUtil~=1.4.0
