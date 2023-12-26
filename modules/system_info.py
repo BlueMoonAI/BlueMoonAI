@@ -2,9 +2,8 @@ import platform
 import subprocess
 import psutil
 import GPUtil
-
+import pygetwindow as gw
 from bluemoon.utils.logly import logly
-
 
 def get_system_info():
     """
@@ -27,7 +26,6 @@ def get_system_info():
     }
     return system_info
 
-
 def get_gpu_info():
     """
     Retrieves information about the available GPUs, including integrated and external GPUs.
@@ -49,6 +47,13 @@ def get_gpu_info():
     except Exception as e:
         return [f"Error retrieving GPU information: {e}"]
 
+def get_windows_gpu_info():
+    try:
+        gpus = gw.getWindowsWithTitle('Device Manager')
+        gpu_info = [f"GPU {i}: {gpu.title}" for i, gpu in enumerate(gpus, 1)]
+        return gpu_info
+    except Exception as e:
+        return [f"Error retrieving GPU information on Windows: {e}"]
 
 def get_external_gpu_info():
     """
@@ -61,9 +66,7 @@ def get_external_gpu_info():
         if platform.system() == 'Darwin':  # macOS
             return None
         elif platform.system() == 'Windows':
-            external_gpu_info = subprocess.check_output(['wmic', 'path', 'win32_pnpentity', 'get', 'caption'],
-                                                        text=True)
-            return [line.strip() for line in external_gpu_info.split('\n') if 'External GPU' in line]
+            return get_windows_gpu_info()
         elif platform.system() == 'Linux':
             external_gpu_info = subprocess.check_output(['lspci', '-v'], text=True)
             return [line.strip() for line in external_gpu_info.split('\n') if 'External GPU' in line]
@@ -71,7 +74,6 @@ def get_external_gpu_info():
             return None
     except subprocess.CalledProcessError as e:
         return [f"Error retrieving external GPU information: {e}"]
-
 
 def get_disk_space():
     """
@@ -88,7 +90,6 @@ def get_disk_space():
             f"{partition.device} - Total: {usage.total / (1024 ** 3):.2f} GB, Used: {usage.used / (1024 ** 3):.2f} GB, Free: {usage.free / (1024 ** 3):.2f} GB")
 
     return disk_info
-
 
 def save_to_file(data, filename='../system_info.txt'):
     """
@@ -144,3 +145,6 @@ def check_system_info():
                 logly.info(f"   - {line}")
         else:
             logly.info("No disk space information available.")
+
+if __name__ == "__main__":
+    check_system_info()
