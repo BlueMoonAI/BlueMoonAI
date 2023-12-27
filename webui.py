@@ -16,8 +16,10 @@ import args_manager
 import copy
 import json
 import modules.meta_parser
+
 from modules.download_models import start_download
 from modules.load_models import download_models
+
 from modules.sdxl_styles import legal_style_names, bluemoon_expansion, style_keys
 from modules.history_logger import get_current_html_path
 from modules.ui_gradio_extensions import reload_javascript
@@ -441,6 +443,7 @@ with shared.gradio_root:
                     output = gr.Textbox(label="Progress")
 
 
+
             with gr.Tab(label='Advanced'):
                 guidance_scale = gr.Slider(label='Guidance Scale', minimum=1.0, maximum=30.0, step=0.01,
                                            value=modules.config.default_cfg_scale,
@@ -776,5 +779,7 @@ shared.gradio_root.launch(
     server_port=args_manager.args.port,
     share=args_manager.args.share,
     auth=check_auth if args_manager.args.share and auth_enabled else None,
+
     blocked_paths=[constants.AUTH_FILENAME],
+
 )
