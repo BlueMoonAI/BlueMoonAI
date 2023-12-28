@@ -128,7 +128,7 @@ Or if you want to open a remote port, use
     source BlueMoonAI_env/bin/activate
     python launcher.py --listen
 
-Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
+Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition and you can add more presets in presets folder.
 
 ### Linux (Using native system Python)
 Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
