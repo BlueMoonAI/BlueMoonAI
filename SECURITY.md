@@ -6,10 +6,9 @@ Use this section to inform users about which versions of BluemoonAI are currentl
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.0.x   | :white_check_mark: |
-| 0.9.x   | :x:                |
-| 0.8.x   | :white_check_mark: |
-| < 0.8   | :x:                |
+| > 0.1   | :white_check_mark: |
+| 0.1   | :white_check_mark: |
+| < 0.1   | :x:                |
 
 ## Reporting a Vulnerability
 
