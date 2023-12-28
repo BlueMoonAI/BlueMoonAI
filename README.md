@@ -24,10 +24,10 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/BlueMoonAI/BlueMoonAI)](https://github.com/BlueMoonAI/BlueMoonAI/graphs/contributors)
 [![Popularity](https://komarev.com/ghpvc/?username=BlueMoonAI&label=Popularity)](https://github.com/BlueMoonAI/BlueMoonAI)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BlueMoonAI/BlueMoonAI/blob/main/bluemoonai_colab.ipynb)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FBlueMoonAI%2FBlueMoonAI&count_bg=%230046FF&title_bg=%23757575&icon=azurefunctions.svg&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 <a href="https://www.patreon.com/bluemoonai/membership" target="_blank">
   <img src="https://img.shields.io/badge/Support%20Us-Donate-%23FF424D.svg" alt="Donate to Bluemoon AI on Patreon">
 </a>
-
 </div>
 
 BlueMoon AI stands at the forefront as a latent text-to-image diffusion model, skillfully crafting photo-realistic images from diverse textual inputs. It not only generates stunning imagery but also fosters autonomous creativity, empowering individuals worldwide to effortlessly create captivating art within moments. (Powered by [Gradio](https://www.gradio.app/))
