@@ -267,7 +267,7 @@ with shared.gradio_root:
                                                    choices=modules.config.available_aspect_ratios,
                                                    value=modules.config.default_aspect_ratio, info='width × height',
                                                    elem_classes='aspect_ratios')
-                image_number = gr.Slider(label='Image Number', minimum=1, maximum=32, step=1,
+                image_number = gr.Slider(label='Image Number', minimum=1, maximum=1000, step=1,
                                          value=modules.config.default_image_number)
                 negative_prompt = gr.Textbox(label='Negative Prompt', show_label=True, placeholder="Type prompt here.",
                                              info='Describing what you do not want to see.', lines=2,
