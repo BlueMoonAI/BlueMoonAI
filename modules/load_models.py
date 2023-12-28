@@ -2,6 +2,9 @@
 import os
 import json
 
+from bluemoon.utils.logly import logly
+
+
 def download_models(selected_models_sdxl, selected_models_sd, url_input):
     downloaded_models = load_downloaded_models()
 
@@ -10,19 +13,25 @@ def download_models(selected_models_sdxl, selected_models_sd, url_input):
     selected_models_sd = [model for model in selected_models_sd if not is_model_downloaded(model, downloaded_models['sd'])]
 
     for model in selected_models_sdxl:
-        print(f'Downloading {model}...')
+
+        logly.info(f'Downloading {model}...')
+
         # Implement the download logic for sdxl models
         # ...
         downloaded_models['sdxl'].append(model)
 
     for model in selected_models_sd:
-        print(f'Downloading {model}...')
+
+        logly.info(f'Downloading {model}...')
+
         # Implement the download logic for sd models
         # ...
         downloaded_models['sd'].append(model)
 
     if url_input:
-        print(f'Downloading from URL: {url_input}...')
+
+        logly.info(f'Downloading from URL: {url_input}...')
+
         # Implement the download logic for URL
         # ...
         downloaded_models['url'].append(url_input)

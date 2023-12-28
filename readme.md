@@ -67,6 +67,7 @@ Let Your Creativity Flow.
 - [Default Models](#default-models)
 - [Customization](#customization)
   - [All CMD Flags](#all-cmd-flags)
+  - [NSFW Blackout](#nsfw-blackout)
 - [Update Log](#update-log)
 - [Localization/Translation](#localizationtranslation)
 - [Happy Creativity! ❤️](#happy-creativity-)
@@ -204,15 +205,15 @@ Please review our [Code of Conduct](CODE_OF_CONDUCT.md) to understand the behavi
 
 Below is the minimal requirement for running BlueMoon AI locally. If your device capability is lower than this spec, you may not be able to use BlueMoon AI locally. (Please let us know, in any case, if your device capability is lower but BlueMoon AI still works.)
 
-| Operating System  | GPU                          | Minimal GPU Memory | Minimal System Memory | Note                                                  |
-|-------------------|------------------------------|--------------------|-----------------------|-------------------------------------------------------|
-| Windows/Linux     | Nvidia RTX >2XXX             | 4GB                | 8GB                   | Offers superior performance compared to GTX 1XXX (on GPU)  |
-| Windows/Linux     | Nvidia GTX >9XX              | 8GB                | 8GB                   | GPU performance may vary in comparison to CPU            |
-| Windows/Linux     | Nvidia GTX < 9XX             | Not supported      | /                     | /                                                       |
-| Windows           | AMD GPU                      | 16GB               | 8GB                   | Leverages DirectML for GPU acceleration                |
-| Linux             | AMD GPU                      | 8GB                | 8GB                   | Accelerated via ROCm                                  |
-| Windows           | &ast; AMD GPU ROCm (on hold) | 8GB (on hold)     | 8GB (on hold)        | ROCm support currently on hold                         |
-| Mac               | M1/M2 MPS                    | Shared             | Shared                | Approximately 9x slower than Nvidia RTX 3XXX          |
+| Operating System  | GPU                          | Minimal GPU Memory | Minimal System Memory | Note                                     |
+|-------------------|------------------------------|--------------------|-----------------------|------------------------------------------|
+| Windows/Linux     | Nvidia RTX >2XXX             | 4GB                | 8GB                   | Offers superior performance compared to GTX 1XXX (on GPU) |
+| Windows/Linux     | Nvidia GTX >9XX              | 8GB                | 8GB                   | GPU performance may vary in comparison to CPU |
+| Windows/Linux     | Nvidia GTX < 9XX             | 4GB                | 8GB                   | slower performance                       |
+| Windows           | AMD GPU                      | 16GB               | 8GB                   | Leverages DirectML for GPU acceleration  |
+| Linux             | AMD GPU                      | 8GB                | 8GB                   | Accelerated via ROCm                     |
+| Windows           | &ast; AMD GPU ROCm (on hold) | 8GB                | 8GB                   | ROCm support currently on hold           |
+| Mac               | M1/M2/M3 MPS                 | Shared             | Shared                | slower than Nvidia RTX 3XXX              |
 
 &ast; AMD GPU ROCm (on hold): The AMD is still working on supporting ROCm on Windows.
 
@@ -303,6 +304,16 @@ launcher.py  [-h] [--listen [IP]] [--port PORT]
                       [--language LANGUAGE] [--disable-offload-from-vram]
                       [--theme THEME] [--disable-image-log]
 ```
+## NSFW Blackout
+
+This project includes a feature called NSFW blackout. Users can enable this feature from the advanced options under the "Debug" section. When NSFW blackout is enabled, it will disable the preview.
+
+To enable NSFW blackout:
+1. Go to the "Advanced" options.
+2. Navigate to the "Debug" section.
+3. Enable the "NSFW Blackout" option.
+
+Please be aware that enabling NSFW blackout will disable the preview functionality.
 
 ## Update Log
 

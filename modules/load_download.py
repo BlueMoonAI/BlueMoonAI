@@ -1,13 +1,15 @@
 import json
 import os
 
+from bluemoon.utils.logly import logly
+
 
 def load_json_file(file_path):
     try:
         with open(file_path, "r", encoding="utf-8") as json_file:
             return json.load(json_file)
     except Exception as e:
-        print(f'Failed to load models file "{file_path}". The reason is: {str(e)}')
+        logly.error(f'Failed to load models file "{file_path}". The reason is: {str(e)}')
         return None
 
 
@@ -27,7 +29,7 @@ def get_models_values(file_names):
             # Store the value in the result dictionary
             result[file_name] = models_value
         else:
-            print(f"Unable to load {file_name}.")
+            logly.error(f"Unable to load {file_name}.")
 
     return result
 
