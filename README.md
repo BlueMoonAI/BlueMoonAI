@@ -74,7 +74,9 @@ Let Your Creativity Flow.
 - [Happy Creativity! ❤️](#happy-creativity-)
 
 
-## [Installing BlueMoonAI](#download)
+## [Installing BlueMoonAI](#installing-bluemoonai)
+
+Note that the [minimal requirement](#minimal-requirement) for different platforms.so Please check the minimal requirement before you install BlueMoonAI.
 
 ### Run in Colab
 
@@ -85,7 +87,6 @@ Let Your Creativity Flow.
 ***Tested and works!**
 
 ### Linux (Using Anaconda)
-Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
 
 If you want to use Anaconda/Miniconda, you can
 
@@ -95,7 +96,7 @@ If you want to use Anaconda/Miniconda, you can
     conda activate BlueMoonAI
     pip install -r requirements.txt
 
-Then download the models: download [default models](#models) to the folder "BlueMoonAI\models\checkpoints". **Or let BlueMoonAI automatically download the models** using the launcher:
+Then download the models: download [default models](#default-models) to the folder "BlueMoonAI\models\checkpoints". **Or let BlueMoonAI automatically download the models** using the launcher:
 
     conda activate BlueMoonAI
     python launcher.py
@@ -105,12 +106,11 @@ Or if you want to open a remote port, use
     conda activate BlueMoonAI
     python launcher.py --listen
 
-Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
+Checkout the [CMD flags](#all-cmd-flags) for more options.
 
 ### Linux (Using Python Venv)
-Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
 
-Your Linux needs to have **Python 3.10** installed, and lets say your Python can be called with command **python3** with your venv system working, you can
+Your Linux needs to have **Python 3.10** installed, and let's say your Python can be called with command **python3** with your venv system working, you can
 
     git clone https://github.com/BlueMoonAI/BlueMoonAI.git
     cd BlueMoonAI
@@ -128,10 +128,9 @@ Or if you want to open a remote port, use
     source BlueMoonAI_env/bin/activate
     python launcher.py --listen
 
-Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition and you can add more presets in presets folder.
+Checkout the [CMD flags](#all-cmd-flags) for more options.
 
 ### Linux (Using native system Python)
-Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
 
 If you know what you are doing, and your Linux already has **Python 3.10** installed, and your Python can be called with command **python3** (and Pip with **pip3**), you can
 
@@ -147,10 +146,11 @@ Or if you want to open a remote port, use
 
     python3 launcher.py --listen
 
-Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
+Checkout the [CMD flags](#all-cmd-flags) for more options.
+
+you can also change the presets on `advanced>Custom>Presets` section dynamically. and add more presets in [presets](./presets/) folder.
 
 ### Linux (AMD GPUs)
-Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
 
 Same with the above instructions. You need to change torch to AMD version
 
@@ -159,32 +159,36 @@ Same with the above instructions. You need to change torch to AMD version
 
 AMD is not intensively tested, however. The AMD support is in beta.
 
-Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
+Checkout the [CMD flags](#all-cmd-flags) for more options.
 
 ### Windows(AMD GPUs)
-Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
 
-AMD is not intensively tested, however. The AMD support is in beta.
+Same with the above instructions. You need to change torch to AMD version
 
-For AMD, use `python launcher.py --directml --preset anime` or `python launcher.py --directml --preset realistic` for BlueMoonAI Anime/Realistic Edition.
+    pip uninstall torch torchvision torchaudio torchtext functorch xformers 
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm5.6
+
+Checkout the [CMD flags](#all-cmd-flags) for more options.
 
 ### Mac
-Note that the [minimal requirement](#minimal-requirement) for different platforms is different.
 
 Mac is not intensively tested. Below is an unofficial guideline for using Mac. You can discuss problems [here](https://github.com/BlueMoonAI/BlueMoonAI/).
 
-You can install BlueMoonAI on Apple Mac silicon (M1 or M2) with macOS 'Catalina' or a newer version. BlueMoonAI runs on Apple silicon computers via [PyTorch](https://pytorch.org/get-started/locally/) MPS device acceleration. Mac Silicon computers don't come with a dedicated graphics card, resulting in significantly longer image processing times compared to computers with dedicated graphics cards.
+You can install BlueMoonAI on Apple Mac silicon (M1 or M2 or M3) with macOS 'Catalina' or a newer version. BlueMoonAI runs on Apple Silicon computers via [PyTorch](https://pytorch.org/get-started/locally/) MPS device acceleration.
+Mac Silicon computers don't come with a dedicated graphics card, resulting in significantly longer image processing times compared to computers with dedicated graphics cards.
 
 1. Install the conda package manager and pytorch nightly. Read the [Accelerated PyTorch training on Mac](https://developer.apple.com/metal/pytorch/) Apple Developer guide for instructions. Make sure pytorch recognizes your MPS device.
-1. Open the macOS Terminal app and clone this repository with `git clone https://github.com/BlueMoonAI/BlueMoonAI.git`.
-1. Change to the new BlueMoonAI directory, `cd BlueMoonAI`.
-1. Create a new conda environment, `conda env create -f environment.yaml`.
-1. Activate your new conda environment, `conda activate BlueMoonAI`.
-1. Install the packages required by BlueMoonAI, `pip install -r requirements.txt`.
-1. Launch BlueMoonAI by running `python launcher.py`. (Some Mac M2 users may need `python launcher.py --disable-offload-from-vram` to speed up model loading/unloading.) The first time you run BlueMoonAI, it will automatically download the Stable Diffusion SDXL models and will take a significant time, depending on your internet connection.
+2. Open the macOS Terminal app and clone this repository with `git clone https://github.com/BlueMoonAI/BlueMoonAI.git`.
+3. Change to the new BlueMoonAI directory, `cd BlueMoonAI`.
+4. Create a new conda environment, `conda env create -f environment.yaml`.
+5. Activate your new conda environment, `conda activate BlueMoonAI`.
+6. Install the packages required by BlueMoonAI, `pip install -r requirements.txt`.
+7. Launch BlueMoonAI by running `python launcher.py`. (Some Mac users may need `python launcher.py --disable-offload-from-vram` to speed up model loading/unloading.) The first time you run BlueMoonAI, it will automatically download the Stable Diffusion SDXL models and will take a significant time, depending on your internet connection.
 
-Use `python launcher.py --preset anime` or `python launcher.py --preset realistic` for BlueMoonAI Anime/Realistic Edition.
+Checkout the [CMD flags](#all-cmd-flags) for more options.
 
+
+Reference more on [here](https://pytorch.org/get-started/locally/)
 
 ### Docker
 
@@ -218,11 +222,9 @@ Below is the minimal requirement for running BlueMoon AI locally. If your device
 | Windows           | AMD GPU                      | 16GB               | 8GB                   | Leverages DirectML for GPU acceleration                |
 | Linux             | AMD GPU                      | 8GB                | 8GB                   | Accelerated via ROCm                                  |
 | Windows           | &ast; AMD GPU ROCm (on hold) | 8GB      | 8GB       | ROCm support currently on hold                         |
-| Mac               | M1/M2 MPS                    | Shared             | Shared                |  slower than Nvidia RTX 3XXX          |
+| Mac               | M1/M2/M3 MPS                 | Shared             | Shared                |  slower than Nvidia RTX 3XXX          |
 
-&ast; AMD GPU ROCm (on hold): The AMD is still working on supporting ROCm on Windows.
-
-&ast; Nvidia GTX 1XXX 6GB uncertain: Some people reports 6GB success on GTX 10XX but some other people reports failure cases.
+&ast; AMD GPU ROCm : The AMD is still working on supporting ROCm on Windows.
 
 *Note that BlueMoon AI is only for extremely high quality image generating. We will not support smaller models to reduce the requirement and sacrifice result quality.*
 
@@ -241,7 +243,6 @@ Given different goals, the default models and configs of BlueMoonAI is different
 Note that the download is **automatic** - you do not need to do anything if the internet connection is okay. However, you can download them manually if you (or move them from somewhere else) have your own preparation.
 
 The default models are downloaded to `BlueMoonAI\models\checkpoints` folder. You can also download them manually and put them in the folder.
-
 
 ## Customization
 
@@ -280,8 +281,17 @@ For example, an edited `BlueMoonAI\config.txt` (this file will be generated afte
 Many other keys, formats, and examples are in `BlueMoonAI\config_settings.txt` (this file will be generated after the first launch).
 
 Consider twice before you really change the config. If you find yourself breaking things, just delete `BlueMoonAI\config.txt`. BlueMoonAI will go back to default.
+also you can turn off the automatic updates by changing it in `settings.json` file
+
+```json
+{
+  "AUTOUPDATE": "False"
+}
+```
 
 ### All CMD Flags
+
+The following command line flags can be used for configuring the runtime parameters of your application:
 
 ```
 launcher.py  [-h] [--listen [IP]] [--port PORT]
