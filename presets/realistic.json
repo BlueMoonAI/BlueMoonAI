@@ -42,6 +42,6 @@
     },
     "embeddings_downloads": {},
     "lora_downloads": {
-        "SDXL_FILM_PHOTOGRAPHY_STYLE_BetaV0.4.safetensors": "https://huggingface.co/BlueMoon/Models/resolve/main/SDXL_FILM_PHOTOGRAPHY_STYLE_BetaV0.4.safetensors"
+        "SDXL_FILM_PHOTOGRAPHY_STYLE_BetaV0.4.safetensors": "https://huggingface.co/bluemoonai/Models/resolve/main/SDXL_FILM_PHOTOGRAPHY_STYLE_BetaV0.4.safetensors"
     }
 }
