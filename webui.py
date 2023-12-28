@@ -16,8 +16,10 @@ import args_manager
 import copy
 import json
 import modules.meta_parser
+
 from modules.download_models import start_download
 from modules.load_models import download_models
+
 from modules.sdxl_styles import legal_style_names, bluemoon_expansion, style_keys
 from modules.history_logger import get_current_html_path
 from modules.ui_gradio_extensions import reload_javascript
@@ -441,6 +443,7 @@ with shared.gradio_root:
                     output = gr.Textbox(label="Progress")
 
 
+
             with gr.Tab(label='Advanced'):
                 guidance_scale = gr.Slider(label='Guidance Scale', minimum=1.0, maximum=30.0, step=0.01,
                                            value=modules.config.default_cfg_scale,
@@ -509,8 +512,10 @@ with shared.gradio_root:
                             label='Forced Overwrite of Denoising Strength of "Upscale"',
                             minimum=-1, maximum=1.0, step=0.001, value=-1,
                             info='Set as negative number to disable. For developer debugging.')
+
                         disable_preview = gr.Checkbox(label='Disable Preview', value=modules.config.default_black_out_nsfw,
                                                       interactive=not modules.config.default_black_out_nsfw,
+
                                                       info='Disable preview during generation.')
                         black_out_nsfw = gr.Checkbox(label='Black Out NSFW', value=modules.config.default_black_out_nsfw,
                                                      interactive=not modules.config.default_black_out_nsfw,
@@ -572,7 +577,9 @@ with shared.gradio_root:
                         freeu_s2 = gr.Slider(label='S2', minimum=0, maximum=4, step=0.01, value=0.95)
                         freeu_ctrls = [freeu_enabled, freeu_b1, freeu_b2, freeu_s1, freeu_s2]
 
+
                 adps = [disable_preview,  black_out_nsfw, adm_scaler_positive, adm_scaler_negative, adm_scaler_end, adaptive_cfg,
+
                         sampler_name,
                         scheduler_name, generate_image_grid, overwrite_step, overwrite_switch, overwrite_width,
                         overwrite_height,
@@ -784,5 +791,6 @@ shared.gradio_root.launch(
     server_port=args_manager.args.port,
     share=args_manager.args.share,
     auth=check_auth if args_manager.args.share and auth_enabled else None,
+
     blocked_paths=[constants.AUTH_FILENAME],
 )

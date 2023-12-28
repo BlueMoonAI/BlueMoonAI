@@ -52,6 +52,7 @@ user_path_config-deprecated.txt
 /auth.json
 /log.txt
 /system_info.txt
+
 !/models/safety_checker_models/put_safety_checker_models_here
 /models/safety_checker_models/
 

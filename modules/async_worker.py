@@ -410,6 +410,7 @@ def worker():
                     log_positive_prompt='\n'.join([task_prompt] + task_extra_positive_prompts),
                     log_negative_prompt='\n'.join([task_negative_prompt] + task_extra_negative_prompts), ))
 
+
             if use_expansion:
                 for i, t in enumerate(tasks):
                     progressbar(async_task, 5, f'Preparing BlueMoon AI text #{i + 1} ...')
