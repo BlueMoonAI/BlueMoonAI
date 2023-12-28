@@ -68,6 +68,7 @@ Let Your Creativity Flow.
 - [Default Models](#default-models)
 - [Customization](#customization)
   - [All CMD Flags](#all-cmd-flags)
+  - [NSFW Blackout](#nsfw-blackout)
 - [Update Log](#update-log)
 - [Localization/Translation](#localizationtranslation)
 - [Happy Creativity! ❤️](#happy-creativity-)
