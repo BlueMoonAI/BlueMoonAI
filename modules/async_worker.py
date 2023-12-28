@@ -37,8 +37,8 @@ def worker():
     import modules.advanced_parameters as advanced_parameters
     import bluemoon.extras.ip_adapter as ip_adapter
     import bluemoon.extras.face_crop
-
-    from modules.sdxl_styles import apply_style, apply_wildcards, bluemoon_expansion,apply_arrays
+    from modules.censor import censor_batch
+    from modules.sdxl_styles import apply_style, apply_wildcards, bluemoon_expansion, apply_arrays
     from modules.history_logger import log
     from bluemoon.extras.expansion import safe_str
     from modules.util import remove_empty_str, HWC3, resize_image, \
@@ -58,10 +58,13 @@ def worker():
         logly.info(f'[BlueMoon AI] {text}')
         async_task.yields.append(['preview', (number, text, None)])
 
-    def yield_result(async_task, imgs, do_not_show_finished_images=False):
+    def yield_result(async_task, imgs, do_not_show_finished_images=False, progressbar_index=13):
         if not isinstance(imgs, list):
             imgs = [imgs]
 
+        if modules.config.default_black_out_nsfw or advanced_parameters.black_out_nsfw:
+            progressbar(async_task, progressbar_index, 'Checking for NSFW content ...')
+            imgs = censor_batch(imgs)
         async_task.results = async_task.results + imgs
 
         if do_not_show_finished_images:
@@ -208,9 +211,9 @@ def worker():
         modules.patch.negative_adm_scale = advanced_parameters.adm_scaler_negative
         modules.patch.adm_scaler_end = advanced_parameters.adm_scaler_end
         logly.info(f'[Parameters] ADM Scale = '
-              f'{modules.patch.positive_adm_scale} : '
-              f'{modules.patch.negative_adm_scale} : '
-              f'{modules.patch.adm_scaler_end}')
+                   f'{modules.patch.positive_adm_scale} : '
+                   f'{modules.patch.negative_adm_scale} : '
+                   f'{modules.patch.adm_scaler_end}')
 
         cfg_scale = float(guidance_scale)
         logly.info(f'[Parameters] CFG = {cfg_scale}')
@@ -361,9 +364,9 @@ def worker():
 
             progressbar(async_task, 3, 'Processing prompts ...')
             tasks = []
-            task_rng = random.Random(seed) # may bind to inpaint noise in the future
+            task_rng = random.Random(seed)  # may bind to inpaint noise in the future
             for i in range(image_number):
-                if(freeze_seed):
+                if (freeze_seed):
                     task_seed = seed
                 else:
                     task_seed = (seed + i) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
@@ -405,7 +408,7 @@ def worker():
                     positive_top_k=len(positive_basic_workloads),
                     negative_top_k=len(negative_basic_workloads),
                     log_positive_prompt='\n'.join([task_prompt] + task_extra_positive_prompts),
-                    log_negative_prompt='\n'.join([task_negative_prompt] + task_extra_negative_prompts),   ))
+                    log_negative_prompt='\n'.join([task_negative_prompt] + task_extra_negative_prompts), ))
 
             if use_expansion:
                 for i, t in enumerate(tasks):
@@ -491,8 +494,8 @@ def worker():
                 direct_return = True
             elif image_is_super_large:
                 logly.info('Image is too large. Directly returned the SR image. '
-                      'Usually directly return SR image at 4K resolution '
-                      'yields better results than SDXL diffusion.')
+                           'Usually directly return SR image at 4K resolution '
+                           'yields better results than SDXL diffusion.')
                 direct_return = True
             else:
                 direct_return = False
@@ -789,7 +792,10 @@ def worker():
                             d.append(('Version', 'v' + bluemoonai_version.get_version()))
                         log(x, d)
 
-                yield_result(async_task, imgs, do_not_show_finished_images=len(tasks) == 1)
+                yield_result(async_task, imgs, do_not_show_finished_images=len(tasks) == 1,
+                             progressbar_index=int(
+                                 15.0 + 85.0 * float((current_task_id + 1) * steps) / float(all_steps)))
+
             except bluemoon.ldm_patched.modules.model_management.InterruptProcessingException as e:
                 if shared.last_stop == 'skip':
                     logly.info('User skipped')
