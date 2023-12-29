@@ -318,7 +318,16 @@ launcher.py  [-h] [--listen [IP]] [--port PORT]
                       [--language LANGUAGE] [--disable-offload-from-vram]
                       [--theme THEME] [--disable-image-log]
 ```
-
+BlueMoonAI provides different presets for generating images. You can change the preset using the `--preset` option when running the `launcher.py` script. Here are the available presets:
+- Anime Preset:
+  ```bash
+  python launcher.py --preset anime
+  ```
+- Realistic Preset:
+```bash
+python launcher.py --preset realistic
+```
+  
 ## Update Log
 
 The log is [here](update_log.md).
