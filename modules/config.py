@@ -233,10 +233,15 @@ default_advanced_checkbox = get_config_item_or_set_default(
     default_value=False,
     validator=lambda x: isinstance(x, bool)
 )
+default_max_image_number = get_config_item_or_set_default(
+    key='default_max_image_number',
+    default_value=32,
+    validator=lambda x: isinstance(x, int) and x >= 1
+)
 default_image_number = get_config_item_or_set_default(
     key='default_image_number',
     default_value=2,
-    validator=lambda x: isinstance(x, int) and 1 <= x <= 32
+    validator=lambda x: isinstance(x, int) and 1 <= x <= default_max_image_number
 )
 
 download_model_value  = download_models.get('model_downloads', {})
