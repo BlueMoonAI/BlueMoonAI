@@ -16,7 +16,7 @@ async_tasks = []
 
 def worker():
     global async_tasks
-
+    import cv2
     import traceback
     import math
     import numpy as np
@@ -143,6 +143,9 @@ def worker():
         uov_input_image = args.pop()
         outpaint_selections = args.pop()
         inpaint_input_image = args.pop()
+        inpaint_mask_image = args.pop()
+        inpaint_mask_image_checkbox =  args.pop()
+        invert_mask_checkbox = args.pop()
         inpaint_additional_prompt = args.pop()
 
         cn_tasks = {x: [] for x in flags.ip_list}
@@ -278,7 +281,22 @@ def worker():
                     current_tab == 'ip' and advanced_parameters.mixing_image_prompt_and_inpaint)) \
                     and isinstance(inpaint_input_image, dict):
                 inpaint_image = inpaint_input_image['image']
-                inpaint_mask = inpaint_input_image['mask'][:, :, 0]
+
+                #inpaint_mask = inpaint_input_image['mask'][:, :, 0]
+                # use uploaded inpaint mask image, if not brush for inpaint.
+# If there is no hand-painted mask, use the uploaded mask and scale it. Change the judgment conditions and try to fix the problems that occur when matching with external expansion drawing.               #Add the judgment to reverse the hand-painted mask
+                if inpaint_mask_image_checkbox and not np.any(inpaint_input_image['mask'] == [255, 255, 255]) and inpaint_mask_image is not None:
+                    inpaint_height, inpaint_width = inpaint_image.shape[:2]
+                    resized_mask_image = cv2.resize(inpaint_mask_image, (inpaint_width, inpaint_height))
+
+                    inpaint_mask = resized_mask_image[:, :, 0]
+                else:
+                    inpaint_mask = inpaint_input_image['mask'][:, :, 0]
+                    if invert_mask_checkbox:
+                        inpaint_mask = np.invert(inpaint_mask)
+
+
+
                 inpaint_image = HWC3(inpaint_image)
                 if isinstance(inpaint_image, np.ndarray) and isinstance(inpaint_mask, np.ndarray) \
                         and (np.any(inpaint_mask > 127) or len(outpaint_selections) > 0):

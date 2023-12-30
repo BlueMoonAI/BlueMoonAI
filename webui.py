@@ -216,9 +216,12 @@ with shared.gradio_root:
                                            outputs=ip_ad_cols + ip_types + ip_stops + ip_weights,
                                            queue=False, show_progress=False)
                     with gr.TabItem(label='Inpaint or Outpaint') as inpaint_tab:
-                        inpaint_input_image = grh.Image(label='Drag above image to here', source='upload', type='numpy',
-                                                        tool='sketch', height=500, brush_color="#FFFFFF",
-                                                        elem_id='inpaint_canvas')
+                        #inpaint_input_image = grh.Image(label='Drag above image to here', source='upload', type='numpy',tool='sketch', height=500, brush_color="#FFFFFF",  elem_id='inpaint_canvas')
+                        with gr.Row():
+                            inpaint_input_image = grh.Image(label='Drag inpaint or outpaint image to here', source='upload', type='numpy', tool='sketch', height=500, brush_color="#FFFFFF", elem_id='inpaint_canvas')
+
+                            inpaint_mask_image = grh.Image(label='Drag inpaint mask image to here', source='upload', type='numpy', height=500,visible=False)
+
                         with gr.Row():
                             inpaint_additional_prompt = gr.Textbox(placeholder="Describe what you want to inpaint.",
                                                                    elem_id='inpaint_additional_prompt',
@@ -230,6 +233,12 @@ with shared.gradio_root:
                         example_inpaint_prompts = gr.Dataset(samples=modules.config.example_inpaint_prompts,
                                                              label='Additional Prompt Quick List',
                                                              components=[inpaint_additional_prompt], visible=False)
+
+                        with gr.TabItem(label='Inpaint advanced') as inpaint_advanced:
+                            inpaint_mask_image_checkbox = gr.Checkbox(label='Enable upload mask', value=False, container=False)
+                            inpaint_mask_image_checkbox.change(lambda x: gr.update(visible=x), inputs=inpaint_mask_image_checkbox, outputs=inpaint_mask_image, queue=False)
+                            invert_mask_checkbox = gr.Checkbox(label='Invert hand-drawn mask', value=False, container=False)
+
                         gr.HTML(
                             '* Powered by BlueMoon AI Inpaint Engine (v1.0.0) <a href="https://github.com/BlueMoonAI/BlueMoonAI/discussions/"  style="color: #fff;" class="button-canvas" target="_blank"> Document</a>')
                         example_inpaint_prompts.click(lambda x: x[0], inputs=example_inpaint_prompts,
@@ -730,7 +739,8 @@ with shared.gradio_root:
         ctrls += [base_model, refiner_model, refiner_switch] + lora_ctrls
         ctrls += [input_image_checkbox, current_tab]
         ctrls += [uov_method, uov_input_image]
-        ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt]
+        #ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt]
+        ctrls += [outpaint_selections, inpaint_input_image, inpaint_mask_image, inpaint_mask_image_checkbox, invert_mask_checkbox, inpaint_additional_prompt]
         ctrls += ip_ctrls
         ctrls += [freeze_seed]
 
