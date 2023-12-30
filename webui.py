@@ -7,7 +7,7 @@ import app
 import shared
 import modules.config
 import bluemoonai_version
-import modules.html
+import web.html
 import modules.async_worker as worker
 import modules.constants as constants
 import modules.flags as flags
@@ -18,13 +18,12 @@ import args_manager
 import copy
 import json
 import modules.meta_parser
-
-from modules.download_models import start_download
+from web.character import character_custom_wildcards_ui
 from modules.load_models import download_models
 
 from modules.sdxl_styles import legal_style_names, bluemoon_expansion, style_keys
-from modules.history_logger import get_current_html_path
-from modules.ui_gradio_extensions import reload_javascript
+from web.history_logger import get_current_html_path
+from web.ui_gradio_extensions import reload_javascript
 from modules.auth import auth_enabled, check_auth
 
 from bluemoon.utils.logly import logly
@@ -43,7 +42,7 @@ def generate_clicked(*args):
     task = worker.AsyncTask(args=list(args))
     finished = False
 
-    yield gr.update(visible=True, value=modules.html.make_progress_html(1, 'Waiting for task to start ...')), \
+    yield gr.update(visible=True, value=web.html.make_progress_html(1, 'Waiting for task to start ...')), \
         gr.update(visible=True, value=None), \
         gr.update(visible=False, value=None), \
         gr.update(visible=False)
@@ -63,7 +62,7 @@ def generate_clicked(*args):
                         continue
 
                 percentage, title, image = product
-                yield gr.update(visible=True, value=modules.html.make_progress_html(percentage, title)), \
+                yield gr.update(visible=True, value=web.html.make_progress_html(percentage, title)), \
                     gr.update(visible=True, value=image) if image is not None else gr.update(), \
                     gr.update(), \
                     gr.update(visible=False)
@@ -93,7 +92,7 @@ if isinstance(args_manager.args.preset, str):
 
 shared.gradio_root = gr.Blocks(
     title=title,
-    css=modules.html.css).queue()
+    css=web.html.css).queue()
 
 with shared.gradio_root:
     with gr.Row():
@@ -103,7 +102,7 @@ with shared.gradio_root:
                                             elem_classes=['main_view'])
                 progress_gallery = gr.Gallery(label='Finished Images', show_label=True, object_fit='contain',
                                               height=768, visible=False, elem_classes=['main_view', 'image_gallery'])
-            progress_html = gr.HTML(value=modules.html.make_progress_html(32, 'Progress 32%'), visible=False,
+            progress_html = gr.HTML(value=web.html.make_progress_html(32, 'Progress 32%'), visible=False,
                                     elem_id='progress-bar', elem_classes='progress-bar')
             gallery = gr.Gallery(label='Gallery', show_label=False, object_fit='contain', visible=True, height=768,
                                  elem_classes=['resizable_area', 'main_view', 'final_gallery', 'image_gallery'],
@@ -149,6 +148,8 @@ with shared.gradio_root:
             with gr.Row(elem_classes='advanced_check_row'):
                 input_image_checkbox = gr.Checkbox(label='Input Image', value=False, container=False,
                                                    elem_classes='min_check')
+                character_checkbox = gr.Checkbox(label='Character', value=modules.config.default_advanced_checkbox,
+                                                container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox,
                                                 container=False, elem_classes='min_check')
             with gr.Row(visible=False) as image_input_panel:
@@ -260,6 +261,11 @@ with shared.gradio_root:
             ip_tab.select(lambda: 'ip', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
             desc_tab.select(lambda: 'desc', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
 
+            with gr.Row(visible=modules.config.default_character_checkbox) as character_column:
+                character_custom_wildcards_ui(prompt)
+
+
+
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox) as advanced_column:
             with gr.Tab(label='Custom'):
                 preset_selection = gr.Radio(label='Preset',
@@ -309,6 +315,7 @@ with shared.gradio_root:
                 if not args_manager.args.disable_image_log:
                     gr.HTML(
                         f'<a  style="color: #fff;"  href="/file={get_current_html_path()}" class="button-canvas" target="_blank"> History Log</a>')
+
 
             with gr.Tab(label='Style'):
                 style_sorter.try_load_sorted_styles(
@@ -621,7 +628,6 @@ with shared.gradio_root:
                 model_refresh.click(model_refresh_clicked, [], [base_model, refiner_model, preset_selection] + lora_ctrls,
                                     queue=False, show_progress=False)
 
-
         def preset_selection_change(preset):
             preset_content = modules.config.try_get_preset_content(preset) if preset != 'initial' else {}
             preset_prepared = modules.meta_parser.parse_meta_from_preset(preset_content)
@@ -674,6 +680,10 @@ with shared.gradio_root:
                                      ], queue=False, show_progress=False)
 
         advanced_checkbox.change(lambda x: gr.update(visible=x), advanced_checkbox, advanced_column,
+                                 queue=False, show_progress=False) \
+            .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
+
+        character_checkbox.change(lambda x: gr.update(visible=x), character_checkbox, character_column,
                                  queue=False, show_progress=False) \
             .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
 

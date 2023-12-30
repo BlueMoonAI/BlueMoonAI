@@ -39,7 +39,7 @@ def worker():
     import bluemoon.extras.face_crop
     from modules.censor import censor_batch
     from modules.sdxl_styles import apply_style, apply_wildcards, bluemoon_expansion, apply_arrays
-    from modules.history_logger import log
+    from web.history_logger import log
     from bluemoon.extras.expansion import safe_str
     from modules.util import remove_empty_str, HWC3, resize_image, \
         get_image_shape_ceil, set_image_shape_ceil, get_shape_ceil, resample_image
