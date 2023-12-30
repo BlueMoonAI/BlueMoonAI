@@ -4,7 +4,7 @@ Algerian
 American
 Andorran
 Angolan
-Antiguans
+Anguillan
 Argentine
 Armenian
 Australian
@@ -14,50 +14,66 @@ Bahamian
 Bahraini
 Bangladeshi
 Barbadian
-Barbudans
-Batswana
+Barbuda
 Belarusian
 Belgian
 Belizean
 Beninese
+Bermudian
 Bhutanese
 Bolivian
-Bosnian
+Botswanan
 Brazilian
 British
+British Virgin Islander
 Bruneian
 Bulgarian
-Burkinabe
+Burkinan
 Burmese
 Burundian
+Caicos Islander
 Cambodian
 Cameroonian
 Canadian
 Cape Verdean
+Cayman Islander
 Central African
 Chadian
 Chilean
 Chinese
+Citizen of Antigua
+Citizen of Bosnia
+Citizen of Guinea-Bissau
+Citizen of Kiribati
+Citizen of Seychelles
+Citizen of the Dominican Republic
+Citizen of Vanuatu
 Colombian
 Comoran
-Congolese
+Congolese (Congo)
+Congolese (DRC)
+Cook Islander
 Costa Rican
 Croatian
 Cuban
+Cymraes
+Cymro
 Cypriot
 Czech
 Danish
-Djibouti
+Djiboutian
 Dominican
 Dutch
 East Timorese
 Ecuadorean
 Egyptian
 Emirati
+English
 Equatorial Guinean
 Eritrean
 Estonian
 Ethiopian
+Faroese
 Fijian
 Filipino
 Finnish
@@ -67,17 +83,20 @@ Gambian
 Georgian
 German
 Ghanaian
+Gibraltarian
 Greek
+Greenlandic
 Grenadian
+Guamanian
 Guatemalan
-Guinea-Bissauan
 Guinean
 Guyanese
 Haitian
-Herzegovinian
+Herzegovina
 Honduran
+Hong Konger
 Hungarian
-Icelander
+Icelandic
 Indian
 Indonesian
 Iranian
@@ -89,38 +108,41 @@ Ivorian
 Jamaican
 Japanese
 Jordanian
-Kazakhstani
+Kazakh
 Kenyan
-Kittian and Nevisian
+Kittitian
+Kosovan
 Kuwaiti
 Kyrgyz
-Laotian
+Lao
 Latvian
 Lebanese
 Liberian
 Libyan
-Liechtensteiner
+Liechtenstein citizen
 Lithuanian
 Luxembourger
+Macanese
 Macedonian
 Malagasy
 Malawian
 Malaysian
-Maldivan
+Maldivian
 Malian
 Maltese
 Marshallese
+Martiniquais
 Mauritanian
 Mauritian
 Mexican
 Micronesian
 Moldovan
-Monacan
+Monegasque
 Mongolian
 Montenegrin
+Montserratian
 Moroccan
 Mosotho
-Motswana
 Mozambican
 Namibian
 Nauruan
@@ -129,6 +151,7 @@ New Zealander
 Nicaraguan
 Nigerian
 Nigerien
+Niuean
 North Korean
 Northern Irish
 Norwegian
@@ -140,34 +163,39 @@ Panamanian
 Papua New Guinean
 Paraguayan
 Peruvian
+Pitcairn Islander
 Polish
 Portuguese
+Prydeinig
+Puerto Rican
 Qatari
 Romanian
 Russian
 Rwandan
-Saint Lucian
-Salvadoran
+Salvadorean
+Sammarinese
 Samoan
-San Marinese
 Sao Tomean
-Saudi
+Saudi Arabian
 Scottish
 Senegalese
 Serbian
-Seychellois
 Sierra Leonean
 Singaporean
-Slovakian
+Slovak
 Slovenian
 Solomon Islander
 Somali
 South African
 South Korean
+South Sudanese
 Spanish
 Sri Lankan
+St Helenian
+St Lucian
+Stateless
 Sudanese
-Surinamer
+Surinamese
 Swazi
 Swedish
 Swiss
@@ -178,18 +206,23 @@ Tanzanian
 Thai
 Togolese
 Tongan
-Trinidadian or Tobagonian
+Trinidadian
+Tristanian
 Tunisian
 Turkish
+Turkmen
+Turks
 Tuvaluan
 Ugandan
 Ukrainian
 Uruguayan
-Uzbekistani
-Vanuatuan
+Uzbek
+Vatican citizen
 Venezuelan
 Vietnamese
+Vincentian
+Wallisian
 Welsh
-Yemenite
+Yemeni
 Zambian
 Zimbabwean
