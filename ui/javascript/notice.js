@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var noticeText = document.createElement('div');
     noticeText.innerHTML = `
         <h1>Thank you for visiting <span style="color: #006fff">BlueMoon AI!</span> 👻</h1>
-        <p><span style="color: #006fff">BlueMoon AI</span> is still in beta version. If you encounter any issues or bugs, please report them <a style="color:rgba(2,103,236,0.99);" href="https://github.com/BlueMoonAI/BlueMoonAI/issues" target="_blank">here</a>.</p>
+        <p>If you encounter any issues or bugs, please report them <a style="color:rgba(2,103,236,0.99);" href="https://github.com/BlueMoonAI/BlueMoonAI/issues" target="_blank">here</a>.</p>
     `;
 
         // Create hCaptcha div
