@@ -7,7 +7,7 @@ import app
 import shared
 import modules.config
 import bluemoonai_version
-import modules.html
+import web.html
 import modules.async_worker as worker
 import modules.constants as constants
 import modules.flags as flags
@@ -18,13 +18,12 @@ import args_manager
 import copy
 import json
 import modules.meta_parser
-
-from modules.download_models import start_download
+from web.character import character_custom_wildcards_ui
 from modules.load_models import download_models
 
 from modules.sdxl_styles import legal_style_names, bluemoon_expansion, style_keys
-from modules.history_logger import get_current_html_path
-from modules.ui_gradio_extensions import reload_javascript
+from web.history_logger import get_current_html_path
+from web.ui_gradio_extensions import reload_javascript
 from modules.auth import auth_enabled, check_auth
 
 from bluemoon.utils.logly import logly
@@ -43,7 +42,7 @@ def generate_clicked(*args):
     task = worker.AsyncTask(args=list(args))
     finished = False
 
-    yield gr.update(visible=True, value=modules.html.make_progress_html(1, 'Waiting for task to start ...')), \
+    yield gr.update(visible=True, value=web.html.make_progress_html(1, 'Waiting for task to start ...')), \
         gr.update(visible=True, value=None), \
         gr.update(visible=False, value=None), \
         gr.update(visible=False)
@@ -63,7 +62,7 @@ def generate_clicked(*args):
                         continue
 
                 percentage, title, image = product
-                yield gr.update(visible=True, value=modules.html.make_progress_html(percentage, title)), \
+                yield gr.update(visible=True, value=web.html.make_progress_html(percentage, title)), \
                     gr.update(visible=True, value=image) if image is not None else gr.update(), \
                     gr.update(), \
                     gr.update(visible=False)
@@ -93,7 +92,7 @@ if isinstance(args_manager.args.preset, str):
 
 shared.gradio_root = gr.Blocks(
     title=title,
-    css=modules.html.css).queue()
+    css=web.html.css).queue()
 
 with shared.gradio_root:
     with gr.Row():
@@ -103,7 +102,7 @@ with shared.gradio_root:
                                             elem_classes=['main_view'])
                 progress_gallery = gr.Gallery(label='Finished Images', show_label=True, object_fit='contain',
                                               height=768, visible=False, elem_classes=['main_view', 'image_gallery'])
-            progress_html = gr.HTML(value=modules.html.make_progress_html(32, 'Progress 32%'), visible=False,
+            progress_html = gr.HTML(value=web.html.make_progress_html(32, 'Progress 32%'), visible=False,
                                     elem_id='progress-bar', elem_classes='progress-bar')
             gallery = gr.Gallery(label='Gallery', show_label=False, object_fit='contain', visible=True, height=768,
                                  elem_classes=['resizable_area', 'main_view', 'final_gallery', 'image_gallery'],
@@ -149,6 +148,8 @@ with shared.gradio_root:
             with gr.Row(elem_classes='advanced_check_row'):
                 input_image_checkbox = gr.Checkbox(label='Input Image', value=False, container=False,
                                                    elem_classes='min_check')
+                character_checkbox = gr.Checkbox(label='Character', value=modules.config.default_advanced_checkbox,
+                                                container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox,
                                                 container=False, elem_classes='min_check')
             with gr.Row(visible=False) as image_input_panel:
@@ -215,9 +216,12 @@ with shared.gradio_root:
                                            outputs=ip_ad_cols + ip_types + ip_stops + ip_weights,
                                            queue=False, show_progress=False)
                     with gr.TabItem(label='Inpaint or Outpaint') as inpaint_tab:
-                        inpaint_input_image = grh.Image(label='Drag above image to here', source='upload', type='numpy',
-                                                        tool='sketch', height=500, brush_color="#FFFFFF",
-                                                        elem_id='inpaint_canvas')
+                        #inpaint_input_image = grh.Image(label='Drag above image to here', source='upload', type='numpy',tool='sketch', height=500, brush_color="#FFFFFF",  elem_id='inpaint_canvas')
+                        with gr.Row():
+                            inpaint_input_image = grh.Image(label='Drag inpaint or outpaint image to here', source='upload', type='numpy', tool='sketch', height=500, brush_color="#FFFFFF", elem_id='inpaint_canvas')
+
+                            inpaint_mask_image = grh.Image(label='Drag inpaint mask image to here', source='upload', type='numpy', height=500,visible=False)
+
                         with gr.Row():
                             inpaint_additional_prompt = gr.Textbox(placeholder="Describe what you want to inpaint.",
                                                                    elem_id='inpaint_additional_prompt',
@@ -229,6 +233,12 @@ with shared.gradio_root:
                         example_inpaint_prompts = gr.Dataset(samples=modules.config.example_inpaint_prompts,
                                                              label='Additional Prompt Quick List',
                                                              components=[inpaint_additional_prompt], visible=False)
+
+                        with gr.TabItem(label='Inpaint advanced') as inpaint_advanced:
+                            inpaint_mask_image_checkbox = gr.Checkbox(label='Enable upload mask', value=False, container=False)
+                            inpaint_mask_image_checkbox.change(lambda x: gr.update(visible=x), inputs=inpaint_mask_image_checkbox, outputs=inpaint_mask_image, queue=False)
+                            invert_mask_checkbox = gr.Checkbox(label='Invert hand-drawn mask', value=False, container=False)
+
                         gr.HTML(
                             '* Powered by BlueMoon AI Inpaint Engine (v1.0.0) <a href="https://github.com/BlueMoonAI/BlueMoonAI/discussions/"  style="color: #fff;" class="button-canvas" target="_blank"> Document</a>')
                         example_inpaint_prompts.click(lambda x: x[0], inputs=example_inpaint_prompts,
@@ -259,6 +269,11 @@ with shared.gradio_root:
             inpaint_tab.select(lambda: 'inpaint', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
             ip_tab.select(lambda: 'ip', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
             desc_tab.select(lambda: 'desc', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
+
+            with gr.Row(visible=modules.config.default_character_checkbox) as character_column:
+                character_custom_wildcards_ui(prompt)
+
+
 
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox) as advanced_column:
             with gr.Tab(label='Custom'):
@@ -309,6 +324,7 @@ with shared.gradio_root:
                 if not args_manager.args.disable_image_log:
                     gr.HTML(
                         f'<a  style="color: #fff;"  href="/file={get_current_html_path()}" class="button-canvas" target="_blank"> History Log</a>')
+
 
             with gr.Tab(label='Style'):
                 style_sorter.try_load_sorted_styles(
@@ -621,7 +637,6 @@ with shared.gradio_root:
                 model_refresh.click(model_refresh_clicked, [], [base_model, refiner_model, preset_selection] + lora_ctrls,
                                     queue=False, show_progress=False)
 
-
         def preset_selection_change(preset):
             preset_content = modules.config.try_get_preset_content(preset) if preset != 'initial' else {}
             preset_prepared = modules.meta_parser.parse_meta_from_preset(preset_content)
@@ -677,6 +692,10 @@ with shared.gradio_root:
                                  queue=False, show_progress=False) \
             .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
 
+        character_checkbox.change(lambda x: gr.update(visible=x), character_checkbox, character_column,
+                                 queue=False, show_progress=False) \
+            .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
+
 
         def inpaint_mode_change(mode):
             assert mode in modules.flags.inpaint_options
@@ -720,7 +739,8 @@ with shared.gradio_root:
         ctrls += [base_model, refiner_model, refiner_switch] + lora_ctrls
         ctrls += [input_image_checkbox, current_tab]
         ctrls += [uov_method, uov_input_image]
-        ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt]
+        #ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt]
+        ctrls += [outpaint_selections, inpaint_input_image, inpaint_mask_image, inpaint_mask_image_checkbox, invert_mask_checkbox, inpaint_additional_prompt]
         ctrls += ip_ctrls
         ctrls += [freeze_seed]
 
