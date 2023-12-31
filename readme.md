@@ -219,9 +219,9 @@ Below is the minimal requirement for running BlueMoon AI locally. If your device
 | Windows/Linux     | Nvidia RTX >2XXX             | 4GB                | 8GB                   | Offers superior performance compared to GTX 1XXX (on GPU)  |
 | Windows/Linux     | Nvidia GTX >9XX              | 8GB                | 8GB                   | GPU performance may vary in comparison to CPU            |
 | Windows/Linux     | Nvidia GTX < 9XX             | Not supported      | /                     | /                                                       |
-| Windows           | AMD GPU                      | 16GB               | 8GB                   | Leverages DirectML for GPU acceleration                |
+| Windows           | AMD GPU                      | 8GB                | 8GB                   | Leverages DirectML for GPU acceleration                |
 | Linux             | AMD GPU                      | 8GB                | 8GB                   | Accelerated via ROCm                                  |
-| Windows           | &ast; AMD GPU ROCm (on hold) | 8GB      | 8GB       | ROCm support currently on hold                         |
+| Windows           | &ast; AMD GPU ROCm (on hold) | 8GB                | 8GB       | ROCm support currently on hold                         |
 | Mac               | M1/M2/M3 MPS                 | Shared             | Shared                |  slower than Nvidia RTX 3XXX          |
 
 &ast; AMD GPU ROCm : The AMD is still working on supporting ROCm on Windows.

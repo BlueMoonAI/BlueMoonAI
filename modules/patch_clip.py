@@ -10,33 +10,16 @@ import bluemoon.ldm_patched.ldm.modules.diffusionmodules.openaimodel
 import bluemoon.ldm_patched.ldm.modules.diffusionmodules.openaimodel
 import bluemoon.ldm_patched.modules.args_parser
 import bluemoon.ldm_patched.modules.model_base
-import bluemoon.ldm_patched.modules.model_management
 import bluemoon.ldm_patched.modules.model_patcher
 import bluemoon.ldm_patched.modules.samplers
 import bluemoon.ldm_patched.modules.ops as ops
 import bluemoon.ldm_patched.modules.sd
 import bluemoon.ldm_patched.modules.sd1_clip
 import bluemoon.ldm_patched.modules.clip_vision
+from modules.ops import use_patched_ops
 import bluemoon.ldm_patched.modules.model_management as model_management
-import contextlib
 
 from transformers import CLIPTextModel, CLIPTextConfig, modeling_utils, CLIPVisionConfig, CLIPVisionModelWithProjection
-
-@contextlib.contextmanager
-def use_patched_ops(operations):
-    op_names = ['Linear', 'Conv2d', 'Conv3d', 'GroupNorm', 'LayerNorm']
-    backups = {op_name: getattr(torch.nn, op_name) for op_name in op_names}
-
-    try:
-        for op_name in op_names:
-            setattr(torch.nn, op_name, getattr(operations, op_name))
-
-        yield
-
-    finally:
-        for op_name in op_names:
-            setattr(torch.nn, op_name, backups[op_name])
-    return
 
 def patched_encode_token_weights(self, token_weight_pairs):
     to_encode = list()
