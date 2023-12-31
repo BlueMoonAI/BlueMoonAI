@@ -1,5 +1,4 @@
-#taken from: https://github.com/lllyasviel/ControlNet
-#and modified
+#based on controlnet from https://github.com/lllyasviel/ControlNet
 
 import torch
 import torch as th

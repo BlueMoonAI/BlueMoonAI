@@ -4,6 +4,7 @@ import json
 
 from bluemoon.utils.logly import logly
 
+#TODO: Add download functionality
 
 def download_models(selected_models_sdxl, selected_models_sd, url_input):
     downloaded_models = load_downloaded_models()

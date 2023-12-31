@@ -284,7 +284,7 @@ class ControlLora(ControlNet):
         cm = self.control_model.state_dict()
 
         for k in sd:
-            weight = bluemoon.ldm_patched.modules.model_management.resolve_lowvram_weight(sd[k], diffusion_model, k)
+            weight = sd[k]
             try:
                 bluemoon.ldm_patched.modules.utils.set_attr(self.control_model, k, weight)
             except:

@@ -219,7 +219,7 @@ def compute_cfg(uncond, cond, cfg_scale, t):
 def patched_sampling_function(model, x, timestep, uncond, cond, cond_scale, model_options=None, seed=None):
     global eps_record
 
-    if math.isclose(cond_scale, 1.0):
+    if math.isclose(cond_scale, 1.0) and not model_options.get("disable_cfg1_optimization", False):
         final_x0 = calc_cond_uncond_batch(model, cond, None, x, timestep, model_options)[0]
 
         if eps_record is not None:
@@ -481,6 +481,11 @@ def build_loaded(module, loader_name):
 
 
 def patch_all():
+    if bluemoon.ldm_patched.modules.model_management.directml_enabled:
+        bluemoon.ldm_patched.modules.model_management.lowvram_available = True
+        bluemoon.ldm_patched.modules.model_management.OOM_EXCEPTION = Exception
+
+
     patch_all_precision()
     patch_all_clip()
 
