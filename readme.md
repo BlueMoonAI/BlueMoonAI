@@ -219,9 +219,9 @@ Below is the minimal requirement for running BlueMoon AI locally. If your device
 | Windows/Linux     | Nvidia RTX >2XXX             | 4GB                | 8GB                   | Offers superior performance compared to GTX 1XXX (on GPU)  |
 | Windows/Linux     | Nvidia GTX >9XX              | 8GB                | 8GB                   | GPU performance may vary in comparison to CPU            |
 | Windows/Linux     | Nvidia GTX < 9XX             | Not supported      | /                     | /                                                       |
-| Windows           | AMD GPU                      | 8GB                | 8GB                   | Leverages DirectML for GPU acceleration                |
+| Windows           | AMD GPU                      | 16GB               | 8GB                   | Leverages DirectML for GPU acceleration                |
 | Linux             | AMD GPU                      | 8GB                | 8GB                   | Accelerated via ROCm                                  |
-| Windows           | &ast; AMD GPU ROCm (on hold) | 8GB                | 8GB       | ROCm support currently on hold                         |
+| Windows           | &ast; AMD GPU ROCm (on hold) | 8GB      | 8GB       | ROCm support currently on hold                         |
 | Mac               | M1/M2/M3 MPS                 | Shared             | Shared                |  slower than Nvidia RTX 3XXX          |
 
 &ast; AMD GPU ROCm : The AMD is still working on supporting ROCm on Windows.
@@ -234,15 +234,17 @@ Below is the minimal requirement for running BlueMoon AI locally. If your device
 
 Given different goals, the default models and configs of BlueMoonAI is different:
 
-| Task | Windows | Linux args | Main Model | Refiner | Config |
-| - | - | - | - | - | - |
-| General | run.bat |  | [juggernautXL v6_RunDiffusion](https://huggingface.co/BlueMoonAI/Models/resolve/main/juggernautXL_version6Rundiffusion.safetensors) | not used | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/modules/path.py) |
-| Realistic | run_realistic.bat | --preset realistic | [realistic_stock_photo](https://huggingface.co/BlueMoonAI/Models/resolve/main/realisticStockPhoto_v10.safetensors) | not used | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/presets/realistic.json) |
-| Anime | run_anime.bat | --preset anime | [bluepencil_v50](https://huggingface.co/BlueMoonAI/Models/resolve/main/bluePencilXL_v050.safetensors) | [dreamsharper_v8](https://huggingface.co/BlueMoonAI/Models/resolve/main/DreamShaper_8_pruned.safetensors) (SD1.5) | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/presets/anime.json) |
+| Task | args | Main Model | Refiner | Config |
+| - | - | - | - | - |
+| General |  | [juggernautXL v6_RunDiffusion](https://huggingface.co/BlueMoonAI/Models/resolve/main/juggernautXL_version6Rundiffusion.safetensors) | not used | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/modules/path.py) |
+| Realistic | --preset realistic | [realistic_stock_photo](https://huggingface.co/BlueMoonAI/Models/resolve/main/realisticStockPhoto_v10.safetensors) | not used | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/presets/realistic.json) |
+| Anime |--preset anime | [bluepencil_v50](https://huggingface.co/BlueMoonAI/Models/resolve/main/bluePencilXL_v050.safetensors) | [dreamsharper_v8](https://huggingface.co/BlueMoonAI/Models/resolve/main/DreamShaper_8_pruned.safetensors) (SD1.5) | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/presets/anime.json) |
 
 Note that the download is **automatic** - you do not need to do anything if the internet connection is okay. However, you can download them manually if you (or move them from somewhere else) have your own preparation.
 
 The default models are downloaded to `BlueMoonAI\models\checkpoints` folder. You can also download them manually and put them in the folder.
+
+you can add more presets in [presets](./presets/) folder.
 
 ## Customization
 
