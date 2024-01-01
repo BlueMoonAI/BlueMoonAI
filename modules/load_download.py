@@ -36,6 +36,5 @@ def get_models_values(file_names):
 
 file_names = [
     "model_settings.json",
-    # Add more file names if needed
 ]
 

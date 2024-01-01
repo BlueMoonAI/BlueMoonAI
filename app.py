@@ -10,6 +10,7 @@ import json
 import os
 
 from bluemoon.utils.logly import logly
+from modules.load_paths import get_model_paths
 from modules.system_info import  check_system_info
 from updater import Updater
 
@@ -124,6 +125,7 @@ def ini_args():
 
 
 prepare_environment()
+get_model_paths()
 build_launcher()
 args = ini_args()
 

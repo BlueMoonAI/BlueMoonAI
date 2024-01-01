@@ -395,7 +395,7 @@ lora_filenames = []
 
 
 def get_model_filenames(folder_path, name_filter=None):
-    return get_files_from_folder(folder_path, ['.pth', '.ckpt', '.bin', '.safetensors', '.bluemoon.patch', '.json'],
+    return get_files_from_folder(folder_path, ['.pth', '.ckpt', '.bin', '.safetensors', '.bluemoon.patch'],
                                  name_filter)
 
 
