@@ -1,3 +1,5 @@
+from zipfile import ZipFile
+
 import gradio as gr
 import random
 import os
@@ -18,8 +20,8 @@ import args_manager
 import copy
 import json
 import modules.meta_parser
+from modules.download_models import download_models
 from web.character import character_custom_wildcards_ui
-from modules.load_models import download_models
 
 from modules.sdxl_styles import legal_style_names, bluemoon_expansion, style_keys
 from web.history_logger import get_current_html_path
@@ -399,73 +401,32 @@ with shared.gradio_root:
                     model_refresh = gr.Button(label='Refresh', value='\U0001f504 Refresh All Files',
                                               variant='secondary', elem_classes='refresh_button')
 
-
-            def update_dropdown_choices(selected_model_type, model_downloads_sdxl, model_downloads_sd):
-                model_downloads_sdxl.choices = get_download_choices("sdxl")
-                model_downloads_sd.choices = get_download_choices("sd")
-
-
-            def get_download_choices(model_type):
-                # Get the directory of the script that imports this module
-                script_directory = os.path.dirname(os.path.abspath(__file__))
-
-                # Construct the absolute path to model_links.json
-                file_path = os.path.abspath(os.path.join(script_directory, 'models/downloads/model_links.json'))
-
-                with open(file_path, 'r') as file:
-                    data = json.load(file)
-
-                # Retrieve model names based on the selected type
-                model_names = list(data.get(model_type, {}).keys())  # Get only model names
-                return model_names
-
-
+            # Define the GUI components
             with gr.Tab(label='downloads'):
                 with gr.Group():
-                    # Row for sdxl model downloads
-                    with gr.Row():
-                        model_downloads_sdxl = gr.Dropdown(
-                            label='Download Model (sdxl)',
-                            choices=get_download_choices("sdxl"),
-                            value=[],
-                            multiselect=True,
-                            show_label=True
-                        )
+                    # Read model paths from model_config_path.json
+                    from modules.shared_module import read_model_config_path
 
-                    # Row for downloading sdxl
-                    with gr.Row():
-                        download_sdxl_button = gr.Button(label="Download Selected Models (sdxl)",
-                                                         click=lambda: download_models(model_downloads_sdxl.value, []
-                                                                        ))
-
-                    # Row for sd model downloads
-                    with gr.Row():
-                        model_downloads_sd = gr.Dropdown(
-                            label='Download Model (sd)',
-                            choices=get_download_choices("sd"),
-                            value=[],
-                            multiselect=True,
-                            show_label=True
-                        )
-
-                    # Row for downloading sd
-                    with gr.Row():
-                        download_sd_button = gr.Button(label="Download Selected Models (sd)",
-                                                       click=lambda: download_models([], model_downloads_sd.value))
-
-                    # Row for downloading by URL
+                    model_paths = read_model_config_path("./models/default/model_config_path.json")
+                    # Extract the choices from the model paths
+                    choices = list(model_paths.keys())
+                    values = list(model_paths.values())
                     with gr.Row():
                         url_input = gr.Textbox(label="Enter URL:")
 
+                    with gr.Row():
+                        # Populate dropdown with choices from model_config_path.json
+                        selected_path = gr.Dropdown(label='Select Path', choices=choices,
+                                                    show_label=True)
+                    with gr.Row():
+                        output = gr.Textbox(value="", label="Output")
+
                     # Row for running download by URL
                     with gr.Row():
-                        run_url_button = gr.Button(label="Run Download (URL)",
-                                                   click=lambda: download_models([], [], url_input.value))
+                        start_download = gr.Button(label="Download (URL)")
 
-                    # Textbox for progress (common for all)
-                    output = gr.Textbox(label="Progress")
-
-
+            start_download.click(download_models, inputs=[url_input, selected_path], outputs=[output], queue=False,
+                                 show_progress=True)
 
             with gr.Tab(label='Advanced'):
                 guidance_scale = gr.Slider(label='Guidance Scale', minimum=1.0, maximum=30.0, step=0.01,

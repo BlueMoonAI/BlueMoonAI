@@ -4,12 +4,8 @@
     "nightvisionXLPhotorealisticPortrait_v0791Bakedvae.safetensors": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/nightvisionXLPhotorealisticPortrait_v0791Bakedvae.safetensors",
     "protovisionXLHighFidelity3D_release0630Bakedvae.safetensors": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/protovisionXLHighFidelity3D_release0630Bakedvae.safetensors"
 
-  },
-"sd":{
-  "a": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/RealitiesEdgeXLLCM_TURBOXL.safetensors",
-    "b": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/nightvisionXLPhotorealisticPortrait_v0791Bakedvae.safetensors",
-    "c": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/protovisionXLHighFidelity3D_release0630Bakedvae.safetensors"
-}
+  }
+
 
 
 }

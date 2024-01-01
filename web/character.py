@@ -4,7 +4,7 @@ import random
 
 def character_custom_wildcards_ui(prompt):
     # Create a tab wildcards_enhance wildcard enhancement
-    with gr.Tab(label="Characters Wildcards", default=True, identifier="characters_wildcards"):
+    with gr.Tab(label="Characters Wildcards"):
 
        # Specify the folder as a subfolder wildcards in the current directory
         wildcards_path = './characters'
