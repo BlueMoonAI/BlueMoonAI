@@ -3,9 +3,11 @@
 import os
 import gradio as gr
 import args_manager
+from modules.dev import bluemoon_type
 
 from modules.localization import localization_js
 
+debug = bluemoon_type()
 
 GradioTemplateResponseOriginal = gr.routes.templates.TemplateResponse
 
@@ -41,8 +43,9 @@ def javascript_html():
     head += f'<script type="text/javascript" src="{edit_attention_js_path}"></script>\n'
     head += f'<script type="text/javascript" src="{viewer_js_path}"></script>\n'
     head += f'<script type="text/javascript" src="{image_viewer_js_path}"></script>\n'
-    head += f'<script type="text/javascript" src="{analytics_js_path}"></script>\n'
-    head += f'<script type="text/javascript" src="{notice_js_path}"></script>\n'
+    if debug:
+        head += f'<script type="text/javascript" src="{analytics_js_path}"></script>\n'
+        head += f'<script type="text/javascript" src="{notice_js_path}"></script>\n'
 
     if args_manager.args.theme:
         head += f'<script type="text/javascript">set_theme(\"{args_manager.args.theme}\");</script>\n'

@@ -31,7 +31,6 @@ from modules.auth import auth_enabled, check_auth
 from bluemoon.utils.logly import logly
 
 
-
 def generate_clicked(*args):
     import bluemoon.ldm_patched.modules.model_management as model_management
 
@@ -151,7 +150,7 @@ with shared.gradio_root:
                 input_image_checkbox = gr.Checkbox(label='Input Image', value=False, container=False,
                                                    elem_classes='min_check')
                 character_checkbox = gr.Checkbox(label='Character', value=modules.config.default_advanced_checkbox,
-                                                container=False, elem_classes='min_check')
+                                                 container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox,
                                                 container=False, elem_classes='min_check')
             with gr.Row(visible=False) as image_input_panel:
@@ -218,11 +217,14 @@ with shared.gradio_root:
                                            outputs=ip_ad_cols + ip_types + ip_stops + ip_weights,
                                            queue=False, show_progress=False)
                     with gr.TabItem(label='Inpaint or Outpaint') as inpaint_tab:
-                        #inpaint_input_image = grh.Image(label='Drag above image to here', source='upload', type='numpy',tool='sketch', height=500, brush_color="#FFFFFF",  elem_id='inpaint_canvas')
+                        # inpaint_input_image = grh.Image(label='Drag above image to here', source='upload', type='numpy',tool='sketch', height=500, brush_color="#FFFFFF",  elem_id='inpaint_canvas')
                         with gr.Row():
-                            inpaint_input_image = grh.Image(label='Drag inpaint or outpaint image to here', source='upload', type='numpy', tool='sketch', height=500, brush_color="#FFFFFF", elem_id='inpaint_canvas')
+                            inpaint_input_image = grh.Image(label='Drag inpaint or outpaint image to here',
+                                                            source='upload', type='numpy', tool='sketch', height=500,
+                                                            brush_color="#FFFFFF", elem_id='inpaint_canvas')
 
-                            inpaint_mask_image = grh.Image(label='Drag inpaint mask image to here', source='upload', type='numpy', height=500,visible=False)
+                            inpaint_mask_image = grh.Image(label='Drag inpaint mask image to here', source='upload',
+                                                           type='numpy', height=500, visible=False)
 
                         with gr.Row():
                             inpaint_additional_prompt = gr.Textbox(placeholder="Describe what you want to inpaint.",
@@ -237,9 +239,13 @@ with shared.gradio_root:
                                                              components=[inpaint_additional_prompt], visible=False)
 
                         with gr.TabItem(label='Inpaint advanced') as inpaint_advanced:
-                            inpaint_mask_image_checkbox = gr.Checkbox(label='Enable upload mask', value=False, container=False)
-                            inpaint_mask_image_checkbox.change(lambda x: gr.update(visible=x), inputs=inpaint_mask_image_checkbox, outputs=inpaint_mask_image, queue=False)
-                            invert_mask_checkbox = gr.Checkbox(label='Invert hand-drawn mask', value=False, container=False)
+                            inpaint_mask_image_checkbox = gr.Checkbox(label='Enable upload mask', value=False,
+                                                                      container=False)
+                            inpaint_mask_image_checkbox.change(lambda x: gr.update(visible=x),
+                                                               inputs=inpaint_mask_image_checkbox,
+                                                               outputs=inpaint_mask_image, queue=False)
+                            invert_mask_checkbox = gr.Checkbox(label='Invert hand-drawn mask', value=False,
+                                                               container=False)
 
                         gr.HTML(
                             '* Powered by BlueMoon AI Inpaint Engine (v1.0.0) <a href="https://github.com/BlueMoonAI/BlueMoonAI/discussions/"  style="color: #fff;" class="button-canvas" target="_blank"> Document</a>')
@@ -274,8 +280,6 @@ with shared.gradio_root:
 
             with gr.Row(visible=modules.config.default_character_checkbox) as character_column:
                 character_custom_wildcards_ui(prompt)
-
-
 
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox) as advanced_column:
             with gr.Tab(label='Custom'):
@@ -327,7 +331,6 @@ with shared.gradio_root:
                     gr.HTML(
                         f'<a  style="color: #fff;"  href="/file={get_current_html_path()}" class="button-canvas" target="_blank"> History Log</a>')
 
-
             with gr.Tab(label='Style'):
                 style_sorter.try_load_sorted_styles(
                     style_names=legal_style_names,
@@ -345,7 +348,7 @@ with shared.gradio_root:
                                                multiselect=True,
                                                label='Image Styles',
 
-                                            )
+                                               )
 
                 gradio_receiver_style_selections = gr.Textbox(elem_id='gradio_receiver_style_selections', visible=False)
 
@@ -439,12 +442,6 @@ with shared.gradio_root:
                     '<a style="color: #fff;" href="https://github.com/BlueMoonAI/BlueMoonAI/discussions/" class="button-canvas" target="_blank"> Document</a>')
                 dev_mode = gr.Checkbox(label='Developer Debug Mode', value=False, container=False)
 
-
-
-
-
-
-
                 with gr.Column(visible=False) as dev_tools:
                     with gr.Tab(label='Debug Tools'):
                         adm_scaler_positive = gr.Slider(label='Positive ADM Guidance Scaler', minimum=0.1, maximum=3.0,
@@ -497,17 +494,19 @@ with shared.gradio_root:
                             minimum=-1, maximum=1.0, step=0.001, value=-1,
                             info='Set as negative number to disable. For developer debugging.')
 
-                        disable_preview = gr.Checkbox(label='Disable Preview', value=modules.config.default_black_out_nsfw,
+                        disable_preview = gr.Checkbox(label='Disable Preview',
+                                                      value=modules.config.default_black_out_nsfw,
                                                       interactive=not modules.config.default_black_out_nsfw,
 
                                                       info='Disable preview during generation.')
-                        black_out_nsfw = gr.Checkbox(label='Black Out NSFW', value=modules.config.default_black_out_nsfw,
+                        black_out_nsfw = gr.Checkbox(label='Black Out NSFW',
+                                                     value=modules.config.default_black_out_nsfw,
                                                      interactive=not modules.config.default_black_out_nsfw,
                                                      info='Use black image if NSFW is detected.')
 
                         black_out_nsfw.change(lambda x: gr.update(value=x, interactive=not x),
-                                     inputs=black_out_nsfw, outputs=disable_preview, queue=False, show_progress=False)
-
+                                              inputs=black_out_nsfw, outputs=disable_preview, queue=False,
+                                              show_progress=False)
 
                     with gr.Tab(label='Control'):
                         debugging_cn_preprocessor = gr.Checkbox(label='Debug Preprocessors', value=False,
@@ -561,8 +560,8 @@ with shared.gradio_root:
                         freeu_s2 = gr.Slider(label='S2', minimum=0, maximum=4, step=0.01, value=0.95)
                         freeu_ctrls = [freeu_enabled, freeu_b1, freeu_b2, freeu_s1, freeu_s2]
 
-
-                adps = [disable_preview,  black_out_nsfw, adm_scaler_positive, adm_scaler_negative, adm_scaler_end, adaptive_cfg,
+                adps = [disable_preview, black_out_nsfw, adm_scaler_positive, adm_scaler_negative, adm_scaler_end,
+                        adaptive_cfg,
 
                         sampler_name,
                         scheduler_name, generate_image_grid, overwrite_step, overwrite_switch, overwrite_width,
@@ -595,10 +594,13 @@ with shared.gradio_root:
                     return results
 
 
-                model_refresh.click(model_refresh_clicked, [], [base_model, refiner_model, preset_selection] + lora_ctrls,
+                model_refresh.click(model_refresh_clicked, [],
+                                    [base_model, refiner_model, preset_selection] + lora_ctrls,
                                     queue=False, show_progress=False)
+        state_is_generating = gr.State(False)
 
-        def preset_selection_change(preset):
+
+        def preset_selection_change(preset, is_generating):
             preset_content = modules.config.try_get_preset_content(preset) if preset != 'initial' else {}
             preset_prepared = modules.meta_parser.parse_meta_from_preset(preset_content)
 
@@ -607,34 +609,35 @@ with shared.gradio_root:
             app.lora_downloads = preset_prepared['lora_downloads']
             app.download_models()
 
-            return modules.meta_parser.load_parameter_button_click(json.dumps(preset_prepared))
+            return modules.meta_parser.load_parameter_button_click(json.dumps(preset_prepared), is_generating)
 
 
-        preset_selection.change(preset_selection_change, inputs=preset_selection, outputs=[
-                                                                                              advanced_checkbox,
-                                                                                              image_number,
-                                                                                              prompt,
-                                                                                              negative_prompt,
-                                                                                              style_selections,
-                                                                                              performance_selection,
-                                                                                              aspect_ratios_selection,
-                                                                                              overwrite_width,
-                                                                                              overwrite_height,
-                                                                                              sharpness,
-                                                                                              guidance_scale,
-                                                                                              adm_scaler_positive,
-                                                                                              adm_scaler_negative,
-                                                                                              adm_scaler_end,
-                                                                                              base_model,
-                                                                                              refiner_model,
-                                                                                              refiner_switch,
-                                                                                              sampler_name,
-                                                                                              scheduler_name,
-                                                                                              seed_random,
-                                                                                              image_seed,
-                                                                                              generate_button,
-                                                                                              load_parameter_button
-                                                                                          ] + lora_ctrls, queue=False,
+        preset_selection.change(preset_selection_change, inputs=[preset_selection, state_is_generating], outputs=[
+                                                                                                                     advanced_checkbox,
+                                                                                                                     image_number,
+                                                                                                                     prompt,
+                                                                                                                     negative_prompt,
+                                                                                                                     style_selections,
+                                                                                                                     performance_selection,
+                                                                                                                     aspect_ratios_selection,
+                                                                                                                     overwrite_width,
+                                                                                                                     overwrite_height,
+                                                                                                                     sharpness,
+                                                                                                                     guidance_scale,
+                                                                                                                     adm_scaler_positive,
+                                                                                                                     adm_scaler_negative,
+                                                                                                                     adm_scaler_end,
+                                                                                                                     base_model,
+                                                                                                                     refiner_model,
+                                                                                                                     refiner_switch,
+                                                                                                                     sampler_name,
+                                                                                                                     scheduler_name,
+                                                                                                                     seed_random,
+                                                                                                                     image_seed,
+                                                                                                                     generate_button,
+                                                                                                                     load_parameter_button
+                                                                                                                 ] + lora_ctrls,
+                                queue=False,
                                 show_progress=False) \
             .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False,
                   show_progress=False) \
@@ -654,7 +657,7 @@ with shared.gradio_root:
             .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
 
         character_checkbox.change(lambda x: gr.update(visible=x), character_checkbox, character_column,
-                                 queue=False, show_progress=False) \
+                                  queue=False, show_progress=False) \
             .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
 
 
@@ -700,12 +703,11 @@ with shared.gradio_root:
         ctrls += [base_model, refiner_model, refiner_switch] + lora_ctrls
         ctrls += [input_image_checkbox, current_tab]
         ctrls += [uov_method, uov_input_image]
-        #ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt]
-        ctrls += [outpaint_selections, inpaint_input_image, inpaint_mask_image, inpaint_mask_image_checkbox, invert_mask_checkbox, inpaint_additional_prompt]
+        # ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt]
+        ctrls += [outpaint_selections, inpaint_input_image, inpaint_mask_image, inpaint_mask_image_checkbox,
+                  invert_mask_checkbox, inpaint_additional_prompt]
         ctrls += ip_ctrls
         ctrls += [freeze_seed]
-
-        state_is_generating = gr.State(False)
 
 
         def parse_meta(raw_prompt_txt, is_generating):
@@ -727,41 +729,46 @@ with shared.gradio_root:
             return json.dumps(loaded_json), gr.update(visible=False), gr.update(visible=True)
 
 
-        prompt.input(parse_meta, inputs=[prompt, state_is_generating], outputs=[prompt, generate_button, load_parameter_button], queue=False, show_progress=False)
+        prompt.input(parse_meta, inputs=[prompt, state_is_generating],
+                     outputs=[prompt, generate_button, load_parameter_button], queue=False, show_progress=False)
 
-        load_parameter_button.click(modules.meta_parser.load_parameter_button_click, inputs=[prompt, state_is_generating], outputs=[
-                                                                                                                advanced_checkbox,
-                                                                                                                image_number,
-                                                                                                                prompt,
-                                                                                                                negative_prompt,
-                                                                                                                style_selections,
-                                                                                                                performance_selection,
-                                                                                                                aspect_ratios_selection,
-                                                                                                                overwrite_width,
-                                                                                                                overwrite_height,
-                                                                                                                sharpness,
-                                                                                                                guidance_scale,
-                                                                                                                adm_scaler_positive,
-                                                                                                                adm_scaler_negative,
-                                                                                                                adm_scaler_end,
-                                                                                                                base_model,
-                                                                                                                refiner_model,
-                                                                                                                refiner_switch,
-                                                                                                                sampler_name,
-                                                                                                                scheduler_name,
-                                                                                                                seed_random,
-                                                                                                                image_seed,
-                                                                                                                generate_button,
-                                                                                                                load_parameter_button
-                                                                                                            ] + lora_ctrls,
+        load_parameter_button.click(modules.meta_parser.load_parameter_button_click,
+                                    inputs=[prompt, state_is_generating], outputs=[
+                                                                                      advanced_checkbox,
+                                                                                      image_number,
+                                                                                      prompt,
+                                                                                      negative_prompt,
+                                                                                      style_selections,
+                                                                                      performance_selection,
+                                                                                      aspect_ratios_selection,
+                                                                                      overwrite_width,
+                                                                                      overwrite_height,
+                                                                                      sharpness,
+                                                                                      guidance_scale,
+                                                                                      adm_scaler_positive,
+                                                                                      adm_scaler_negative,
+                                                                                      adm_scaler_end,
+                                                                                      base_model,
+                                                                                      refiner_model,
+                                                                                      refiner_switch,
+                                                                                      sampler_name,
+                                                                                      scheduler_name,
+                                                                                      seed_random,
+                                                                                      image_seed,
+                                                                                      generate_button,
+                                                                                      load_parameter_button
+                                                                                  ] + lora_ctrls,
                                     queue=False, show_progress=False)
-        generate_button.click(lambda: (gr.update(visible=True, interactive=True), gr.update(visible=True, interactive=True), gr.update(visible=False, interactive=False), [], True),
+        generate_button.click(lambda: (
+        gr.update(visible=True, interactive=True), gr.update(visible=True, interactive=True),
+        gr.update(visible=False, interactive=False), [], True),
                               outputs=[stop_button, skip_button, generate_button, gallery, state_is_generating]) \
             .then(fn=refresh_seed, inputs=[seed_random, image_seed], outputs=image_seed) \
             .then(advanced_parameters.set_all_advanced_parameters, inputs=adps) \
             .then(fn=generate_clicked, inputs=ctrls,
                   outputs=[progress_html, progress_window, progress_gallery, gallery]) \
-            .then(lambda: (gr.update(visible=True, interactive=True), gr.update(visible=False, interactive=False), gr.update(visible=False, interactive=False), False),
+            .then(lambda: (gr.update(visible=True, interactive=True), gr.update(visible=False, interactive=False),
+                           gr.update(visible=False, interactive=False), False),
                   outputs=[generate_button, stop_button, skip_button, state_is_generating]) \
             .then(fn=lambda: None, _js='playNotification').then(fn=lambda: None, _js='refresh_grid_delayed')
 

@@ -1,5 +1,5 @@
 
-Copyright (c) 2023 BlueMoon AI and contributors
+Copyright (c) 2024 BlueMoon AI and contributors
 
 CreativeML Open RAIL-M
 dated August 22, 2022
