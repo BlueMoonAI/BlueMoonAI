@@ -86,6 +86,10 @@ Note that the [minimal requirement](#minimal-requirement) for different platform
 
 ***Tested and works!**
 
+Note: if the Crash Happen in BlueMoon AI while executing try the following:
+```shell
+!python launcher.py --share  --attention-split --disable-offload-from-vram --always-high-vram
+```
 ### Linux (Using Anaconda)
 
 If you want to use Anaconda/Miniconda, you can
