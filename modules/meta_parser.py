@@ -3,7 +3,7 @@ import gradio as gr
 import modules.config
 
 
-def load_parameter_button_click(raw_prompt_txt, is_generating=False):
+def load_parameter_button_click(raw_prompt_txt, is_generating):
     loaded_parameter_dict = json.loads(raw_prompt_txt)
     assert isinstance(loaded_parameter_dict, dict)
 
