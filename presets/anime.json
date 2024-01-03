@@ -30,7 +30,7 @@
     "default_scheduler": "karras",
     "default_performance": "Speed",
     "default_prompt": "1girl, ",
-    "default_prompt_negative": "(embedding:unaestheticXLv31:0.8), low quality, watermark",
+    "default_prompt_negative": "(embedding:unaestheticXL_hk1:0.8), low quality, watermark",
     "default_styles": [
         "BlueMoonAI V1",
         "Masterpiece",
@@ -45,7 +45,7 @@
         "DreamShaper_8_pruned.safetensors": "https://huggingface.co/BlueMoonAI/Models/resolve/main/DreamShaper_8_pruned.safetensors"
     },
     "embeddings_downloads": {
-        "unaestheticXLv31.safetensors": "https://huggingface.co/BlueMoonAI/Models/resolve/main/unaestheticXLv31.safetensors"
+        "unaestheticXL_hk1.safetensors": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/unaestheticXL_hk1.safetensors"
     },
     "lora_downloads": {
         "sd_xl_offset_example-lora_1.0.safetensors": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors"
