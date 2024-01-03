@@ -21,7 +21,7 @@ services:
       - path_clip_vision=/content/data/models/clip_vision/
       - path_bluemoon_expansion=/content/data/models/prompt_expansion/bluemoon_expansion/
       - path_outputs=/content/app/outputs/    # Warning: If it is not under '/content/app', you can't see history log!
-      - default_model=juggernautXL_version6Rundiffusion.safetensors
+      - default_model=juggernautXL_v7Rundiffusion.safetensors
       - default_performance=Speed
     volumes:
       - ./data:/content/data

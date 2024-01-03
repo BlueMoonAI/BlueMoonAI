@@ -234,11 +234,11 @@ Below is the minimal requirement for running BlueMoon AI locally. If your device
 
 Given different goals, the default models and configs of BlueMoonAI is different:
 
-| Task | args | Main Model | Refiner | Config |
-| - | - | - | - | - |
-| General |  | [juggernautXL v6_RunDiffusion](https://huggingface.co/BlueMoonAI/Models/resolve/main/juggernautXL_version6Rundiffusion.safetensors) | not used | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/modules/path.py) |
-| Realistic | --preset realistic | [realistic_stock_photo](https://huggingface.co/BlueMoonAI/Models/resolve/main/realisticStockPhoto_v10.safetensors) | not used | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/presets/realistic.json) |
-| Anime |--preset anime | [bluepencil_v50](https://huggingface.co/BlueMoonAI/Models/resolve/main/bluePencilXL_v050.safetensors) | [dreamsharper_v8](https://huggingface.co/BlueMoonAI/Models/resolve/main/DreamShaper_8_pruned.safetensors) (SD1.5) | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/presets/anime.json) |
+| Task | args | Main Model                                                                                                                                    | Refiner | Config |
+| - | - |-----------------------------------------------------------------------------------------------------------------------------------------------| - | - |
+| General |  | [juggernautXL_v7Rundiffusion.safetensors](https://huggingface.co/bluemoonai/sdxl-models/resolve/main/juggernautXL_v7Rundiffusion.safetensors) | not used | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/modules/path.py) |
+| Realistic | --preset realistic | [realistic_stock_photo](https://huggingface.co/BlueMoonAI/Models/resolve/main/realisticStockPhoto_v10.safetensors)                            | not used | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/presets/realistic.json) |
+| Anime |--preset anime | [bluepencil_v300](https://huggingface.co/bluemoonai/sdxl-models/resolve/main/bluePencilXL_v300.safetensors)                                   | [dreamsharper_v8](https://huggingface.co/BlueMoonAI/Models/resolve/main/DreamShaper_8_pruned.safetensors) (SD1.5) | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/presets/anime.json) |
 
 Note that the download is **automatic** - you do not need to do anything if the internet connection is okay. However, you can download them manually if you (or move them from somewhere else) have your own preparation.
 

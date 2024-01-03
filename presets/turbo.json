@@ -1,5 +1,5 @@
 {
-    "default_model": "juggernautXL_v7Rundiffusion.safetensors",
+    "default_model": "dreamshaperXL_turboDpmppSDE.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -24,11 +24,11 @@
             1.0
         ]
     ],
-    "default_cfg_scale": 4.0,
-    "default_sample_sharpness": 2.0,
-    "default_sampler": "dpmpp_2m_sde_gpu",
+    "default_cfg_scale": 2.0,
+    "default_sample_sharpness": 3.0,
+    "default_sampler": "dpmpp_sde",
     "default_scheduler": "karras",
-    "default_performance": "Extreme Speed",
+    "default_performance": "Speed",
     "default_prompt": "",
     "default_prompt_negative": "",
     "default_styles": [
@@ -36,9 +36,10 @@
         "Enhance",
         "Sharp"
     ],
-    "default_aspect_ratio": "1152*896",
+    "default_aspect_ratio": "1024*1024",
+    "default_overwrite_step": 6,
     "checkpoint_downloads": {
-        "juggernautXL_v7Rundiffusion.safetensors": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/juggernautXL_v7Rundiffusion.safetensors"
+        "dreamshaperXL_turboDpmppSDE.safetensors": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/dreamshaperXL_turboDpmppSDE.safetensors"
     },
     "embeddings_downloads": {},
     "lora_downloads": {}

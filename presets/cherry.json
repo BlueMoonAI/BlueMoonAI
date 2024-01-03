@@ -1,10 +1,10 @@
 {
-    "default_model": "juggernautXL_v7Rundiffusion.safetensors",
+    "default_model": "cherryPickerXL_v27.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
         [
-            "None",
+            "WowifierXL-V2.safetensors",
             1.0
         ],
         [
@@ -28,7 +28,7 @@
     "default_sample_sharpness": 2.0,
     "default_sampler": "dpmpp_2m_sde_gpu",
     "default_scheduler": "karras",
-    "default_performance": "Extreme Speed",
+    "default_performance": "Speed",
     "default_prompt": "",
     "default_prompt_negative": "",
     "default_styles": [
@@ -36,10 +36,12 @@
         "Enhance",
         "Sharp"
     ],
-    "default_aspect_ratio": "1152*896",
+    "default_aspect_ratio": "1024*1024",
     "checkpoint_downloads": {
-        "juggernautXL_v7Rundiffusion.safetensors": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/juggernautXL_v7Rundiffusion.safetensors"
+        "cherryPickerXL_v27.safetensors": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/cherryPickerXL_v27.safetensors"
     },
     "embeddings_downloads": {},
-    "lora_downloads": {}
+    "lora_downloads": {
+        "WowifierXL-V2.safetensors": "https://huggingface.co/bluemoonai/Loras/resolve/main/WowifierXL-V2.safetensors"
+    }
 }

@@ -34,4 +34,6 @@ if args_parser.args.disable_analytics:
     import os
     os.environ["GRADIO_ANALYTICS_ENABLED"] = "False"
 
+if args_parser.args.disable_in_browser:
+    args_parser.args.in_browser = False
 args = args_parser.args

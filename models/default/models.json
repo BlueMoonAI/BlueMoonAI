@@ -1,7 +1,7 @@
 {
   "default": {
-    "default_value": "juggernautXL_version6Rundiffusion.safetensors",
+    "default_value": "juggernautXL_v7Rundiffusion.safetensors",
     "checkpoint_download" : {
-    "juggernautXL_version6Rundiffusion.safetensors": "https://huggingface.co/BlueMoonAI/Models/resolve/main/juggernautXL_version6Rundiffusion.safetensors"
+    "juggernautXL_v7Rundiffusion.safetensors": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/juggernautXL_v7Rundiffusion.safetensors"
 }  }
 }
