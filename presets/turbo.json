@@ -4,7 +4,7 @@
     "default_refiner_switch": 0.5,
     "default_loras": [
         [
-            "sdxl_lora_dream.safetensors",
+            "None",
             1.0
         ],
         [
@@ -42,7 +42,5 @@
         "dreamshaperXL_turboDpmppSDE.safetensors": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/dreamshaperXL_turboDpmppSDE.safetensors"
     },
     "embeddings_downloads": {},
-    "lora_downloads": {
-        "sdxl_lora_dream.safetensors": "https://huggingface.co/bluemoonai/Loras/resolve/main/sdxl_lora_dream.safetensors"
-    }
+    "lora_downloads": {}
 }
