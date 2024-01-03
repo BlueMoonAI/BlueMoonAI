@@ -223,8 +223,8 @@ with shared.gradio_root:
                                                             source='upload', type='numpy', tool='sketch', height=500,
                                                             brush_color="#FFFFFF", elem_id='inpaint_canvas')
 
-                            inpaint_mask_image = grh.Image(label='Drag inpaint mask image to here', source='upload',
-                                                           type='numpy', height=500, visible=False)
+                            inpaint_mask_image = grh.Image(label='Mask Upload', source='upload', type='numpy', height=500, visible=False)
+
 
                         with gr.Row():
                             inpaint_additional_prompt = gr.Textbox(placeholder="Describe what you want to inpaint.",
@@ -238,14 +238,6 @@ with shared.gradio_root:
                                                              label='Additional Prompt Quick List',
                                                              components=[inpaint_additional_prompt], visible=False)
 
-                        with gr.TabItem(label='Inpaint advanced') as inpaint_advanced:
-                            inpaint_mask_image_checkbox = gr.Checkbox(label='Enable upload mask', value=False,
-                                                                      container=False)
-                            inpaint_mask_image_checkbox.change(lambda x: gr.update(visible=x),
-                                                               inputs=inpaint_mask_image_checkbox,
-                                                               outputs=inpaint_mask_image, queue=False)
-                            invert_mask_checkbox = gr.Checkbox(label='Invert hand-drawn mask', value=False,
-                                                               container=False)
 
                         gr.HTML(
                             '* Powered by BlueMoon AI Inpaint Engine (v1.0.0) <a href="https://github.com/BlueMoonAI/BlueMoonAI/discussions/"  style="color: #fff;" class="button-canvas" target="_blank"> Document</a>')
@@ -549,10 +541,25 @@ with shared.gradio_root:
                                                                   'Value 1 is same as "Whole Image" in A1111. '
                                                                   'Only used in inpaint, not used in outpaint. '
                                                                   '(Outpaint always use 1.0)')
-                        inpaint_ctrls = [debugging_inpaint_preprocessor, inpaint_disable_initial_latent, inpaint_engine,
-                                         inpaint_strength, inpaint_respective_field]
 
-                    with gr.Tab(label='FreeU'):
+                        inpaint_erode_or_dilate = gr.Slider(label='Mask Erode or Dilate',
+                                                        minimum=-64, maximum=64, step=1, value=0,
+                                                        info='Positive value will make white area in the mask larger, '
+                                                             'negative value will make white area smaller.'
+                                                             '(default is 0, always process before any mask invert)')
+
+                        inpaint_mask_upload_checkbox = gr.Checkbox(label='Enable Mask Upload', value=False)
+                        invert_mask_checkbox = gr.Checkbox(label='Invert Mask', value=False)
+
+                        inpaint_ctrls = [debugging_inpaint_preprocessor, inpaint_disable_initial_latent, inpaint_engine,
+                                     inpaint_strength, inpaint_respective_field,
+                                     inpaint_mask_upload_checkbox, invert_mask_checkbox, inpaint_erode_or_dilate]
+
+                        inpaint_mask_upload_checkbox.change(lambda x: gr.update(visible=x),
+                                                        inputs=inpaint_mask_upload_checkbox,
+                                                        outputs=inpaint_mask_image, queue=False, show_progress=False)
+
+                with gr.Tab(label='FreeU'):
                         freeu_enabled = gr.Checkbox(label='Enabled', value=False)
                         freeu_b1 = gr.Slider(label='B1', minimum=0, maximum=2, step=0.01, value=1.01)
                         freeu_b2 = gr.Slider(label='B2', minimum=0, maximum=2, step=0.01, value=1.02)
@@ -703,9 +710,8 @@ with shared.gradio_root:
         ctrls += [base_model, refiner_model, refiner_switch] + lora_ctrls
         ctrls += [input_image_checkbox, current_tab]
         ctrls += [uov_method, uov_input_image]
-        # ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt]
-        ctrls += [outpaint_selections, inpaint_input_image, inpaint_mask_image, inpaint_mask_image_checkbox,
-                  invert_mask_checkbox, inpaint_additional_prompt]
+        #ctrls += [outpaint_selections, inpaint_input_image, inpaint_mask_image,   invert_mask_checkbox, inpaint_additional_prompt]
+        ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt, inpaint_mask_image]
         ctrls += ip_ctrls
         ctrls += [freeze_seed]
 
