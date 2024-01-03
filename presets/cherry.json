@@ -5,7 +5,7 @@
     "default_loras": [
         [
             "WowifierXL-V2.safetensors",
-            0.1
+            1.0
         ],
         [
             "None",

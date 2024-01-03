@@ -32,7 +32,7 @@
     "default_prompt": "",
     "default_prompt_negative": "",
     "default_styles": [
-        "BlueMoonAI V2",
+        "BlueMoonAI V1",
         "Enhance",
         "Sharp"
     ],
