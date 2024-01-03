@@ -1,4 +1,4 @@
-# modified version of https://github.com/AUTOMATIC1111/stable-diffusion-webui-nsfw-censor/blob/master/scripts/censor.py
+# uses stable-diffusion-safety-checker to censor nsfw content https://huggingface.co/bluemoonai/stable-diffusion-safety-checker
 
 import numpy as np
 import torch
@@ -9,7 +9,7 @@ from transformers import AutoFeatureExtractor
 from PIL import Image
 import modules.config
 
-safety_model_id = "CompVis/stable-diffusion-safety-checker"
+safety_model_id = "bluemoonai/stable-diffusion-safety-checker"
 safety_feature_extractor = None
 safety_checker = None
 
