@@ -5,9 +5,17 @@ import math
 import os
 
 from PIL import Image
-
+import cv2
 
 LANCZOS = (Image.Resampling.LANCZOS if hasattr(Image, 'Resampling') else Image.LANCZOS)
+def erode_or_dilate(x, k):
+    k = int(k)
+    if k > 0:
+        return cv2.dilate(x, kernel=np.ones(shape=(3, 3), dtype=np.uint8), iterations=k)
+    if k < 0:
+        return cv2.erode(x, kernel=np.ones(shape=(3, 3), dtype=np.uint8), iterations=-k)
+    return x
+
 
 
 def resample_image(im, width, height):
