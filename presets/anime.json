@@ -1,5 +1,5 @@
 {
-    "default_model": "bluePencilXL_v050.safetensors",
+    "default_model": "bluePencilXL_v200.safetensors",
     "default_refiner": "DreamShaper_8_pruned.safetensors",
     "default_refiner_switch": 0.667,
     "default_loras": [
@@ -41,7 +41,7 @@
     ],
     "default_aspect_ratio": "896*1152",
     "checkpoint_downloads": {
-        "bluePencilXL_v050.safetensors": "https://huggingface.co/BlueMoonAI/Models/resolve/main/bluePencilXL_v050.safetensors",
+        "bluePencilXL_v200.safetensors": "https://huggingface.co/bluemoonai/sdxl-models/resolve/main/bluePencilXL_v200.safetensors",
         "DreamShaper_8_pruned.safetensors": "https://huggingface.co/BlueMoonAI/Models/resolve/main/DreamShaper_8_pruned.safetensors"
     },
     "embeddings_downloads": {

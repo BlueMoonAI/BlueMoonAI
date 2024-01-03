@@ -147,7 +147,7 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
 
 default_base_model_name = default_model = get_config_item_or_set_default(
     key='default_model',
-    default_value='juggernautXL_version6Rundiffusion.safetensors',
+    default_value='juggernautXL_v7Rundiffusion.safetensors',
     validator=lambda x: isinstance(x, str)
 )
 default_refiner_model_name = default_refiner = get_config_item_or_set_default(
