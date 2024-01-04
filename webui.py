@@ -620,7 +620,7 @@ with shared.gradio_root:
 
 
         def downloading_progressbar():
-                time.sleep(1000)
+                time.sleep(1)
 
                 return "done"
 
