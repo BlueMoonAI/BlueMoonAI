@@ -1,4 +1,3 @@
-from zipfile import ZipFile
 
 import gradio as gr
 import random
@@ -9,7 +8,7 @@ import app
 import shared
 import modules.config
 import bluemoonai_version
-import web.html
+import components.html
 import modules.async_worker as worker
 import modules.constants as constants
 import modules.flags as flags
@@ -20,12 +19,13 @@ import args_manager
 import copy
 import json
 import modules.meta_parser
+from components.bluemoon import bluemoon_footer
 from modules.download_models import download_models
-from web.character import character_custom_wildcards_ui
+from components.character import character_custom_wildcards_ui
 
 from modules.sdxl_styles import legal_style_names, bluemoon_expansion, style_keys
-from web.history_logger import get_current_html_path
-from web.ui_gradio_extensions import reload_javascript
+from components.history_logger import get_current_html_path
+from components.ui_gradio_extensions import reload_javascript
 from modules.auth import auth_enabled, check_auth
 
 from bluemoon.utils.logly import logly
@@ -43,7 +43,7 @@ def generate_clicked(*args):
     task = worker.AsyncTask(args=list(args))
     finished = False
 
-    yield gr.update(visible=True, value=web.html.make_progress_html(1, 'Waiting for task to start ...')), \
+    yield gr.update(visible=True, value=components.html.make_progress_html(1, 'Waiting for task to start ...')), \
         gr.update(visible=True, value=None), \
         gr.update(visible=False, value=None), \
         gr.update(visible=False)
@@ -63,7 +63,7 @@ def generate_clicked(*args):
                         continue
 
                 percentage, title, image = product
-                yield gr.update(visible=True, value=web.html.make_progress_html(percentage, title)), \
+                yield gr.update(visible=True, value=components.html.make_progress_html(percentage, title)), \
                     gr.update(visible=True, value=image) if image is not None else gr.update(), \
                     gr.update(), \
                     gr.update(visible=False)
@@ -93,7 +93,7 @@ if isinstance(args_manager.args.preset, str):
 
 shared.gradio_root = gr.Blocks(
     title=title,
-    css=web.html.css).queue()
+    css=components.html.css).queue()
 
 with shared.gradio_root:
     with gr.Row():
@@ -103,7 +103,7 @@ with shared.gradio_root:
                                             elem_classes=['main_view'])
                 progress_gallery = gr.Gallery(label='Finished Images', show_label=True, object_fit='contain',
                                               height=768, visible=False, elem_classes=['main_view', 'image_gallery'])
-            progress_html = gr.HTML(value=web.html.make_progress_html(32, 'Progress 32%'), visible=False,
+            progress_html = gr.HTML(value=components.html.make_progress_html(32, 'Progress 32%'), visible=False,
                                     elem_id='progress-bar', elem_classes='progress-bar')
             gallery = gr.Gallery(label='Gallery', show_label=False, object_fit='contain', visible=True, height=768,
                                  elem_classes=['resizable_area', 'main_view', 'final_gallery', 'image_gallery'],
@@ -797,33 +797,7 @@ with shared.gradio_root:
         desc_btn.click(trigger_describe, inputs=[desc_method, desc_input_image],
                        outputs=[prompt, style_selections], show_progress=True, queue=True)
 
-    heading_html = "<h1 style='font-size: 36px;'>BlueMoon AI</h1>"
-    description_html = (
-        "<div style='font-size: 18px;'>"
-        "<p>BlueMoon AI is a latent text-to-image diffusion model capable of generating "
-        "photo-realistic images given any text input. It cultivates autonomous freedom to produce incredible imagery, "
-        "empowering billions of people to create stunning art within seconds.</p>"
-        "<br>"
-        "Create beautiful images with our AI Image Generator (Text to Image) for free and Open Source."
-        "<br>"
-        "Let Your Creativity Flow."
-        "</div>"
-    )
-
-    license_html = (
-        "<br><br><p style='font-size: 16px; text-align: center;'>"
-        "Licensed under the <a href='https://opensource.org/licenses/GPL-3.0'>GNU General Public License v3.0</a> "
-        "AND <a href='https://github.com/BlueMoonAI/BlueMoonAI/blob/main/LICENSE.md'>Open Rail License</a>."
-        "</p>"
-    )
-
-    version_html = (f"<p style='font-size: 16px; text-align: center;'><a "
-                    f"href='https://github.com/BlueMoonAI/BlueMoonAI/'>BlueMoon AI</a>: v{bluemoonai_version.get_version()}</p>")
-
-    gr.HTML(value=heading_html)
-    gr.HTML(value=description_html)
-    gr.HTML(value=license_html)
-    gr.HTML(value=version_html)
+    bluemoon_footer()
 
 
 def dump_default_english_config():
