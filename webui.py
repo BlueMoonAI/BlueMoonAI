@@ -643,8 +643,7 @@ with shared.gradio_root:
                                                                                                                      seed_random,
                                                                                                                      image_seed,
                                                                                                                      generate_button,
-                                                                                                                     load_parameter_button,
-                                                                                                                     freeze_seed
+                                                                                                                     load_parameter_button
                                                                                                                  ] + lora_ctrls,
                                 queue=True,
                                 show_progress=True) \
