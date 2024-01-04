@@ -619,12 +619,7 @@ with shared.gradio_root:
             return modules.meta_parser.load_parameter_button_click(json.dumps(preset_prepared), is_generating)
 
 
-        def downloading_progressbar():
-                time.sleep(1)
 
-                return "done"
-
-        preset_selection.change(downloading_progressbar, inputs=[], outputs=preset_selection)
         preset_selection.change(preset_selection_change, inputs=[preset_selection, state_is_generating], outputs=[
                                                                                                                      advanced_checkbox,
                                                                                                                      image_number,
@@ -648,12 +643,13 @@ with shared.gradio_root:
                                                                                                                      seed_random,
                                                                                                                      image_seed,
                                                                                                                      generate_button,
-                                                                                                                     load_parameter_button
+                                                                                                                     load_parameter_button,
+                                                                                                                     freeze_seed
                                                                                                                  ] + lora_ctrls,
-                                queue=False,
-                                show_progress=False) \
-            .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=False,
-                  show_progress=False) \
+                                queue=True,
+                                show_progress=True) \
+            .then(fn=style_sorter.sort_styles, inputs=style_selections, outputs=style_selections, queue=True,
+                  show_progress=True) \
             .then(lambda: None, _js='()=>{refresh_style_localization();}')
 
         performance_selection.change(lambda x: [gr.update(interactive=x != 'Extreme Speed')] * 11 +
