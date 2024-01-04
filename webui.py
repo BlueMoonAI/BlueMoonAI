@@ -22,6 +22,7 @@ import modules.meta_parser
 from components.bluemoon import bluemoon_footer
 from modules.download_models import download_models
 from components.character import character_custom_wildcards_ui
+from modules.model_loader import  loading
 
 from modules.sdxl_styles import legal_style_names, bluemoon_expansion, style_keys
 from components.history_logger import get_current_html_path
@@ -619,6 +620,15 @@ with shared.gradio_root:
             return modules.meta_parser.load_parameter_button_click(json.dumps(preset_prepared), is_generating)
 
 
+        def downloading_progressbar():
+            if loading:
+                time.sleep(1000)
+            else:
+                pass
+
+            return "done"
+
+        preset_selection.change(downloading_progressbar, inputs=[], outputs=preset_selection)
         preset_selection.change(preset_selection_change, inputs=[preset_selection, state_is_generating], outputs=[
                                                                                                                      advanced_checkbox,
                                                                                                                      image_number,
