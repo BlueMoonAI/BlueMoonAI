@@ -146,6 +146,12 @@ def join_prompts(*args, **kwargs):
     return ', '.join(prompts)
 
 
+def get_help_html(folder='./help/'):
+
+    result = os.path.join(folder)
+    return os.path.abspath(os.path.realpath(result))
+
+
 def generate_temp_filename(folder='./outputs/', extension='png'):
     current_time = datetime.datetime.now()
     date_string = current_time.strftime("%Y-%m-%d")

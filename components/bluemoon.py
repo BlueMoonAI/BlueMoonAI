@@ -1,7 +1,12 @@
+# https://bluemoonai.github.io
+import platform
+
 import gradio as gr
 
 import bluemoonai_version
 
+python_version = platform.python_version()
+gradio_version = gr.__version__
 
 def bluemoon_footer():
 
@@ -20,7 +25,7 @@ def bluemoon_footer():
 
     license_html = (
         "<br><br><p style='font-size: 16px; text-align: center;'>"
-        "Licensed under the <a href='https://opensource.org/licenses/GPL-3.0'>GNU General Public License v3.0</a> "
+        "Licensed under the <a href='http://www.apache.org/licenses/LICENSE-2.0'>Apache License 2.0</a> "
         "AND <a href='https://github.com/BlueMoonAI/BlueMoonAI/blob/main/LICENSE.md'>Open Rail License</a>."
         "</p>"
     )
@@ -28,7 +33,29 @@ def bluemoon_footer():
     version_html = (f"<p style='font-size: 16px; text-align: center;'><a "
                     f"href='https://github.com/BlueMoonAI/BlueMoonAI/'>BlueMoon AI</a>: v{bluemoonai_version.get_version()}</p>")
 
+    footer_html = f"""
+        <div style="color: #333; padding: 10px; text-align: center; ">
+            <span style="margin-right: 20px;">Website:
+                <a style="color: #007bff;" href="https://bluemoonai.github.io" target="_blank">https://bluemoonai.github.io</a>
+            </span>
+            <span style="margin-right: 20px;">GitHub: 
+                <a style="color: #007bff;" href="https://github.com/BlueMoonAI/BlueMoonAI" target="_blank">BlueMoonAI</a>
+            </span>
+            <span style="margin-right: 20px;">Gradio Version: 
+                <a style="color: #007bff;" href="https://github.com/gradio-app/gradio" target="_blank">{gr.__version__}</a>
+            </span>
+            <span style="margin-right: 20px;">Python Version: 
+                <a style="color: #007bff;" href="https://www.python.org/" target="_blank">{platform.python_version()}</a>
+            </span>
+        </div>
+    """
+
     gr.HTML(value=heading_html)
     gr.HTML(value=description_html)
     gr.HTML(value=license_html)
     gr.HTML(value=version_html)
+    gr.HTML(value=footer_html)
+
+def remove_default_watermark():
+        watermark_html = ("<style>footer{visibility: hidden}</style>")
+        gr.HTML(value=watermark_html)

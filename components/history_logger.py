@@ -6,16 +6,21 @@ import args_manager
 import modules.config
 
 from PIL import Image
-from modules.util import generate_temp_filename
+from modules.util import generate_temp_filename, get_help_html
 
 from bluemoon.utils.logly import logly
 
 log_cache = {}
 
+def get_help():
+    local_troubleshoot = get_help_html(folder=modules.config.path_help)
+    troubleshoot = os.path.join(os.path.dirname(local_troubleshoot), 'troubleshoot.html')
+    return troubleshoot
 
 def get_current_html_path():
     date_string, local_temp_filename, only_name = generate_temp_filename(folder=modules.config.path_outputs,
                                                                          extension='png')
+
     html_name = os.path.join(os.path.dirname(local_temp_filename), 'log.html')
     return html_name
 
