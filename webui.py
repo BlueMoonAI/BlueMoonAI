@@ -565,7 +565,7 @@ with shared.gradio_root:
                                                         inputs=inpaint_mask_upload_checkbox,
                                                         outputs=inpaint_mask_image, queue=False, show_progress=False)
 
-                with gr.Tab(label='FreeU'):
+                    with gr.Tab(label='FreeU'):
                         freeu_enabled = gr.Checkbox(label='Enabled', value=False)
                         freeu_b1 = gr.Slider(label='B1', minimum=0, maximum=2, step=0.01, value=1.01)
                         freeu_b2 = gr.Slider(label='B2', minimum=0, maximum=2, step=0.01, value=1.02)
