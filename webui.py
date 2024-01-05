@@ -82,6 +82,9 @@ def generate_clicked(*args):
 
     execution_time = time.perf_counter() - execution_start_time
     logly.info(f'Total time: {execution_time:.2f} seconds')
+    worker.display_seed()
+    seed_log.change(lambda x: x + f'{worker.display_seed}\n', inputs=worker.display_seed, outputs=[seed_log], queue=False,
+                    show_progress=True)
     return
 
 
@@ -299,7 +302,7 @@ with shared.gradio_root:
                 image_seed = gr.Textbox(label='Seed', value=0, max_lines=1,
                                         visible=False)  # workaround for https://github.com/gradio-app/gradio/issues/5354
                 freeze_seed = gr.Checkbox(label='Freeze Seed', value=False)
-
+                seed_log=gr.Textbox(label='Seed Log', value='',  visible=True)
 
                 def random_checked(r):
                     return gr.update(visible=not r)

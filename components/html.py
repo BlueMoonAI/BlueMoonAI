@@ -123,7 +123,9 @@ progress::after {
     color: #fff;  
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    
 }
+footer{visibility: hidden}
 '''
 progress_html = '''
 <div class="loader-container">
