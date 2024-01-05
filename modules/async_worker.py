@@ -14,8 +14,6 @@ class AsyncTask:
 async_tasks = []
 history_seed=[]
 
-def display_seed():
-    logly.info("Seed History: " + str(history_seed))
 
 def worker():
     global async_tasks
@@ -246,7 +244,6 @@ def worker():
 
         seed = int(image_seed)
         logly.info(f'[Parameters] Seed = {seed}')
-        history_seed.append(seed)
 
 
         sampler_name = advanced_parameters.sampler_name
@@ -418,6 +415,7 @@ def worker():
 
                 positive_basic_workloads = remove_empty_str(positive_basic_workloads, default=task_prompt)
                 negative_basic_workloads = remove_empty_str(negative_basic_workloads, default=task_negative_prompt)
+                history_seed.append(seed)
 
                 tasks.append(dict(
                     task_seed=task_seed,
