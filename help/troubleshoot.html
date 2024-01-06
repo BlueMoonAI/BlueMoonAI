@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting Guide - BlueMoonAI</title>
+        <link rel="canonical" href="https://bluemoonai.github.io">
+    <meta name="title" content="BlueMoonAI - AI Image Generator" />
+    <meta name="description" content="Unleash your creative potential with BlueMoonAI - an AI-powered image generator. Create photorealistic images from textual inputs effortlessly." />
+  <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://github.com/BlueMoonAI/BlueMoonAI" />
+    <meta property="og:title" content="BlueMoonAI - AI Image Generator" />
+    <meta property="og:description" content="Unleash your creative potential with BlueMoonAI - an AI-powered image generator. Create photorealistic images from textual inputs effortlessly." />
+       <meta name="keywords" content="BlueMoon AI, Generative AI, Artificial Intelligence, Creativity,BlueMoon,Moon,Moon AI">
+
+    <style>
+     body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        section {
+            max-width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-top: 20px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        strong {
+            color: #333;
+        }
+
+        em {
+            font-style: italic;
+            color: #333;
+        }
+
+        code {
+            background-color: #f8f8f8;
+            padding: 2px 4px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ol {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        ol li {
+            margin-bottom: 10px;
+        }
+
+        @media screen and (max-width: 768px) {
+            section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<section>
+    <div class="notice">
+        <p><strong>Notice:</strong> If you encounter any errors, bugs, or issues, please report them on our <a href="https://github.com/BlueMoonAI//issues" target="_blank" rel="noopener noreferrer">GitHub repository</a>. For troubleshooting solutions, refer to the <a href="troubleshoot.html" target="_blank" rel="noopener noreferrer">Troubleshoot</a> page.</p>
+    </div>
+    <h2>Troubleshooting Guide</h2>
+    <h3 id="sudden-terminate-error-colab">Sudden Terminate on Colab</h3>
+    <p>try running:<br>
+        <code>!python launcher.py --share  --attention-split --disable-offload-from-vram --always-high-vram</code><br>
+        this will solve the problem.</p>
+    <h3 id="model-corrupted">Model corrupted</h3>
+<p>If you see Model Corrupted, then your model is corrupted. BlueMoonAI will re-download corrupted models for you if your internet connection is good. Otherwise, you may also manually download models. You can find model url and their local location in the console each time a model download is requested.</p>
+<h3 id="torch-not-compiled-with-cuda-enabled">Torch not compiled with CUDA enabled</h3>
+<p>You are not following the official installation guide. </p>
+<p>Please do not trust those wrong tutorials on the internet, and please only trust the official installation guide. </p>
+<h3 id="subprocess-exited-with-error">subprocess-exited-with-error</h3>
+<p>Please use python 3.9/3.10/3.11</p>
+<p>Also, you are not following the official installation guide. </p>
+<p>Please do not trust those wrong tutorials on the internet, and please only trust the <a href="https://github.com/BlueMoonAI/BlueMoonAI#readme">official installation guide</a>. </p>
+<h3 id="found-no-nvidia-driver-on-your-system">Found no NVIDIA driver on your system</h3>
+<p>Please upgrade your Nvidia Driver. </p>
+<p>If you are using AMD, please follow official installation guide.</p>
+<h3 id="nvidia-driver-too-old">NVIDIA driver too old</h3>
+<p>Please upgrade your Nvidia Driver.</p>
+<h3 id="i-am-using-mac-the-speed-is-very-slow-">I am using Mac, the speed is very slow.</h3>
+<p>Some MAC users may need <code>--disable-offload-from-vram</code> to speed up model loading.</p>
+<p>Besides, the current support for MAC is very experimental, and we encourage users to also try Diffusionbee or Drawingthings: they are developed only for MAC.</p>
+<h3 id="i-am-using-nvidia-with-8gb-vram-i-get-cuda-out-of-memory">I am using Nvidia with 8GB VRAM, I get CUDA Out Of Memory</h3>
+<p>It is a BUG. Please let us know as soon as possible. Please make an issue. See also <a href="https://github.com/BlueMoonAI/BlueMoonAI/tree/main?tab=readme-ov-file#minimal-requirement">minimal requirements</a>.</p>
+<h3 id="i-am-using-nvidia-with-6gb-vram-i-get-cuda-out-of-memory">I am using Nvidia with 6GB VRAM, I get CUDA Out Of Memory</h3>
+<p>It is very likely a BUG. Please let us know as soon as possible. Please make an issue. See also <a href="https://github.com/BlueMoonAI/BlueMoonAI/tree/main?tab=readme-ov-file#minimal-requirement">minimal requirements</a>.</p>
+<h3 id="i-am-using-nvidia-with-4gb-vram-with-float16-support-like-rtx-3050-i-get-cuda-out-of-memory">I am using Nvidia with 4GB VRAM with Float16 support, like RTX 3050, I get CUDA Out Of Memory</h3>
+<p>It is a BUG. Please let us know as soon as possible. Please make an issue. See also <a href="https://github.com/BlueMoonAI/BlueMoonAI/tree/main?tab=readme-ov-file#minimal-requirement">minimal requirements</a>.</p>
+<h3 id="i-am-using-nvidia-with-4gb-vram-without-float16-support-like-gtx-960-i-get-cuda-out-of-memory">I am using Nvidia with 4GB VRAM without Float16 support, like GTX 960, I get CUDA Out Of Memory</h3>
+<p>Supporting GPU with 4GB VRAM without fp16 is extremely difficult, and you may not be able to use SDXL. However, you may still make an issue and let us know. You may try SD1.5 in Automatic1111 or other software for your device. See also <a href="https://github.com/BlueMoonAI/BlueMoonAI/tree/main?tab=readme-ov-file#minimal-requirement">minimal requirements</a>.</p>
+<h3 id="i-am-using-amd-gpu-on-windows-i-get-cuda-out-of-memory">I am using AMD GPU on Windows, I get CUDA Out Of Memory</h3>
+<p>Current AMD support is very experimental for Windows. If you see this, then perhaps you cannot use BlueMoonAI on this device on Windows.</p>
+<p>However, if you re able to run SDXL on this same device on any other software, please let us know immediately, and we will support it as soon as possible. If no other software can enable your device to run SDXL on Windows, then we also do not have much to help.</p>
+<p>Besides, the AMD support on Linux is slightly better because it will use ROCM. You may also try it if you are willing to change OS to linux. See also <a href="https://github.com/BlueMoonAI/BlueMoonAI/tree/main?tab=readme-ov-file#minimal-requirement">minimal requirements</a>.</p>
+<h3 id="i-am-using-amd-gpu-on-linux-i-get-cuda-out-of-memory">I am using AMD GPU on Linux, I get CUDA Out Of Memory</h3>
+<p>Current AMD support for Linux is better than that for Windows, but still, very experimental. However, if you re able to run SDXL on this same device on any other software, please let us know immediately, and we will support it as soon as possible. If no other software can enable your device to run SDXL on Windows, then we also do not have much to help. See also <a href="https://github.com/BlueMoonAI/BlueMoonAI/tree/main?tab=readme-ov-file#minimal-requirement">minimal requirements</a>.</p>
+<h3 id="i-tried-flags-like-lowvram-or-gpu-only-or-bf16-or-so-on-and-things-are-not-getting-any-better-">I tried flags like --lowvram or --gpu-only or --bf16 or so on, and things are not getting any better?</h3>
+<p>Please remove these flags if you are mislead by some wrong tutorials. In most cases these flags are making things worse and introducing more problems.</p>
+<h3 id="BlueMoonAI-suddenly-becomes-very-slow-and-i-have-not-changed-anything">BlueMoonAI suddenly becomes very slow and I have not changed anything</h3>
+<p>Are you accidentally running two BlueMoonAI at the same time?</p>
+
+</section>
+</body>
+</html>

@@ -32,7 +32,7 @@
 
 BlueMoon AI stands at the forefront as a latent text-to-image diffusion model, skillfully crafting photo-realistic images from diverse textual inputs. It not only generates stunning imagery but also fosters autonomous creativity, empowering individuals worldwide to effortlessly create captivating art within moments. (Powered by [Gradio](https://www.gradio.app/))
 
-Don't forget to give the project a star ⭐, if you find it useful! and fork this repository if you want to contribute!
+**Note: Remember to give the project a star ⭐ if you find it useful! And we currently want more contribution to improve further so fork this repository if you want to contribute!**
 
 - **Automated Optimization**: BlueMoonAI incorporates advanced inner optimizations and quality enhancements, eliminating the need for users to grapple with complex technical parameters.
 - **Intuitive Interface**: The user-friendly interface allows users to generate images with a single click. The intuitive design enables users to create images with ease.

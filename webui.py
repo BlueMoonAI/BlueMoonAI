@@ -19,19 +19,23 @@ import args_manager
 import copy
 import json
 import modules.meta_parser
-from components.bluemoon import bluemoon_footer
+from components.bluemoon import bluemoon_footer, remove_default_watermark
 from modules.download_models import download_models
 from components.character import character_custom_wildcards_ui
 
 from modules.sdxl_styles import legal_style_names, bluemoon_expansion, style_keys
-from components.history_logger import get_current_html_path
+from components.history_logger import get_current_html_path, get_help
 from components.ui_gradio_extensions import reload_javascript
 from modules.auth import auth_enabled, check_auth
 
 from bluemoon.utils.logly import logly
 
+def display_seed(seed=0):
+    logly.info("Seed History: " + str(worker.history_seed))
+    return worker.history_seed
 
 def generate_clicked(*args):
+
     import bluemoon.ldm_patched.modules.model_management as model_management
 
     with model_management.interrupt_processing_mutex:
@@ -80,6 +84,7 @@ def generate_clicked(*args):
                 finished = True
 
     execution_time = time.perf_counter() - execution_start_time
+    display_seed()
     logly.info(f'Total time: {execution_time:.2f} seconds')
     return
 
@@ -96,6 +101,7 @@ shared.gradio_root = gr.Blocks(
     css=components.html.css).queue()
 
 with shared.gradio_root:
+    remove_default_watermark()
     with gr.Row():
         with gr.Column(scale=2):
             with gr.Row():
@@ -297,6 +303,11 @@ with shared.gradio_root:
                 image_seed = gr.Textbox(label='Seed', value=0, max_lines=1,
                                         visible=False)  # workaround for https://github.com/gradio-app/gradio/issues/5354
                 freeze_seed = gr.Checkbox(label='Freeze Seed', value=False)
+                seed_log = gr.Textbox(label='Seed Log', value='', visible=True)
+                refresh_seed = gr.Button(label='Refresh Seed', value='\U0001f504 Refresh Seed',
+                                          variant='secondary', elem_classes='refresh_button')
+                refresh_seed.click(display_seed,inputs=[],
+                                    outputs=[seed_log], queue=False, show_progress=True)
 
 
                 def random_checked(r):
@@ -321,7 +332,11 @@ with shared.gradio_root:
 
                 if not args_manager.args.disable_image_log:
                     gr.HTML(
-                        f'<a  style="color: #fff;"  href="/file={get_current_html_path()}" class="button-canvas" target="_blank"> History Log</a>')
+                        f'<a  style="color: #fff;"  href="/file={get_help()}" class="button-canvas" '
+                        f'target="_blank">Troubleshoot</a>&nbsp;&nbsp;'
+                        f'<a  style="color: #fff;"  href="/file={get_current_html_path()}" class="button-canvas" '
+                        f'target="_blank"> History Log</a>'
+                    )
 
             with gr.Tab(label='Style'):
                 style_sorter.try_load_sorted_styles(
@@ -420,7 +435,7 @@ with shared.gradio_root:
                     with gr.Row():
                         start_download = gr.Button(label="Download (URL)")
 
-            start_download.click(download_models, inputs=[url_input, selected_path], outputs=[output], queue=False,
+            start_download.click(download_models, inputs=[url_input, selected_path], outputs=[output], queue=True,
                                  show_progress=True)
 
             with gr.Tab(label='Advanced'):
@@ -559,7 +574,7 @@ with shared.gradio_root:
                                                         inputs=inpaint_mask_upload_checkbox,
                                                         outputs=inpaint_mask_image, queue=False, show_progress=False)
 
-                with gr.Tab(label='FreeU'):
+                    with gr.Tab(label='FreeU'):
                         freeu_enabled = gr.Checkbox(label='Enabled', value=False)
                         freeu_b1 = gr.Slider(label='B1', minimum=0, maximum=2, step=0.01, value=1.01)
                         freeu_b2 = gr.Slider(label='B2', minimum=0, maximum=2, step=0.01, value=1.02)
@@ -814,6 +829,6 @@ shared.gradio_root.launch(
     server_port=args_manager.args.port,
     share=args_manager.args.share,
     auth=check_auth if args_manager.args.share and auth_enabled else None,
-
     blocked_paths=[constants.AUTH_FILENAME],
+    favicon_path="assets/img/bluemoon.ico",
 )

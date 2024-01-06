@@ -119,6 +119,7 @@ path_clip_vision = get_dir_or_set_default('path_clip_vision', '../models/clip_vi
 path_bluemoon_expansion = get_dir_or_set_default('path_bluemoon_expansion', '../models/prompt_expansion'
                                                                             '/bluemoon_expansion')
 path_outputs = get_dir_or_set_default('path_outputs', '../outputs/',True)
+path_help = get_dir_or_set_default('path_help', '../help/',True)
 path_safety_checker_models = get_dir_or_set_default('path_safety_checker_models', '../models/safety_checker_models/')
 
 def get_config_item_or_set_default(key, default_value, validator, disable_empty_as_none=False):

@@ -23,15 +23,15 @@ def webpath(fn):
 
 
 def javascript_html():
-    script_js_path = webpath('ui/javascript/script.js')
-    context_menus_js_path = webpath('ui/javascript/contextMenus.js')
-    localization_js_path = webpath('ui/javascript/localization.js')
-    zoom_js_path = webpath('ui/javascript/zoom.js')
-    edit_attention_js_path = webpath('ui/javascript/edit-attention.js')
-    viewer_js_path = webpath('ui/javascript/viewer.js')
-    image_viewer_js_path = webpath('ui/javascript/imageviewer.js')
-    analytics_js_path = webpath('ui/javascript/analytics.js')
-    notice_js_path = webpath('ui/javascript/notice.js')
+    script_js_path = webpath('assets/js/script.js')
+    context_menus_js_path = webpath('assets/js/contextMenus.js')
+    localization_js_path = webpath('assets/js/localization.js')
+    zoom_js_path = webpath('assets/js/zoom.js')
+    edit_attention_js_path = webpath('assets/js/edit-attention.js')
+    viewer_js_path = webpath('assets/js/viewer.js')
+    image_viewer_js_path = webpath('assets/js/imageviewer.js')
+    analytics_js_path = webpath('assets/js/analytics.js')
+    notice_js_path = webpath('assets/js/notice.js')
 
     head = f'<script type="text/javascript">{localization_js(args_manager.args.language)}</script>\n'
     head += f'<script type="text/javascript" src="{script_js_path}"></script>\n'
@@ -42,18 +42,18 @@ def javascript_html():
     head += f'<script type="text/javascript" src="{viewer_js_path}"></script>\n'
     head += f'<script type="text/javascript" src="{image_viewer_js_path}"></script>\n'
 
-   # head += f'<script type="text/javascript" src="{analytics_js_path}"></script>\n'
-    #head += f'<script type="text/javascript" src="{notice_js_path}"></script>\n'
+   # head += f'<script type="text/js" src="{analytics_js_path}"></script>\n'
+    #head += f'<script type="text/js" src="{notice_js_path}"></script>\n'
 
     if args_manager.args.theme:
-        head += f'<script type="text/javascript">set_theme(\"{args_manager.args.theme}\");</script>\n'
+        head += f'<script type="text/js">set_theme(\"{args_manager.args.theme}\");</script>\n'
 
     return head
 
 
 def css_html():
-    style_css_path = webpath('ui/css/style.css')
-    custom_css_path = webpath('ui/css/custom.css')
+    style_css_path = webpath('assets/css/style.css')
+    custom_css_path = webpath('assets/css/custom.css')
     head = f'<link rel="stylesheet" property="stylesheet" href="{style_css_path}">'
    # head += f'<link rel="stylesheet" property="stylesheet" href="{custom_css_path}">'
 
