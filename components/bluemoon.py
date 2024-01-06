@@ -24,7 +24,8 @@ def bluemoon_footer():
     )
     license_html = (
         "<br><br><p style='font-size: 16px; text-align: center;'>"
-        "Licensed under the <a href='https://www.gnu.org/licenses/agpl-3.0.html'>GNU Affero General Public License v3.0</a> "
+        "Licensed under the <a href='https://www.gnu.org/licenses/agpl-3.0.html'>GNU Affero General Public License "
+        "v3.0</a>"
         "AND <a href='https://github.com/BlueMoonAI/BlueMoonAI/blob/main/LICENSE.md'>Open Rail -m License</a>."
         "</p>"
     )
