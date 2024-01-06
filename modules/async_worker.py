@@ -13,7 +13,7 @@ class AsyncTask:
 
 async_tasks = []
 history_seed = []
-log_img = []
+logged_images = set()
 
 
 def worker():
@@ -811,13 +811,13 @@ def worker():
                         if n != 'None':
                             d.append((f'LoRA {li + 1}', f'{n} : {w}'))
                             d.append(('Version', 'v' + bluemoonai_version.get_version()))
-                        try:
-                            if x not in log_img:
-                                log(x, d)
-                                log_img.append(x)
+                    try:
 
-                        except:
-                            logly.error('Error while logging image')
+                      log(x, d)
+
+
+                    except:
+                        logly.error('Error while logging image')
 
                 yield_result(async_task, imgs, do_not_show_finished_images=len(tasks) == 1,
                              progressbar_index=int(
