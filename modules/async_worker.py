@@ -12,7 +12,8 @@ class AsyncTask:
 
 
 async_tasks = []
-history_seed=[]
+history_seed = []
+logged_images = set()
 
 
 def worker():
@@ -43,7 +44,7 @@ def worker():
     from components.history_logger import log
     from bluemoon.extras.expansion import safe_str
     from modules.util import remove_empty_str, HWC3, resize_image, \
-        get_image_shape_ceil, set_image_shape_ceil, get_shape_ceil, resample_image ,erode_or_dilate
+        get_image_shape_ceil, set_image_shape_ceil, get_shape_ceil, resample_image, erode_or_dilate
     from modules.upscaler import perform_upscale
 
     try:
@@ -245,7 +246,6 @@ def worker():
         seed = int(image_seed)
         logly.info(f'[Parameters] Seed = {seed}')
 
-
         sampler_name = advanced_parameters.sampler_name
         scheduler_name = advanced_parameters.scheduler_name
 
@@ -430,7 +430,6 @@ def worker():
                     negative_top_k=len(negative_basic_workloads),
                     log_positive_prompt='\n'.join([task_prompt] + task_extra_positive_prompts),
                     log_negative_prompt='\n'.join([task_negative_prompt] + task_extra_negative_prompts), ))
-
 
             if use_expansion:
                 for i, t in enumerate(tasks):
@@ -812,7 +811,13 @@ def worker():
                         if n != 'None':
                             d.append((f'LoRA {li + 1}', f'{n} : {w}'))
                             d.append(('Version', 'v' + bluemoonai_version.get_version()))
-                        log(x, d)
+                    try:
+
+                      log(x, d)
+
+
+                    except:
+                        logly.error('Error while logging image')
 
                 yield_result(async_task, imgs, do_not_show_finished_images=len(tasks) == 1,
                              progressbar_index=int(

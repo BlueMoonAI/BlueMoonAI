@@ -49,7 +49,6 @@ Create exquisite images effortlessly with our AI Image Generator (Text to Image)
 Let Your Creativity Flow.
 
 
-
 ## Table of Contents
 
 - [BlueMoonAI: Unleash Your Creative Potential](#bluemoonai-unleash-your-creative-potential)
