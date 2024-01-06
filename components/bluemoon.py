@@ -30,8 +30,6 @@ def bluemoon_footer():
         "</p>"
     )
 
-    version_html = (f"<p style='font-size: 16px; text-align: center;'><a "
-                    f"href='https://github.com/BlueMoonAI/BlueMoonAI/'>BlueMoon AI</a>: v{bluemoonai_version.get_version()}</p>")
 
     footer_html = f"""
         <div style="color: #333; padding: 10px; text-align: center; ">
@@ -40,6 +38,9 @@ def bluemoon_footer():
             </span>
             <span style="margin-right: 20px;">GitHub: 
                 <a style="color: #007bff;" href="https://github.com/BlueMoonAI/BlueMoonAI" target="_blank">BlueMoonAI</a>
+            </span>
+           <span style="margin-right: 20px;">BlueMoon AI:
+                <a style="color: #007bff;" href="https://github.com/BlueMoonAI/BlueMoonAI/" target="_blank">v{bluemoonai_version.get_version()}</a>
             </span>
             <span style="margin-right: 20px;">Gradio Version: 
                 <a style="color: #007bff;" href="https://github.com/gradio-app/gradio" target="_blank">{gr.__version__}</a>
@@ -53,7 +54,6 @@ def bluemoon_footer():
     gr.HTML(value=heading_html)
     gr.HTML(value=description_html)
     gr.HTML(value=license_html)
-    gr.HTML(value=version_html)
     gr.HTML(value=footer_html)
 
 def remove_default_watermark():
