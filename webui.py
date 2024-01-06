@@ -30,11 +30,12 @@ from modules.auth import auth_enabled, check_auth
 
 from bluemoon.utils.logly import logly
 
-def display_seed():
+def display_seed(seed=0):
     logly.info("Seed History: " + str(worker.history_seed))
     return worker.history_seed
 
 def generate_clicked(*args):
+
     import bluemoon.ldm_patched.modules.model_management as model_management
 
     with model_management.interrupt_processing_mutex:
@@ -303,13 +304,11 @@ with shared.gradio_root:
                                         visible=False)  # workaround for https://github.com/gradio-app/gradio/issues/5354
                 freeze_seed = gr.Checkbox(label='Freeze Seed', value=False)
                 seed_log = gr.Textbox(label='Seed Log', value='', visible=True)
+                refresh_seed = gr.Button(label='Refresh Seed', value='\U0001f504 Refresh Seed',
+                                          variant='secondary', elem_classes='refresh_button')
+                refresh_seed.click(display_seed,inputs=[],
+                                    outputs=[seed_log], queue=False, show_progress=True)
 
-                def seed_log_update(x):
-                     if x:
-                            return gr.update(value=display_seed())
-
-                     else:
-                            return gr.update(value='')
 
                 def random_checked(r):
                     return gr.update(visible=not r)
