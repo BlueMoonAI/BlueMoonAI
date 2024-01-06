@@ -415,7 +415,6 @@ def worker():
 
                 positive_basic_workloads = remove_empty_str(positive_basic_workloads, default=task_prompt)
                 negative_basic_workloads = remove_empty_str(negative_basic_workloads, default=task_negative_prompt)
-                history_seed.append(seed)
 
                 tasks.append(dict(
                     task_seed=task_seed,
@@ -438,6 +437,8 @@ def worker():
                     logly.info(f'[BlueMoon Prompt Expansion] {expansion}')
                     t['expansion'] = expansion
                     t['positive'] = copy.deepcopy(t['positive']) + [expansion]  # Deep copy.
+
+            history_seed.append(seed)
 
             for i, t in enumerate(tasks):
                 progressbar(async_task, 7, f'Encoding positive #{i + 1} ...')
