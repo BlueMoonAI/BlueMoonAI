@@ -353,6 +353,7 @@ python launcher.py --preset realistic
 
 ## NSFW Blackout
 To enable the nsfw blackout feature you can enable this from the advanced checkbox > advanced tab > developer debug mode > enable Black out Nsfw
+
 ![image](https://github.com/BlueMoonAI/BlueMoonAI/assets/138022882/dc39be9e-e251-42b8-9054-acf4906a65bc)
 
 ## Update Log
