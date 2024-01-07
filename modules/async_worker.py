@@ -3,6 +3,7 @@ import threading
 
 import bluemoonai_version
 from bluemoon.utils.logly import logly
+from modules.metadata import save_metadata
 
 
 class AsyncTask:
@@ -15,7 +16,7 @@ class AsyncTask:
 async_tasks = []
 history_seed = []
 logged_images = set()
-metadata_log = {}
+metadata_log = []
 
 def worker():
     global async_tasks
@@ -813,6 +814,9 @@ def worker():
                         if n != 'None':
                             d.append((f'LoRA {li + 1}', f'{n} : {w}'))
                             d.append(('Version', 'v' + bluemoonai_version.get_version()))
+
+                    metadata_log.append(d)
+                    save_metadata('../outputs/metadata.json', d)
 
                     try:
                         # Save each key-value pair separately for the current image
