@@ -814,7 +814,7 @@ def worker():
                             d.append(('Version', 'v' + bluemoonai_version.get_version()))
                     try:
 
-                      log(x, d)
+                      log(x, d,seed)
 
 
                     except:
