@@ -27,11 +27,11 @@ def get_current_html_path():
     return html_name
 
 
-def log(img, dic):
+def log(img, dic,seed):
     if args_manager.args.disable_image_log:
         return
 
-    date_string, local_temp_filename, only_name = generate_temp_filename(folder=modules.config.path_outputs,
+    date_string, local_temp_filename, only_name = generate_temp_filename(seed,folder=modules.config.path_outputs,
                                                                          extension='png')
     os.makedirs(os.path.dirname(local_temp_filename), exist_ok=True)
     Image.fromarray(img).save(local_temp_filename)

@@ -65,6 +65,8 @@ Let Your Creativity Flow.
 - [Code of Conduct](#code-of-conduct)
 - [Minimal Requirement](#minimal-requirement)
 - [Default Models](#default-models)
+- [Presets](#presets)
+- [Model Downloads](#model-downloads)
 - [Customization](#customization)
   - [All CMD Flags](#all-cmd-flags)
   - [NSFW Blackout](#nsfw-blackout)
@@ -234,20 +236,36 @@ Below is the minimal requirement for running BlueMoon AI locally. If your device
 
 ## Default Models
 <a name="models"></a>
+![image](https://github.com/BlueMoonAI/BlueMoonAI/assets/138022882/eda715c0-0682-48a4-bdc7-81299eefcd6a)
 
 Given different goals, the default models and configs of BlueMoonAI is different:
 
 | Task | args | Main Model | Refiner | Config |
 | - | - | - | - | - |
-| General |  | [juggernautXL v6_RunDiffusion](https://huggingface.co/BlueMoonAI/Models/resolve/main/juggernautXL_version6Rundiffusion.safetensors) | not used | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/modules/path.py) |
+| General |  | [juggernautXL v7_RunDiffusion](https://huggingface.co/BlueMoonAI/Models/resolve/main/juggernautXL_version7Rundiffusion.safetensors) | not used | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/modules/path.py) |
 | Realistic | --preset realistic | [realistic_stock_photo](https://huggingface.co/BlueMoonAI/Models/resolve/main/realisticStockPhoto_v10.safetensors) | not used | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/presets/realistic.json) |
-| Anime |--preset anime | [bluepencil_v50](https://huggingface.co/BlueMoonAI/Models/resolve/main/bluePencilXL_v050.safetensors) | [dreamsharper_v8](https://huggingface.co/BlueMoonAI/Models/resolve/main/DreamShaper_8_pruned.safetensors) (SD1.5) | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/presets/anime.json) |
+| Anime |--preset anime | [bluepencil_v300](https://huggingface.co/BlueMoonAI/Models/resolve/main/bluePencilXL_v300.safetensors) | [dreamsharper_v8](https://huggingface.co/BlueMoonAI/Models/resolve/main/DreamShaper_8_pruned.safetensors) (SD1.5) | [here](https://github.com/BlueMoonAI/BlueMoonAI/blob/main/presets/anime.json) |
 
 Note that the download is **automatic** - you do not need to do anything if the internet connection is okay. However, you can download them manually if you (or move them from somewhere else) have your own preparation.
 
-The default models are downloaded to `BlueMoonAI\models\checkpoints` folder. You can also download them manually and put them in the folder.
+The default models are downloaded to `BlueMoonAI\models\checkpoints` folder. You can also download them manually and put them in the folder. you can refer this at [Model Downloads](#model-downloads)
 
-you can add more presets in [presets](./presets/) folder.
+you can change the models like this if the model downloaded does not appear make sure to click refresh and check it will appear
+![image](https://github.com/BlueMoonAI/BlueMoonAI/assets/138022882/e92915a2-d347-4881-9f2d-abdddaaaf561)
+
+
+## Presets
+you can change presets on custom tab which is located in advanced checkbox
+![image](https://github.com/BlueMoonAI/BlueMoonAI/assets/138022882/5085354f-f162-4ce4-b045-02aad7828dcd)
+
+and to add more presets you can do it by adding it in [presets](./presets/) folder.
+
+## Model Downloads 
+You can easily download a model's checkpoint or LoRAs from Civit.AI or Huggingface by using the provided URL.
+
+![image](https://github.com/BlueMoonAI/BlueMoonAI/assets/138022882/e1eab451-d411-464b-a76b-4c0e2f21419f)
+
+**Note:- Ensure you use the provided downloadable URL for successful downloads. Using any other URL may result in non-functionality.**
 
 ## Customization
 
@@ -332,7 +350,12 @@ BlueMoonAI provides different presets for generating images. You can change the 
 ```bash
 python launcher.py --preset realistic
 ```
-  
+
+## NSFW Blackout
+To enable the nsfw blackout feature you can enable this from the advanced checkbox > advanced tab > developer debug mode > enable Black out Nsfw
+
+![image](https://github.com/BlueMoonAI/BlueMoonAI/assets/138022882/dc39be9e-e251-42b8-9054-acf4906a65bc)
+
 ## Update Log
 
 The log is [here](update_log.md).
