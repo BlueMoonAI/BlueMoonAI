@@ -1,3 +1,4 @@
+import json
 import threading
 
 import bluemoonai_version
@@ -14,7 +15,7 @@ class AsyncTask:
 async_tasks = []
 history_seed = []
 logged_images = set()
-
+metadata_log = {}
 
 def worker():
     global async_tasks
@@ -812,13 +813,30 @@ def worker():
                         if n != 'None':
                             d.append((f'LoRA {li + 1}', f'{n} : {w}'))
                             d.append(('Version', 'v' + bluemoonai_version.get_version()))
+
                     try:
+                        # Save each key-value pair separately for the current image
+                        with open('metadata.json', 'a') as f:
+                            for key, value in d:
+                                json.dump({key: value}, f, indent=2)
+                                f.write('\n')
+                    except FileNotFoundError:
+                        # If the file doesn't exist, create it and append data
+                        try:
+                            with open('metadata.json', 'w') as f:
+                                for key, value in d:
+                                    json.dump({key: value}, f, indent=2)
+                                    f.write('\n')
 
-                      log(x, d,seed)
+                        except Exception as e:
+                            logly.error('Error while logging image metadata: {}'.format(e))
+                    except Exception as e:
+                        logly.error('Error while logging image metadata: {}'.format(e))
 
-
-                    except:
-                        logly.error('Error while logging image')
+                    try:
+                        log(x, d, seed)
+                    except Exception as e:
+                        logly.error('Error while logging image: {}'.format(e))
 
                 yield_result(async_task, imgs, do_not_show_finished_images=len(tasks) == 1,
                              progressbar_index=int(

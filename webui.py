@@ -30,6 +30,7 @@ from modules.auth import auth_enabled, check_auth
 
 from bluemoon.utils.logly import logly
 
+
 def display_seed(seed=0):
     logly.info("Seed History: " + str(worker.history_seed))
     return worker.history_seed
@@ -159,6 +160,9 @@ with shared.gradio_root:
                                                  container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox,
                                                 container=False, elem_classes='min_check')
+                show_console = gr.Checkbox(label='Console', value=modules.config.default_show_console,
+                                                container=False, elem_classes='min_check')
+
             with gr.Row(visible=False) as image_input_panel:
                 with gr.Tabs():
                     with gr.TabItem(label='Upscale or Variation') as uov_tab:
@@ -278,6 +282,19 @@ with shared.gradio_root:
 
             with gr.Row(visible=modules.config.default_character_checkbox) as character_column:
                 character_custom_wildcards_ui(prompt)
+            with gr.Row(visible=modules.config.default_show_console) as console_column:
+                with gr.Tab(label="Console Output"):
+                    gr.Markdown("This will display the output of the image information.")
+                    with gr.Row():
+                        gr.Markdown("This will display the output of the image information.")
+                        seed_log = gr.Textbox(label='Seed Log', value='', visible=True)
+                        refresh_seed = gr.Button(label='Refresh Seed', value='\U0001f504 Refresh Seed',
+                                                  variant='secondary', elem_classes='refresh_button')
+                        refresh_seed.click(display_seed,inputs=[],
+                                            outputs=[seed_log], queue=False, show_progress=True)
+
+
+
 
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox) as advanced_column:
             with gr.Tab(label='Custom'):
@@ -303,11 +320,6 @@ with shared.gradio_root:
                 image_seed = gr.Textbox(label='Seed', value=0, max_lines=1,
                                         visible=False)  # workaround for https://github.com/gradio-app/gradio/issues/5354
                 freeze_seed = gr.Checkbox(label='Freeze Seed', value=False)
-                seed_log = gr.Textbox(label='Seed Log', value='', visible=True)
-                refresh_seed = gr.Button(label='Refresh Seed', value='\U0001f504 Refresh Seed',
-                                          variant='secondary', elem_classes='refresh_button')
-                refresh_seed.click(display_seed,inputs=[],
-                                    outputs=[seed_log], queue=False, show_progress=True)
 
 
                 def random_checked(r):
@@ -682,6 +694,10 @@ with shared.gradio_root:
         character_checkbox.change(lambda x: gr.update(visible=x), character_checkbox, character_column,
                                   queue=False, show_progress=False) \
             .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
+
+        show_console.change(lambda x: gr.update(visible=x), show_console, console_column,
+                                 queue=False, show_progress=False) \
+            .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=True)
 
 
         def inpaint_mode_change(mode):
