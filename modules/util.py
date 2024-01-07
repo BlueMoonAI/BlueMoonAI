@@ -152,7 +152,7 @@ def get_help_html(folder='./help/'):
     return os.path.abspath(os.path.realpath(result))
 
 
-def generate_temp_filename(seed,folder='./outputs/', extension='png'):
+def generate_temp_filename(seed=0,folder='./outputs/', extension='png'):
     current_time = datetime.datetime.now()
     date_string = current_time.strftime("%Y-%m-%d")
     time_string = current_time.strftime("%Y-%m-%d_%H-%M-%S")
