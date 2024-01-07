@@ -82,8 +82,9 @@ def apply_wildcards(wildcard_text, rng, directory=wildcards_path):
     logly.warn(f'[Wildcards] BFS stack overflow. Current text: {wildcard_text}')
     return wildcard_text
 
+
 def get_words(arrays, totalMult, index):
-    if(len(arrays) == 1):
+    if (len(arrays) == 1):
         return [arrays[0].split(',')[index]]
     else:
         words = arrays[0].split(',')
@@ -91,8 +92,7 @@ def get_words(arrays, totalMult, index):
         index -= index % len(words)
         index /= len(words)
         index = math.floor(index)
-        return [word] + get_words(arrays[1:], math.floor(totalMult/len(words)), index)
-
+        return [word] + get_words(arrays[1:], math.floor(totalMult / len(words)), index)
 
 
 def apply_arrays(text, index):
@@ -112,6 +112,6 @@ def apply_arrays(text, index):
     i = 0
     for arr in arrays:
         text = text.replace(f'[[{arr}]]', chosen_words[i], 1)
-        i = i+1
+        i = i + 1
 
     return text
