@@ -281,30 +281,32 @@ with shared.gradio_root:
             with gr.Row(visible=modules.config.default_character_checkbox) as character_column:
                 character_custom_wildcards_ui(prompt)
 
+
+
+
+
+            def update_log_content():
+                with open('./log.txt', "r+") as f:
+                    log_lines = f.readlines()
+                    log_lines.reverse()
+                    log_content = ''.join(log_lines)
+                f.close()
+                output_console = gr.TextArea(log_content, label="logs", lines=15)
+                logly.info("logs loaded!")
+
+
+
             with gr.Row(visible=modules.config.default_show_console) as console_column:
                 with gr.Tab(label="Console Output"):
-                    gr.Markdown("This will display the output of the image information.")
-                    with gr.Row(style={"max-height": "300px", "overflow-y": "scroll"}):  # Adjust max-height as needed
+                    gr.Markdown("This will display the output of the console.")
+                    with gr.Row(style={"max-height": "300px", "overflow-y": "scroll"}):
                         with gr.Column():
-                            keys = []
-                            values = []
-                            with open('./log.txt', "r+") as f:
-                                log_lines = f.readlines()
-                                # Read lines in reverse order
-                                log_lines.reverse()
-                                log_content = ''.join(log_lines)
-                                output_console = gr.TextArea(log_content, label="logs", lines=15)
 
-
-                            output_console.change(
-                                lambda x: gr.update(value=x),
-                                inputs=[output_console],
-                                outputs=[output_console],
-                                queue=False,
-                                show_progress=False
-                            )
-
-
+                            update_log_content()
+                            console_refresh = gr.Button(label='Refresh', value='\U0001f504 Refresh Log',
+                                                        variant='secondary', elem_classes='refresh_button')
+                            console_refresh.click(update_log_content, inputs=[], outputs=None, queue=False,
+                                                    show_progress=True)
 
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox) as advanced_column:
             with gr.Tab(label='Custom'):
