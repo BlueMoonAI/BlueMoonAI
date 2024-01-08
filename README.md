@@ -225,6 +225,7 @@ BlueMoon AI is a non-profit project, and your support is crucial for sustaining 
 </div>
 
 
+
 **Additional Benefits:**
 
 - **Quicker Support:** As a supporter, you'll receive prioritized assistance, ensuring your questions and issues are addressed promptly by contributors and maintainers.
