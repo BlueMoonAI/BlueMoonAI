@@ -55,7 +55,8 @@ Create exquisite images effortlessly with our AI Image Generator (Text to Image)
 
 Let Your Creativity Flow.
 
-![vdvxxbdg](https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/fff49c70-b6f4-4793-a33b-02adf7c9750c)
+![preview image](https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/fae4f302-571b-41e3-9807-7edcb26e989b)
+
 
 ## Table of Contents
 
