@@ -25,7 +25,7 @@
 [![Popularity](https://komarev.com/ghpvc/?username=BlueMoonAI&label=Popularity)](https://github.com/BlueMoonAI/BlueMoonAI)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BlueMoonAI/BlueMoonAI/blob/main/bluemoonai_colab.ipynb)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FBlueMoonAI%2FBlueMoonAI&count_bg=%230046FF&title_bg=%23757575&icon=azurefunctions.svg&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://github.com/BlueMoonAI/BlueMoonAI/tree/main)
-<a href="https://nas.io/bluemoonai" target="_blank">
+<a href="https://ko-fi.com/bluemoonai" target="_blank">
   <img src="https://img.shields.io/badge/Support%20Us-Donate-%23FF424D.svg" alt="Donate to Bluemoon AI on Patreon">
 </a>
 </div>
@@ -55,6 +55,7 @@ Create exquisite images effortlessly with our AI Image Generator (Text to Image)
 
 Let Your Creativity Flow.
 
+![vdvxxbdg](https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/fff49c70-b6f4-4793-a33b-02adf7c9750c)
 
 ## Table of Contents
 
