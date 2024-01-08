@@ -199,6 +199,10 @@ Reference more on [here](https://pytorch.org/get-started/locally/)
 
 See [docker.md](docker.md)
 
+### Support BlueMoon AI
+
+If you find BlueMoon AI valuable, consider supporting us through donations on [Nas.io](https://nas.io/bluemoonai). Your contributions help us cover costs and ensure the continued development of this project.
+
 ## Contributing
 
 If you want to contribute to this project, follow these steps:
@@ -210,6 +214,10 @@ If you want to contribute to this project, follow these steps:
 5. Submit a pull request.
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the code of conduct and the process for submitting pull requests.
+
+## Bug Tracker
+
+Found a bug? Report it on our [Issue Tracker](https://github.com/BlueMoonAI/BlueMoonAI/issues).
 
 ## Code of Conduct
 
