@@ -34,6 +34,13 @@ BlueMoon AI stands at the forefront as a latent text-to-image diffusion model, s
 
 **Note: Remember to give the project a star ⭐ if you find it useful! And we currently want more contribution to improve further so fork this repository if you want to contribute!**
 
+<div align="center">
+
+<img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/95c6e92e-d50b-421c-b4d6-dd85f368b534" alt="image gif" width="300">
+
+</div>
+<br>
+
 - **Automated Optimization**: BlueMoonAI incorporates advanced inner optimizations and quality enhancements, eliminating the need for users to grapple with complex technical parameters.
 - **Intuitive Interface**: The user-friendly interface allows users to generate images with a single click. The intuitive design enables users to create images with ease.
 - **Unparalleled Quality**: BlueMoonAI produces high-quality images with a resolution of up to 1024x1024. The images are comparable to those produced by the state-of-the-art diffusion models.
@@ -211,9 +218,10 @@ BlueMoon AI is a non-profit project, and your support is crucial for sustaining 
 
 [![Support BlueMoon AI](https://img.shields.io/badge/Support-BlueMoonAI-blue?style=for-the-badge&logo=nasdotio)](https://nas.io/bluemoonai)
 
-![love-lab](https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/d9ac97c7-20b1-4383-bd12-da6e0a9520af)
+<img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/d9ac97c7-20b1-4383-bd12-da6e0a9520af" alt="love-lab" width="300">
 
 </div>
+
 
 **Additional Benefits:**
 
@@ -233,9 +241,10 @@ Your support goes a long way in enhancing the project and providing you with an 
 
 <div align="center">
 
-![sdgsd](https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/e7f225fb-60ec-43f5-9ed3-97dfb8d8dc92)
+<img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/e7f225fb-60ec-43f5-9ed3-97dfb8d8dc92" alt="sdgsd" width="300">
 
 </div>
+
 
 
 ## Contributing
@@ -467,7 +476,9 @@ Note that if no `--language` is given and at the same time `BlueMoonAI/language/
 
 <div align="center">
 
-![sss](https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/82377dbb-8159-4625-8113-a036122bdd73)
+<img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/82377dbb-8159-4625-8113-a036122bdd73" alt="sss" width="300">
 
 </div>
+
+
 
