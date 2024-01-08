@@ -11,6 +11,7 @@ def save_metadata(filename, data):
 
         # Open the file in append mode if it exists; otherwise, open it in write mode to create a new file
         with open(filename, 'a+' if file_exists else 'w+') as f:
+            f.write('{\n')
             for key, value in data:
                 metadata[key] = value
             json.dump(metadata, f, indent=2)

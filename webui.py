@@ -23,11 +23,26 @@ from modules.download_models import download_models
 from components.character import character_custom_wildcards_ui
 
 from modules.sdxl_styles import legal_style_names, bluemoon_expansion, style_keys
-from components.history_logger import get_current_html_path, get_help
+from components.history_logger import get_current_html_path, get_help, folder_log
 from components.ui_gradio_extensions import reload_javascript
 from modules.auth import auth_enabled, check_auth
 
 from bluemoon.utils.logly import logly
+
+
+
+def metadata_close(filename):
+        try:
+            # Check if the file exists
+            file_exists = os.path.isfile(filename)
+
+            # Open the file in append mode if it exists; otherwise, open it in write mode to create a new file
+            with open(filename, 'a+' if file_exists else 'w+') as f:
+                f.write('}\n')
+            f.close()
+
+        except Exception as e:
+            logly.error('Error while logging metadata: {}'.format(e))
 
 
 def display_seed(seed=0):
@@ -85,6 +100,7 @@ def generate_clicked(*args):
 
     execution_time = time.perf_counter() - execution_start_time
     display_seed()
+    metadata_close(os.path.abspath(f'./outputs/{folder_log}/metadata.json'))
     logly.info(f'Total time: {execution_time:.2f} seconds')
     return
 
