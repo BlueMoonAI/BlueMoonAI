@@ -72,6 +72,8 @@ Let Your Creativity Flow.
 - [Contributing](#contributing)
 - [Bug Tracker](#bug-tracker)
 - [Code of Conduct](#code-of-conduct)
+- [Acknowledgments](#acknowledgments)
+- [Contributors](#contributors)
 - [Minimal Requirement](#minimal-requirement)
 - [Default Models](#default-models)
 - [Presets](#presets)
@@ -277,7 +279,7 @@ Please review our [Code of Conduct](CODE_OF_CONDUCT.md) to understand the behavi
 
 A special thanks to MorikawaAsami for their invaluable contribution to BlueMoon AI. Their dedication and effort in adding the new console feature have significantly enhanced the project.
 
-### Contributors
+## Contributors
 
 - **MorikawaAsami:**  
   - Added the new console feature(optional), improving the overall user experience.
