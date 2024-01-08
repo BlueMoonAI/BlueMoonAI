@@ -288,7 +288,6 @@ with shared.gradio_root:
                     log_lines.reverse()
                     log_content = ''.join(log_lines)
 
-                logly.info("logs loaded!")  # Assuming logly is defined elsewhere
                 return log_content  # Return the log content directly
 
 
