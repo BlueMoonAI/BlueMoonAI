@@ -61,7 +61,9 @@ Let Your Creativity Flow.
   - [Windows(AMD GPUs)](#windowsamd-gpus)
   - [Mac](#mac)
   - [Docker](#docker)
+- [Support BlueMoon AI](#support-bluemoon-ai)
 - [Contributing](#contributing)
+- [Bug Tracker](#bug-tracker]
 - [Code of Conduct](#code-of-conduct)
 - [Minimal Requirement](#minimal-requirement)
 - [Default Models](#default-models)
@@ -202,6 +204,11 @@ See [docker.md](docker.md)
 ### Support BlueMoon AI
 
 If you find BlueMoon AI valuable, consider supporting us through donations on [Nas.io](https://nas.io/bluemoonai). Your contributions help us cover costs and ensure the continued development of this project.
+
+BlueMoon AI is a non-profit organization, and your support is crucial for sustaining our mission.
+
+[![Support BlueMoon AI](https://img.shields.io/badge/Support-BlueMoonAI-blue?style=for-the-badge&logo=nasdotio)](https://nas.io/bluemoonai)
+
 
 ## Contributing
 
