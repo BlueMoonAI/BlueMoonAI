@@ -267,6 +267,12 @@ Found a bug? Report it on our [Issue Tracker](https://github.com/BlueMoonAI/Blue
 
 Please review our [Code of Conduct](CODE_OF_CONDUCT.md) to understand the behavior we expect from contributors.
 
+<div align="center">
+  <img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/62b6385c-04dc-44f2-8fa9-0622ece765ad" alt="anya-forger-jumpscare" width="300">
+</div>
+
+
+
 ## Acknowledgments
 
 A special thanks to MorikawaAsami for their invaluable contribution to BlueMoon AI. Their dedication and effort in adding the new console feature have significantly enhanced the project.
@@ -277,6 +283,10 @@ A special thanks to MorikawaAsami for their invaluable contribution to BlueMoon 
   - Added the new console feature(optional), improving the overall user experience.
 
 Thank you to all our contributors who help make BlueMoon AI better with each update!
+
+<div align="center">
+  <img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/875fa76f-d1a7-4986-8221-eee0164687b0" alt="anya-forger-oomfie" width="300">
+</div>
 
 
 ## Minimal Requirement
