@@ -1,4 +1,5 @@
 import json
+import os
 import threading
 
 import bluemoonai_version
@@ -816,26 +817,8 @@ def worker():
                             d.append(('Version', 'v' + bluemoonai_version.get_version()))
 
                     metadata_log.append(d)
-                    save_metadata('../outputs/metadata.json', d)
+                    save_metadata(os.path.abspath('./outputs/metadata.json'), d)
 
-                    try:
-                        # Save each key-value pair separately for the current image
-                        with open('metadata.json', 'a') as f:
-                            for key, value in d:
-                                json.dump({key: value}, f, indent=2)
-                                f.write('\n')
-                    except FileNotFoundError:
-                        # If the file doesn't exist, create it and append data
-                        try:
-                            with open('metadata.json', 'w') as f:
-                                for key, value in d:
-                                    json.dump({key: value}, f, indent=2)
-                                    f.write('\n')
-
-                        except Exception as e:
-                            logly.error('Error while logging image metadata: {}'.format(e))
-                    except Exception as e:
-                        logly.error('Error while logging image metadata: {}'.format(e))
 
                     try:
                         log(x, d, seed)
