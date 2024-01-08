@@ -212,17 +212,18 @@ See [docker.md](docker.md)
 
 ### Support BlueMoon AI
 
-If you find BlueMoon AI valuable, consider supporting us through donations on [Nas.io](https://nas.io/bluemoonai). Your contributions help us cover costs and ensure the continued development of this project.
+If you find BlueMoon AI valuable, consider supporting us through donations on [ko-fi](https://ko-fi.com/bluemoonai). Your contributions help us cover costs and ensure the continued development of this project.
 
 BlueMoon AI is a non-profit project, and your support is crucial for sustaining our mission.
 
 <div align="center">
 
-[![Support BlueMoon AI](https://img.shields.io/badge/Support-BlueMoonAI-blue?style=for-the-badge&logo=nasdotio)](https://nas.io/bluemoonai)
+[![Support BlueMoon AI](https://img.shields.io/badge/Support-BlueMoonAI-blue?style=for-the-badge&logo=nasdotio)](https://ko-fi.com/bluemoonai)
 
 <img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/d9ac97c7-20b1-4383-bd12-da6e0a9520af" alt="love-lab" width="300">
 
 </div>
+
 
 
 **Additional Benefits:**
