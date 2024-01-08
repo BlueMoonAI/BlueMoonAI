@@ -14,7 +14,7 @@ from bluemoon.utils.logly import logly
 
 log_cache = {}
 
-global folder_log
+
 
 def get_help():
     local_troubleshoot = get_help_html(folder=modules.config.path_help)
@@ -36,7 +36,6 @@ def log(img, dic,seed=0):
     date_string, local_temp_filename, only_name = generate_temp_filename(seed,folder=modules.config.path_outputs,
                                                                          extension='png')
     save_metadata(os.path.abspath(f'./outputs/{date_string}/metadata.json'), dic)
-    folder_log = date_string
     os.makedirs(os.path.dirname(local_temp_filename), exist_ok=True)
     Image.fromarray(img).save(local_temp_filename)
     html_name = os.path.join(os.path.dirname(local_temp_filename), 'log.html')
