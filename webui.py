@@ -160,8 +160,6 @@ with shared.gradio_root:
                                                  container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox,
                                                 container=False, elem_classes='min_check')
-                show_console = gr.Checkbox(label='Console', value=modules.config.default_show_console,
-                                           container=False, elem_classes='min_check')
 
             with gr.Row(visible=False) as image_input_panel:
                 with gr.Tabs():
@@ -297,7 +295,7 @@ with shared.gradio_root:
                     gr.Markdown("This will display the output of the console.")
                     with gr.Row(style={"max-height": "300px", "overflow-y": "scroll"}):
                         with gr.Column():
-                            runtime_log=update_log_content()
+                            runtime_log = update_log_content()
                             console_log = gr.TextArea(runtime_log, label="logs", lines=15)  # Initialize empty TextArea
                             console_refresh = gr.Button(label='Refresh', value='\U0001f504 Refresh Log',
                                                         variant='secondary', elem_classes='refresh_button')
@@ -333,6 +331,7 @@ with shared.gradio_root:
                                          variant='secondary', elem_classes='refresh_button')
                 refresh_seed.click(display_seed, inputs=[],
                                    outputs=[seed_log], queue=False, show_progress=True)
+
 
                 def random_checked(r):
                     return gr.update(visible=not r)
@@ -534,6 +533,10 @@ with shared.gradio_root:
                                                      value=modules.config.default_black_out_nsfw,
                                                      interactive=not modules.config.default_black_out_nsfw,
                                                      info='Use black image if NSFW is detected.')
+
+                        show_console = gr.Checkbox(label='Show Console', value=modules.config.default_show_console,
+                                                   container=False, elem_classes='min_check', infos="Show console "
+                                                                                                    "output.")
 
                         black_out_nsfw.change(lambda x: gr.update(value=x, interactive=not x),
                                               inputs=black_out_nsfw, outputs=disable_preview, queue=False,

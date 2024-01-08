@@ -443,7 +443,6 @@ def worker():
                     t['expansion'] = expansion
                     t['positive'] = copy.deepcopy(t['positive']) + [expansion]  # Deep copy.
 
-            history_seed.append(seed)
 
             for i, t in enumerate(tasks):
                 progressbar(async_task, 7, f'Encoding positive #{i + 1} ...')
