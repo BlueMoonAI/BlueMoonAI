@@ -18,17 +18,22 @@ body:
     id: relation-to-problem
     attributes:
       label: Is your feature request related to a problem? Please describe.
-      placeholder: "A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
-."
-    validations:
-      required: true
+      placeholder: "A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] (This field is required)"
   - type: textarea
     id: description
     attributes:
       label: Describe the idea you'd like
-      placeholder: "A clear and concise description of what you want to happen."
-    validations:
-      required: true
+      placeholder: "A clear and concise description of what you want to happen. (This field is required)"
   - type: markdown
     attributes:
-      value: "Thank you for completing our form!"
+      value: |
+        Thank you for completing our form!
+
+  - type: markdown
+    attributes:
+      value: |
+        If you find value in our project and would like to support its development, consider making a donation. Your contributions help us continue to improve and add new features!
+
+        [![Donate](https://img.shields.io/badge/Donate-bluemoonai-blue.svg)](https://nas.io/bluemoonai)
+
+        We appreciate your generosity and support! 😊

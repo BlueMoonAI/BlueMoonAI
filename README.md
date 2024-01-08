@@ -25,7 +25,7 @@
 [![Popularity](https://komarev.com/ghpvc/?username=BlueMoonAI&label=Popularity)](https://github.com/BlueMoonAI/BlueMoonAI)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BlueMoonAI/BlueMoonAI/blob/main/bluemoonai_colab.ipynb)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FBlueMoonAI%2FBlueMoonAI&count_bg=%230046FF&title_bg=%23757575&icon=azurefunctions.svg&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://github.com/BlueMoonAI/BlueMoonAI/tree/main)
-<a href="https://www.patreon.com/bluemoonai/membership" target="_blank">
+<a href="https://nas.io/bluemoonai" target="_blank">
   <img src="https://img.shields.io/badge/Support%20Us-Donate-%23FF424D.svg" alt="Donate to Bluemoon AI on Patreon">
 </a>
 </div>
@@ -33,6 +33,13 @@
 BlueMoon AI stands at the forefront as a latent text-to-image diffusion model, skillfully crafting photo-realistic images from diverse textual inputs. It not only generates stunning imagery but also fosters autonomous creativity, empowering individuals worldwide to effortlessly create captivating art within moments. (Powered by [Gradio](https://www.gradio.app/))
 
 **Note: Remember to give the project a star ⭐ if you find it useful! And we currently want more contribution to improve further so fork this repository if you want to contribute!**
+
+<div align="center">
+
+<img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/95c6e92e-d50b-421c-b4d6-dd85f368b534" alt="image gif" width="300">
+
+</div>
+<br>
 
 - **Automated Optimization**: BlueMoonAI incorporates advanced inner optimizations and quality enhancements, eliminating the need for users to grapple with complex technical parameters.
 - **Intuitive Interface**: The user-friendly interface allows users to generate images with a single click. The intuitive design enables users to create images with ease.
@@ -61,7 +68,9 @@ Let Your Creativity Flow.
   - [Windows(AMD GPUs)](#windowsamd-gpus)
   - [Mac](#mac)
   - [Docker](#docker)
+  - [Support BlueMoon AI](#support-bluemoon-ai)
 - [Contributing](#contributing)
+- [Bug Tracker](#bug-tracker)
 - [Code of Conduct](#code-of-conduct)
 - [Minimal Requirement](#minimal-requirement)
 - [Default Models](#default-models)
@@ -72,7 +81,7 @@ Let Your Creativity Flow.
   - [NSFW Blackout](#nsfw-blackout)
 - [Update Log](#update-log)
 - [Localization/Translation](#localizationtranslation)
-- [Happy Creativity! ❤️](#happy-creativity-)
+- [Happy Creativity!](#happy-creativity-)
 
 
 ## [Installing BlueMoonAI](#installing-bluemoonai)
@@ -199,6 +208,45 @@ Reference more on [here](https://pytorch.org/get-started/locally/)
 
 See [docker.md](docker.md)
 
+### Support BlueMoon AI
+
+If you find BlueMoon AI valuable, consider supporting us through donations on [Nas.io](https://nas.io/bluemoonai). Your contributions help us cover costs and ensure the continued development of this project.
+
+BlueMoon AI is a non-profit project, and your support is crucial for sustaining our mission.
+
+<div align="center">
+
+[![Support BlueMoon AI](https://img.shields.io/badge/Support-BlueMoonAI-blue?style=for-the-badge&logo=nasdotio)](https://nas.io/bluemoonai)
+
+<img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/d9ac97c7-20b1-4383-bd12-da6e0a9520af" alt="love-lab" width="300">
+
+</div>
+
+
+**Additional Benefits:**
+
+- **Quicker Support:** As a supporter, you'll receive prioritized assistance, ensuring your questions and issues are addressed promptly by contributors and maintainers.
+
+- **Feature Requests:** Supporters have the opportunity to request new features for consideration in project development. Your input helps shape the future of BlueMoon AI.
+
+- **Exclusive Content:** Gain access to exclusive content, such as behind-the-scenes updates, sneak peeks at upcoming features, and more.
+
+- **Early Access:** Be among the first to try out new features before they are released to the general public.
+
+- **Community Recognition:** Supporters will be acknowledged on our website and project documentation as a token of our gratitude.
+
+- **Project Influence:** Contribute to the decision-making process. Supporters may have the chance to vote on upcoming features and project priorities.
+
+Your support goes a long way in enhancing the project and providing you with an even better experience. Thank you for being a part of BlueMoon AI!
+
+<div align="center">
+
+<img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/e7f225fb-60ec-43f5-9ed3-97dfb8d8dc92" alt="sdgsd" width="300">
+
+</div>
+
+
+
 ## Contributing
 
 If you want to contribute to this project, follow these steps:
@@ -211,9 +259,35 @@ If you want to contribute to this project, follow these steps:
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the code of conduct and the process for submitting pull requests.
 
+## Bug Tracker
+
+Found a bug? Report it on our [Issue Tracker](https://github.com/BlueMoonAI/BlueMoonAI/issues).
+
 ## Code of Conduct
 
 Please review our [Code of Conduct](CODE_OF_CONDUCT.md) to understand the behavior we expect from contributors.
+
+<div align="center">
+  <img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/62b6385c-04dc-44f2-8fa9-0622ece765ad" alt="anya-forger-jumpscare" width="300">
+</div>
+
+
+
+## Acknowledgments
+
+A special thanks to MorikawaAsami for their invaluable contribution to BlueMoon AI. Their dedication and effort in adding the new console feature have significantly enhanced the project.
+
+### Contributors
+
+- **MorikawaAsami:**  
+  - Added the new console feature(optional), improving the overall user experience.
+
+Thank you to all our contributors who help make BlueMoon AI better with each update!
+
+<div align="center">
+  <img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/875fa76f-d1a7-4986-8221-eee0164687b0" alt="anya-forger-oomfie" width="300">
+</div>
+
 
 ## Minimal Requirement
 
@@ -233,6 +307,11 @@ Below is the minimal requirement for running BlueMoon AI locally. If your device
 
 *Note that BlueMoon AI is only for extremely high quality image generating. We will not support smaller models to reduce the requirement and sacrifice result quality.*
 
+<div align="center">
+
+<img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/4e73ce54-e4f5-493e-8cce-62f0aa936e7f" alt="gojo-satoru" width="300">
+
+</div>
 
 ## Default Models
 <a name="models"></a>
@@ -409,3 +488,12 @@ Note that if no `--language` is given and at the same time `BlueMoonAI/language/
 
 
 ## Happy Creativity! ❤️
+
+<div align="center">
+
+<img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/82377dbb-8159-4625-8113-a036122bdd73" alt="sss" width="300">
+
+</div>
+
+
+
