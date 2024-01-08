@@ -6,6 +6,8 @@ import args_manager
 import modules.config
 
 from PIL import Image
+
+from modules.metadata import save_metadata
 from modules.util import generate_temp_filename, get_help_html
 
 from bluemoon.utils.logly import logly
@@ -30,9 +32,10 @@ def get_current_html_path():
 def log(img, dic,seed=0):
     if args_manager.args.disable_image_log:
         return
-
     date_string, local_temp_filename, only_name = generate_temp_filename(seed,folder=modules.config.path_outputs,
                                                                          extension='png')
+    save_metadata(os.path.abspath(f'./outputs/{date_string}/metadata.json'), dic)
+
     os.makedirs(os.path.dirname(local_temp_filename), exist_ok=True)
     Image.fromarray(img).save(local_temp_filename)
     html_name = os.path.join(os.path.dirname(local_temp_filename), 'log.html')

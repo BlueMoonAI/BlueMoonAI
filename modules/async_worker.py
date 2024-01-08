@@ -817,7 +817,7 @@ def worker():
                             d.append(('Version', 'v' + bluemoonai_version.get_version()))
 
                     metadata_log.append(d)
-                    save_metadata(os.path.abspath('./outputs/metadata.json'), d)
+
 
 
                     try:
