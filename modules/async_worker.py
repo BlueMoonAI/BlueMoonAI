@@ -1,7 +1,10 @@
+import json
+import os
 import threading
 
 import bluemoonai_version
 from bluemoon.utils.logly import logly
+from modules.metadata import save_metadata
 
 
 class AsyncTask:
@@ -14,7 +17,7 @@ class AsyncTask:
 async_tasks = []
 history_seed = []
 logged_images = set()
-
+metadata_log = []
 
 def worker():
     global async_tasks
@@ -416,6 +419,8 @@ def worker():
                 positive_basic_workloads = remove_empty_str(positive_basic_workloads, default=task_prompt)
                 negative_basic_workloads = remove_empty_str(negative_basic_workloads, default=task_negative_prompt)
 
+                history_seed.append(seed)
+
                 tasks.append(dict(
                     task_seed=task_seed,
                     task_prompt=task_prompt,
@@ -438,7 +443,6 @@ def worker():
                     t['expansion'] = expansion
                     t['positive'] = copy.deepcopy(t['positive']) + [expansion]  # Deep copy.
 
-            history_seed.append(seed)
 
             for i, t in enumerate(tasks):
                 progressbar(async_task, 7, f'Encoding positive #{i + 1} ...')
@@ -812,13 +816,15 @@ def worker():
                         if n != 'None':
                             d.append((f'LoRA {li + 1}', f'{n} : {w}'))
                             d.append(('Version', 'v' + bluemoonai_version.get_version()))
+
+                    metadata_log.append(d)
+
+
+
                     try:
-
-                      log(x, d,seed)
-
-
-                    except:
-                        logly.error('Error while logging image')
+                        log(x, d, seed)
+                    except Exception as e:
+                        logly.error('Error while logging image: {}'.format(e))
 
                 yield_result(async_task, imgs, do_not_show_finished_images=len(tasks) == 1,
                              progressbar_index=int(

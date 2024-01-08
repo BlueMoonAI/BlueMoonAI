@@ -1,4 +1,3 @@
-
 import gradio as gr
 import random
 import os
@@ -29,13 +28,15 @@ from components.ui_gradio_extensions import reload_javascript
 from modules.auth import auth_enabled, check_auth
 
 from bluemoon.utils.logly import logly
+from modules.util import generate_temp_filename
+
 
 def display_seed(seed=0):
     logly.info("Seed History: " + str(worker.history_seed))
     return worker.history_seed
 
-def generate_clicked(*args):
 
+def generate_clicked(*args):
     import bluemoon.ldm_patched.modules.model_management as model_management
 
     with model_management.interrupt_processing_mutex:
@@ -159,6 +160,7 @@ with shared.gradio_root:
                                                  container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox,
                                                 container=False, elem_classes='min_check')
+
             with gr.Row(visible=False) as image_input_panel:
                 with gr.Tabs():
                     with gr.TabItem(label='Upscale or Variation') as uov_tab:
@@ -229,8 +231,8 @@ with shared.gradio_root:
                                                             source='upload', type='numpy', tool='sketch', height=500,
                                                             brush_color="#FFFFFF", elem_id='inpaint_canvas')
 
-                            inpaint_mask_image = grh.Image(label='Mask Upload', source='upload', type='numpy', height=500, visible=False)
-
+                            inpaint_mask_image = grh.Image(label='Mask Upload', source='upload', type='numpy',
+                                                           height=500, visible=False)
 
                         with gr.Row():
                             inpaint_additional_prompt = gr.Textbox(placeholder="Describe what you want to inpaint.",
@@ -243,7 +245,6 @@ with shared.gradio_root:
                         example_inpaint_prompts = gr.Dataset(samples=modules.config.example_inpaint_prompts,
                                                              label='Additional Prompt Quick List',
                                                              components=[inpaint_additional_prompt], visible=False)
-
 
                         gr.HTML(
                             '* Powered by BlueMoon AI Inpaint Engine (v1.0.0) <a href="https://github.com/BlueMoonAI/BlueMoonAI/discussions/"  style="color: #fff;" class="button-canvas" target="_blank"> Document</a>')
@@ -279,6 +280,28 @@ with shared.gradio_root:
             with gr.Row(visible=modules.config.default_character_checkbox) as character_column:
                 character_custom_wildcards_ui(prompt)
 
+
+            def update_log_content():
+                with open('./log.txt', "r") as f:
+                    log_lines = f.readlines()
+                    log_lines.reverse()
+                    log_content = ''.join(log_lines)
+
+                return log_content  # Return the log content directly
+
+
+            with gr.Row(visible=modules.config.default_show_console) as console_column:
+                with gr.Tab(label="Console Output"):
+                    gr.Markdown("This will display the output of the console.")
+                    with gr.Row(style={"max-height": "300px", "overflow-y": "scroll"}):
+                        with gr.Column():
+                            runtime_log = update_log_content()
+                            console_log = gr.TextArea(runtime_log, label="logs", lines=15)  # Initialize empty TextArea
+                            console_refresh = gr.Button(label='Refresh', value='\U0001f504 Refresh Log',
+                                                        variant='secondary', elem_classes='refresh_button')
+                            console_refresh.click(update_log_content, inputs=[], outputs=console_log, queue=False,
+                                                  show_progress=True)
+
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox) as advanced_column:
             with gr.Tab(label='Custom'):
                 preset_selection = gr.Radio(label='Preset',
@@ -305,9 +328,9 @@ with shared.gradio_root:
                 freeze_seed = gr.Checkbox(label='Freeze Seed', value=False)
                 seed_log = gr.Textbox(label='Seed Log', value='', visible=True)
                 refresh_seed = gr.Button(label='Refresh Seed', value='\U0001f504 Refresh Seed',
-                                          variant='secondary', elem_classes='refresh_button')
-                refresh_seed.click(display_seed,inputs=[],
-                                    outputs=[seed_log], queue=False, show_progress=True)
+                                         variant='secondary', elem_classes='refresh_button')
+                refresh_seed.click(display_seed, inputs=[],
+                                   outputs=[seed_log], queue=False, show_progress=True)
 
 
                 def random_checked(r):
@@ -511,6 +534,10 @@ with shared.gradio_root:
                                                      interactive=not modules.config.default_black_out_nsfw,
                                                      info='Use black image if NSFW is detected.')
 
+                        show_console = gr.Checkbox(label='Show Console', value=modules.config.default_show_console,
+                                                   container=False, elem_classes='min_check', infos="Show console "
+                                                                                                    "output.")
+
                         black_out_nsfw.change(lambda x: gr.update(value=x, interactive=not x),
                                               inputs=black_out_nsfw, outputs=disable_preview, queue=False,
                                               show_progress=False)
@@ -558,21 +585,22 @@ with shared.gradio_root:
                                                                   '(Outpaint always use 1.0)')
 
                         inpaint_erode_or_dilate = gr.Slider(label='Mask Erode or Dilate',
-                                                        minimum=-64, maximum=64, step=1, value=0,
-                                                        info='Positive value will make white area in the mask larger, '
-                                                             'negative value will make white area smaller.'
-                                                             '(default is 0, always process before any mask invert)')
+                                                            minimum=-64, maximum=64, step=1, value=0,
+                                                            info='Positive value will make white area in the mask larger, '
+                                                                 'negative value will make white area smaller.'
+                                                                 '(default is 0, always process before any mask invert)')
 
                         inpaint_mask_upload_checkbox = gr.Checkbox(label='Enable Mask Upload', value=False)
                         invert_mask_checkbox = gr.Checkbox(label='Invert Mask', value=False)
 
                         inpaint_ctrls = [debugging_inpaint_preprocessor, inpaint_disable_initial_latent, inpaint_engine,
-                                     inpaint_strength, inpaint_respective_field,
-                                     inpaint_mask_upload_checkbox, invert_mask_checkbox, inpaint_erode_or_dilate]
+                                         inpaint_strength, inpaint_respective_field,
+                                         inpaint_mask_upload_checkbox, invert_mask_checkbox, inpaint_erode_or_dilate]
 
                         inpaint_mask_upload_checkbox.change(lambda x: gr.update(visible=x),
-                                                        inputs=inpaint_mask_upload_checkbox,
-                                                        outputs=inpaint_mask_image, queue=False, show_progress=False)
+                                                            inputs=inpaint_mask_upload_checkbox,
+                                                            outputs=inpaint_mask_image, queue=False,
+                                                            show_progress=False)
 
                     with gr.Tab(label='FreeU'):
                         freeu_enabled = gr.Checkbox(label='Enabled', value=False)
@@ -634,7 +662,6 @@ with shared.gradio_root:
             return modules.meta_parser.load_parameter_button_click(json.dumps(preset_prepared), is_generating)
 
 
-
         preset_selection.change(preset_selection_change, inputs=[preset_selection, state_is_generating], outputs=[
                                                                                                                      advanced_checkbox,
                                                                                                                      image_number,
@@ -683,6 +710,10 @@ with shared.gradio_root:
                                   queue=False, show_progress=False) \
             .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=False)
 
+        show_console.change(lambda x: gr.update(visible=x), show_console, console_column,
+                            queue=False, show_progress=False) \
+            .then(fn=lambda: None, _js='refresh_grid_delayed', queue=False, show_progress=True)
+
 
         def inpaint_mode_change(mode):
             assert mode in modules.flags.inpaint_options
@@ -726,7 +757,7 @@ with shared.gradio_root:
         ctrls += [base_model, refiner_model, refiner_switch] + lora_ctrls
         ctrls += [input_image_checkbox, current_tab]
         ctrls += [uov_method, uov_input_image]
-        #ctrls += [outpaint_selections, inpaint_input_image, inpaint_mask_image,   invert_mask_checkbox, inpaint_additional_prompt]
+        # ctrls += [outpaint_selections, inpaint_input_image, inpaint_mask_image,   invert_mask_checkbox, inpaint_additional_prompt]
         ctrls += [outpaint_selections, inpaint_input_image, inpaint_additional_prompt, inpaint_mask_image]
         ctrls += ip_ctrls
         ctrls += [freeze_seed]
@@ -782,8 +813,8 @@ with shared.gradio_root:
                                                                                   ] + lora_ctrls,
                                     queue=False, show_progress=False)
         generate_button.click(lambda: (
-        gr.update(visible=True, interactive=True), gr.update(visible=True, interactive=True),
-        gr.update(visible=False, interactive=False), [], True),
+            gr.update(visible=True, interactive=True), gr.update(visible=True, interactive=True),
+            gr.update(visible=False, interactive=False), [], True),
                               outputs=[stop_button, skip_button, generate_button, gallery, state_is_generating]) \
             .then(fn=refresh_seed, inputs=[seed_random, image_seed], outputs=image_seed) \
             .then(advanced_parameters.set_all_advanced_parameters, inputs=adps) \

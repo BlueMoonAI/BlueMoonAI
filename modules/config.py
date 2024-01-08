@@ -239,6 +239,11 @@ default_advanced_checkbox = get_config_item_or_set_default(
     default_value=False,
     validator=lambda x: isinstance(x, bool)
 )
+default_show_console = get_config_item_or_set_default(
+    key='default_show_console',
+    default_value=False,
+    validator=lambda x: isinstance(x, bool)
+)
 default_character_checkbox = get_config_item_or_set_default(
     key='default_character_checkbox',
     default_value=False,
