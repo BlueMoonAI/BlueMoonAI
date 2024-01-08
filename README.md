@@ -63,7 +63,7 @@ Let Your Creativity Flow.
   - [Docker](#docker)
 - [Support BlueMoon AI](#support-bluemoon-ai)
 - [Contributing](#contributing)
-- [Bug Tracker](#bug-tracker]
+- [Bug Tracker](#bug-tracker)
 - [Code of Conduct](#code-of-conduct)
 - [Minimal Requirement](#minimal-requirement)
 - [Default Models](#default-models)
@@ -74,7 +74,7 @@ Let Your Creativity Flow.
   - [NSFW Blackout](#nsfw-blackout)
 - [Update Log](#update-log)
 - [Localization/Translation](#localizationtranslation)
-- [Happy Creativity! ❤️](#happy-creativity)
+- [Happy Creativity!](#happy-creativity-)
 
 
 ## [Installing BlueMoonAI](#installing-bluemoonai)
@@ -209,6 +209,21 @@ BlueMoon AI is a non-profit organization, and your support is crucial for sustai
 
 [![Support BlueMoon AI](https://img.shields.io/badge/Support-BlueMoonAI-blue?style=for-the-badge&logo=nasdotio)](https://nas.io/bluemoonai)
 
+**Additional Benefits:**
+
+- **Quicker Support:** As a supporter, you'll receive prioritized assistance, ensuring your questions and issues are addressed promptly by contributors and maintainers.
+
+- **Feature Requests:** Supporters have the opportunity to request new features for consideration in project development. Your input helps shape the future of BlueMoon AI.
+
+- **Exclusive Content:** Gain access to exclusive content, such as behind-the-scenes updates, sneak peeks at upcoming features, and more.
+
+- **Early Access:** Be among the first to try out new features before they are released to the general public.
+
+- **Community Recognition:** Supporters will be acknowledged on our website and project documentation as a token of our gratitude.
+
+- **Project Influence:** Contribute to the decision-making process. Supporters may have the chance to vote on upcoming features and project priorities.
+
+Your support goes a long way in enhancing the project and providing you with an even better experience. Thank you for being a part of BlueMoon AI!
 
 ## Contributing
 
@@ -229,6 +244,18 @@ Found a bug? Report it on our [Issue Tracker](https://github.com/BlueMoonAI/Blue
 ## Code of Conduct
 
 Please review our [Code of Conduct](CODE_OF_CONDUCT.md) to understand the behavior we expect from contributors.
+
+## Acknowledgments
+
+A special thanks to MorikawaAsami for their invaluable contribution to BlueMoon AI. Their dedication and effort in adding the new console feature have significantly enhanced the project.
+
+### Contributors
+
+- **MorikawaAsami:**  
+  - Added the new console feature(optional), improving the overall user experience.
+
+Thank you to all our contributors who help make BlueMoon AI better with each update!
+
 
 ## Minimal Requirement
 
