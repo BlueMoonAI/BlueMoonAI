@@ -297,6 +297,11 @@ Below is the minimal requirement for running BlueMoon AI locally. If your device
 
 *Note that BlueMoon AI is only for extremely high quality image generating. We will not support smaller models to reduce the requirement and sacrifice result quality.*
 
+<div align="center">
+
+<img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/4e73ce54-e4f5-493e-8cce-62f0aa936e7f" alt="gojo-satoru" width="300">
+
+</div>
 
 ## Default Models
 <a name="models"></a>
