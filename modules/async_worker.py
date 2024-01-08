@@ -419,6 +419,8 @@ def worker():
                 positive_basic_workloads = remove_empty_str(positive_basic_workloads, default=task_prompt)
                 negative_basic_workloads = remove_empty_str(negative_basic_workloads, default=task_negative_prompt)
 
+                history_seed.append(seed)
+
                 tasks.append(dict(
                     task_seed=task_seed,
                     task_prompt=task_prompt,
