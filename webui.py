@@ -282,18 +282,14 @@ with shared.gradio_root:
                 character_custom_wildcards_ui(prompt)
 
 
-
-
-
             def update_log_content():
-                with open('./log.txt', "r+") as f:
+                with open('./log.txt', "r") as f:
                     log_lines = f.readlines()
                     log_lines.reverse()
                     log_content = ''.join(log_lines)
-                f.close()
-                output_console = gr.TextArea(log_content, label="logs", lines=15)
-                logly.info("logs loaded!")
 
+                logly.info("logs loaded!")  # Assuming logly is defined elsewhere
+                return log_content  # Return the log content directly
 
 
             with gr.Row(visible=modules.config.default_show_console) as console_column:
@@ -301,12 +297,12 @@ with shared.gradio_root:
                     gr.Markdown("This will display the output of the console.")
                     with gr.Row(style={"max-height": "300px", "overflow-y": "scroll"}):
                         with gr.Column():
-
-                            update_log_content()
+                            runtime_log=update_log_content()
+                            console_log = gr.TextArea(runtime_log, label="logs", lines=15)  # Initialize empty TextArea
                             console_refresh = gr.Button(label='Refresh', value='\U0001f504 Refresh Log',
                                                         variant='secondary', elem_classes='refresh_button')
-                            console_refresh.click(update_log_content, inputs=[], outputs=None, queue=False,
-                                                    show_progress=True)
+                            console_refresh.click(update_log_content, inputs=[], outputs=console_log, queue=False,
+                                                  show_progress=True)
 
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox) as advanced_column:
             with gr.Tab(label='Custom'):
