@@ -1,32 +1,29 @@
+import os
 import json
 
 from bluemoon.utils.logly import logly
-import os
 
-metadata={}
+metadata = {}
+
 def save_metadata(filename, data):
     try:
         # Check if the file exists
         file_exists = os.path.isfile(filename)
 
         # Open the file in append mode if it exists; otherwise, open it in write mode to create a new file
-        with open(filename, 'a+' if file_exists else 'w+') as f:
-            # Read the existing content
-            content = f.read()
-
-            # Remove the trailing ']' if it exists
-            if content.strip().endswith(']'):
+        with open(filename, 'a' if file_exists else 'w') as f:
+            if file_exists:
                 f.seek(0, os.SEEK_END)
-                f.seek(f.tell() - 1, os.SEEK_SET)
-                f.truncate()
+                # If the file is not empty, move the cursor to the end and remove the last '}\n' characters
+                if f.tell() > 0:
+                    f.seek(f.tell() - 3)  # Move back to the first character of '}'
+                    f.truncate()
 
-            # Write the new metadata
-            if content and content.strip() != '[':
-                f.write(',\n')  # Separate metadata with a comma if there's existing content
-            json.dump(data, f, indent=2)
-
-            # Write closing square bracket
-            f.write('\n]\n')
+            f.write('{\n')
+            for key, value in data.items():
+                metadata[key] = value
+            json.dump(metadata, f, indent=2)
+            f.write('\n}\n')
 
     except Exception as e:
         logly.error('Error while logging metadata: {}'.format(e))
