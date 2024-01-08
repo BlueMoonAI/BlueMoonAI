@@ -218,7 +218,7 @@ BlueMoon AI is a non-profit project, and your support is crucial for sustaining 
 
 <div align="center">
 
-[![Support BlueMoon AI](https://img.shields.io/badge/Support-BlueMoonAI-blue?style=for-the-badge&logo=nasdotio)](https://ko-fi.com/bluemoonai)
+[![Support BlueMoon AI](https://img.shields.io/badge/Support-BlueMoonAI-blue?style=for-the-badge&logo=ko-fi&logoColor=white&color=FF5E5B)](https://ko-fi.com/bluemoonai)
 
 <img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/d9ac97c7-20b1-4383-bd12-da6e0a9520af" alt="love-lab" width="300">
 
