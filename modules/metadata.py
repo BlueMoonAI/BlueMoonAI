@@ -20,10 +20,10 @@ def save_metadata(filename, data):
                     f.truncate()
 
             f.write('{\n')
-            for key, value in data.items():
+            for key, value in data:
                 metadata[key] = value
             json.dump(metadata, f, indent=2)
-            f.write('\n}\n')
+            f.write(',\n}\n')
 
     except Exception as e:
         logly.error('Error while logging metadata: {}'.format(e))
