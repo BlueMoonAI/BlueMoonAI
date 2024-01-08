@@ -61,7 +61,7 @@ Let Your Creativity Flow.
   - [Windows(AMD GPUs)](#windowsamd-gpus)
   - [Mac](#mac)
   - [Docker](#docker)
-- [Support BlueMoon AI](#support-bluemoon-ai)
+  - [Support BlueMoon AI](#support-bluemoon-ai)
 - [Contributing](#contributing)
 - [Bug Tracker](#bug-tracker)
 - [Code of Conduct](#code-of-conduct)
@@ -205,9 +205,15 @@ See [docker.md](docker.md)
 
 If you find BlueMoon AI valuable, consider supporting us through donations on [Nas.io](https://nas.io/bluemoonai). Your contributions help us cover costs and ensure the continued development of this project.
 
-BlueMoon AI is a non-profit organization, and your support is crucial for sustaining our mission.
+BlueMoon AI is a non-profit project, and your support is crucial for sustaining our mission.
+
+<div align="center">
 
 [![Support BlueMoon AI](https://img.shields.io/badge/Support-BlueMoonAI-blue?style=for-the-badge&logo=nasdotio)](https://nas.io/bluemoonai)
+
+![love-lab](https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/d9ac97c7-20b1-4383-bd12-da6e0a9520af)
+
+</div>
 
 **Additional Benefits:**
 
@@ -224,6 +230,13 @@ BlueMoon AI is a non-profit organization, and your support is crucial for sustai
 - **Project Influence:** Contribute to the decision-making process. Supporters may have the chance to vote on upcoming features and project priorities.
 
 Your support goes a long way in enhancing the project and providing you with an even better experience. Thank you for being a part of BlueMoon AI!
+
+<div align="center">
+
+![sdgsd](https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/e7f225fb-60ec-43f5-9ed3-97dfb8d8dc92)
+
+</div>
+
 
 ## Contributing
 
@@ -451,3 +464,10 @@ Note that if no `--language` is given and at the same time `BlueMoonAI/language/
 
 
 ## Happy Creativity! ❤️
+
+<div align="center">
+
+![sss](https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/82377dbb-8159-4625-8113-a036122bdd73)
+
+</div>
+
