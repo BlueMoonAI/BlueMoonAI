@@ -30,21 +30,6 @@ from modules.auth import auth_enabled, check_auth
 from bluemoon.utils.logly import logly
 from modules.util import generate_temp_filename
 
-date_string, local_temp_filename, only_name = generate_temp_filename(seed=0, folder=modules.config.path_outputs,
-                                                                     extension='png')
-def metadata_close(filename):
-        try:
-            # Check if the file exists
-            file_exists = os.path.isfile(filename)
-
-            # Open the file in append mode if it exists; otherwise, open it in write mode to create a new file
-            with open(filename, 'a+' if file_exists else 'w+') as f:
-                f.write('}\n')
-            f.close()
-
-        except Exception as e:
-            logly.error('Error while logging metadata: {}'.format(e))
-
 
 def display_seed(seed=0):
     logly.info("Seed History: " + str(worker.history_seed))
@@ -101,7 +86,6 @@ def generate_clicked(*args):
 
     execution_time = time.perf_counter() - execution_start_time
     display_seed()
-    metadata_close(os.path.abspath(f'./outputs/{date_string}/metadata.json'))
     logly.info(f'Total time: {execution_time:.2f} seconds')
     return
 
