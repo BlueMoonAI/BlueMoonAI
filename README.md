@@ -35,9 +35,7 @@ BlueMoon AI stands at the forefront as a latent text-to-image diffusion model, s
 **Note: Remember to give the project a star ⭐ if you find it useful! And we currently want more contribution to improve further so fork this repository if you want to contribute!**
 
 <div align="center">
-
 <img src="https://github.com/BlueMoonAI/BlueMoonAI/assets/138202531/95c6e92e-d50b-421c-b4d6-dd85f368b534" alt="image gif" width="300">
-
 </div>
 <br>
 
@@ -95,7 +93,7 @@ Let Your Creativity Flow.
 
 ### Moving from Midjourney / DALL-E to BlueMoon AI
 
-If you've been using Midjourney or DALL-E and are considering transitioning to BlueMoon AI, you'll find several improvements and advanced features to enhance your text-to-image processing experience. BlueMoon AI also incorporates some features borrowed from LeonardoAI. Below is a detailed guide outlining the key differences and benefits of making the move.
+If you've been using Midjourney or DALL-E and are considering transitioning to BlueMoon AI, you'll find several improvements and advanced features to enhance your text-to-image processing experience. BlueMoon AI also incorporates some features inspired from LeonardoAI. Below is a detailed guide outlining the key differences and benefits of making the move.
 </div>
 
 | **Text-to-Image Transition**                     | **BlueMoon AI**                                      |
@@ -528,9 +526,12 @@ For example, below is the content of `BlueMoonAI/language/example.json`:
 
 ```
 
-If you add `--language example` arg, BlueMoonAI will read `BlueMoonAI/language/example.json` to translate the UI.
 
-For practical translation, you may create your own file like `BlueMoonAI/language/jp.json` or `BlueMoonAI/language/cn.json` and then use flag `--language jp` or `--language cn`. Apparently, these files do not exist now. **We need your help to create these files!**
+If you add the `--language example` argument, BlueMoonAI will read `BlueMoonAI/language/example.json` to translate the UI.
+
+For practical translation, you can create your own file, such as `BlueMoonAI/language/jp.json` or `BlueMoonAI/language/cn.json`, and then use the flag `--language jp` or `--language cn`. Currently, these files do not exist. **We need your help to create these files!**
+
+
 
 
 
