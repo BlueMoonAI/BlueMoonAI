@@ -62,6 +62,7 @@ Let Your Creativity Flow.
 
 - [BlueMoonAI: Unleash Your Creative Potential](#bluemoonai-unleash-your-creative-potential)
 - [Installing BlueMoonAI](#installing-bluemoonai)
+    - [Moving from Midjourney / DALL-E to BlueMoon AI](#moving-from-midjourney--dall-e-to-bluemoon-ai)
   - [Run in Colab](#run-in-colab)
   - [Linux (Using Anaconda)](#linux-using-anaconda)
   - [Linux (Using Python Venv)](#linux-using-python-venv)
@@ -90,7 +91,51 @@ Let Your Creativity Flow.
 
 ## [Installing BlueMoonAI](#installing-bluemoonai)
 
-Note that the [minimal requirement](#minimal-requirement) for different platforms.so Please check the minimal requirement before you install BlueMoonAI.
+<div align="center">
+
+### Moving from Midjourney / DALL-E to BlueMoon AI
+
+If you've been using Midjourney or DALL-E and are considering transitioning to BlueMoon AI, you'll find several improvements and advanced features to enhance your text-to-image processing experience. BlueMoon AI also incorporates some features borrowed from LeonardoAI. Below is a detailed guide outlining the key differences and benefits of making the move.
+</div>
+
+| **Text-to-Image Transition**                     | **BlueMoon AI**                                      |
+|-----------------------------------------------|------------------------------------------------------|
+| **High-Quality Text-to-Image Generation**      | Offline GPT-2 based prompt processing engine         |
+| **Upscaling and Variation**                    | Versatile upscaling with subtle to strong variations |
+| **Inpainting and Panning**                     | Enhanced with proprietary algorithms                 |
+| **Image Prompt Processing**                    | Advanced algorithms for image prompt processing      |
+| **Stylization Options**                        | Advanced with additional guidance features           |
+
+| **Additional Features**                        | **BlueMoon AI**                                      |
+|-----------------------------------------------|------------------------------------------------------|
+| **Multi-Prompt Usage**                         | Extensive support for multiple lines of prompts      |
+| **Prompt Weighting**                           | Advanced with reweighting algorithm                  |
+| **Negative Prompt Handling**                   | Improved handling for negative prompts               |
+| **Aspect Ratios**                              | Enhanced support for various aspect ratios           |
+| **FaceSwap and Image Description**             | Advanced features inspired by InsightFace            |
+
+| **Enchanced Features**          | **BlueMoon AI**                                      |
+|-----------------------------------------------|------------------------------------------------------|
+| **Prompt Magic**                               | Advanced -> Style -> BlueMoon AI|
+| **Advanced Sampler Parameters**                | Advanced -> Advanced -> Sampling Sharpness / etc  |
+| **User-friendly ControlNets**                  | Input Image -> Image Prompt -> Advanced  |
+
+| **Advanced Capabilities**                       | **BlueMoon AI**                                      |
+|-----------------------------------------------|------------------------------------------------------|
+| **Mention of Advanced Features**               | Range of advanced features for more control          |
+| **Support for Multiple Launchers and Models**  | Supports multiple launchers and Civitai models       |
+| **Settings for Quality and Image Number**      | Advanced settings for quality and image number       |
+| **Embedding Options for Prompts**              | Unique embedding options for prompts                 |
+
+| **Open Source Nature**                         | **BlueMoon AI**                                      |
+|-----------------------------------------------|------------------------------------------------------|
+| **Licensing and Open Source Details**          | Open-source project, encouraging collaboration       |
+|                                               | [Specify BlueMoon AI's licensing and details](./LICENSE)     |
+
+
+
+
+Note that the [minimal requirement](#minimal-requirement) for each platforms.so Please check the minimal requirement before you install BlueMoonAI.
 
 ### Run in Colab
 
@@ -114,7 +159,7 @@ If you want to use Anaconda/Miniconda, you can
     conda activate BlueMoonAI
     pip install -r requirements.txt
 
-Then download the models: download [default models](#default-models) to the folder "BlueMoonAI\models\checkpoints". **Or let BlueMoonAI automatically download the models** using the launcher:
+Then download the models: download [default models](#default-models) to the folder "BlueMoonAI\models\checkpoints" Or let BlueMoonAI automatically download the models using the launcher:
 
     conda activate BlueMoonAI
     python launcher.py
