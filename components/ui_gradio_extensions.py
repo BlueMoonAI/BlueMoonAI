@@ -6,7 +6,6 @@ import args_manager
 
 from modules.localization import localization_js
 
-
 GradioTemplateResponseOriginal = gr.routes.templates.TemplateResponse
 
 modules_path = os.path.dirname(os.path.realpath(__file__))
@@ -32,6 +31,7 @@ def javascript_html():
     image_viewer_js_path = webpath('assets/js/imageviewer.js')
     analytics_js_path = webpath('assets/js/analytics.js')
     notice_js_path = webpath('assets/js/notice.js')
+    donation_js_path = webpath('assets/js/donation.js')
 
     head = f'<script type="text/javascript">{localization_js(args_manager.args.language)}</script>\n'
     head += f'<script type="text/javascript" src="{script_js_path}"></script>\n'
@@ -41,9 +41,9 @@ def javascript_html():
     head += f'<script type="text/javascript" src="{edit_attention_js_path}"></script>\n'
     head += f'<script type="text/javascript" src="{viewer_js_path}"></script>\n'
     head += f'<script type="text/javascript" src="{image_viewer_js_path}"></script>\n'
-
-   # head += f'<script type="text/js" src="{analytics_js_path}"></script>\n'
-    #head += f'<script type="text/js" src="{notice_js_path}"></script>\n'
+    head += f'<script type="text/javascript" src="{donation_js_path}"></script>\n'
+    # head += f'<script type="text/js" src="{analytics_js_path}"></script>\n'
+    # head += f'<script type="text/js" src="{notice_js_path}"></script>\n'
 
     if args_manager.args.theme:
         head += f'<script type="text/js">set_theme(\"{args_manager.args.theme}\");</script>\n'
@@ -55,7 +55,7 @@ def css_html():
     style_css_path = webpath('assets/css/style.css')
     custom_css_path = webpath('assets/css/custom.css')
     head = f'<link rel="stylesheet" property="stylesheet" href="{style_css_path}">'
-   # head += f'<link rel="stylesheet" property="stylesheet" href="{custom_css_path}">'
+    # head += f'<link rel="stylesheet" property="stylesheet" href="{custom_css_path}">'
 
     return head
 
